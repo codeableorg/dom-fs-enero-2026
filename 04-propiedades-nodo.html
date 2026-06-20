@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lección 4 · Propiedades de nodo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <h1>4 · Propiedades de un nodo</h1>
+    <p>Cómo leer y escribir el contenido de un elemento, y qué hay detrás de cada nodo.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="index.html">← Volver al índice</a>
+
+    <!-- ===================== CONTENIDO DE UN ELEMENTO ===================== -->
+    <section class="tarjeta">
+      <h2>Leer y escribir el contenido</h2>
+      <p>
+        Una vez que tienes un elemento, lo más común es leer o cambiar su contenido.
+        Hay tres propiedades para esto y se confunden mucho. Esta es la diferencia:
+      </p>
+      <table>
+        <thead>
+          <tr><th>Propiedad</th><th>Qué devuelve / escribe</th><th>¿Interpreta HTML?</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>textContent</code></td>
+            <td>Solo el <strong>texto</strong>, sin etiquetas</td>
+            <td>No (lo escribe tal cual, como texto)</td>
+          </tr>
+          <tr>
+            <td><code>innerHTML</code></td>
+            <td>El <strong>HTML interno</strong> (etiquetas incluidas)</td>
+            <td>Sí (crea elementos reales)</td>
+          </tr>
+          <tr>
+            <td><code>outerHTML</code></td>
+            <td>El elemento <strong>completo</strong>, incluyéndose a sí mismo</td>
+            <td>Sí (puede reemplazar el elemento entero)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Partiendo de este HTML:</p>
+      <pre><code>&lt;p id="saludo"&gt;Hola &lt;strong&gt;mundo&lt;/strong&gt;&lt;/p&gt;</code></pre>
+
+      <table>
+        <thead>
+          <tr><th>Acceso</th><th>Resultado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>saludo.textContent</code></td><td><code>"Hola mundo"</code></td></tr>
+          <tr><td><code>saludo.innerHTML</code></td><td><code>"Hola &lt;strong&gt;mundo&lt;/strong&gt;"</code></td></tr>
+          <tr><td><code>saludo.outerHTML</code></td><td><code>"&lt;p id=\"saludo\"&gt;Hola &lt;strong&gt;mundo&lt;/strong&gt;&lt;/p&gt;"</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="aviso">
+        <strong>Cuidado con innerHTML</strong>
+        Si metes texto que escribió un usuario dentro de <code>innerHTML</code>, ese texto se
+        interpreta como HTML. Eso abre la puerta a inyecciones (XSS). Cuando solo necesitas mostrar
+        texto, usa <code>textContent</code>: es más seguro y más rápido.
+      </div>
+    </section>
+
+    <!-- ===================== DEMO CONTENIDO ===================== -->
+    <section class="tarjeta">
+      <h2>Demo: compara las tres propiedades</h2>
+      <p>Este es el elemento de prueba. Pulsa cada botón y observa qué se lee de él:</p>
+
+      <div class="demo">
+        <p class="demo-titulo">Elemento de prueba</p>
+        <div id="caja-demo">
+          <p id="saludo">Hola <strong>mundo</strong></p>
+        </div>
+
+        <div class="grupo-botones">
+          <button class="btn" onclick="leerTextContent()">.textContent</button>
+          <button class="btn" onclick="leerInnerHTML()">.innerHTML</button>
+          <button class="btn" onclick="leerOuterHTML()">.outerHTML</button>
+        </div>
+
+        <p class="demo-titulo">Escribir contenido</p>
+        <div class="grupo-botones">
+          <button class="btn verde" onclick="escribirTexto()">Escribir con textContent</button>
+          <button class="btn verde" onclick="escribirHTML()">Escribir con innerHTML</button>
+          <button class="btn secundario" onclick="reiniciarCaja()">↺ Reiniciar</button>
+        </div>
+
+        <div class="salida" id="salida-contenido"></div>
+      </div>
+    </section>
+
+    <!-- ===================== JERARQUÍA DE NODOS ===================== -->
+    <section class="tarjeta">
+      <h2>La jerarquía: de dónde sale cada propiedad</h2>
+      <p>
+        En el navegador, todo objeto del DOM hereda de otros más generales. Saber esta cadena
+        te explica <strong>por qué</strong> un elemento tiene tantos métodos: los va heredando.
+      </p>
+
+      <pre><code>EventTarget        ← lo más general: "puedo recibir eventos"
+   ↑
+  Node             ← "soy un nodo del árbol" (texto, comentario, elemento…)
+   ↑
+  Element          ← "soy una etiqueta" (atributos, querySelector…)
+   ↑
+  HTMLElement      ← "soy una etiqueta HTML" (style, dataset…)
+   ↑
+  HTMLInputElement ← clase específica de &lt;input&gt; (value, checked…)</code></pre>
+
+      <h3>Qué aporta cada nivel</h3>
+      <table>
+        <thead>
+          <tr><th>Nivel</th><th>Qué representa</th><th>Ejemplos que aporta</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>EventTarget</code></td>
+            <td>Cualquier cosa que escucha eventos</td>
+            <td><code>addEventListener</code>, <code>removeEventListener</code>, <code>dispatchEvent</code></td>
+          </tr>
+          <tr>
+            <td><code>Node</code></td>
+            <td>Un nodo cualquiera del árbol</td>
+            <td><code>textContent</code>, <code>childNodes</code>, <code>parentNode</code>, <code>appendChild</code></td>
+          </tr>
+          <tr>
+            <td><code>Element</code></td>
+            <td>Un nodo que es una etiqueta</td>
+            <td><code>innerHTML</code>, <code>outerHTML</code>, <code>getAttribute</code>, <code>classList</code>, <code>querySelector</code></td>
+          </tr>
+          <tr>
+            <td><code>HTMLElement</code></td>
+            <td>Una etiqueta del estándar HTML</td>
+            <td><code>style</code>, <code>dataset</code>, <code>hidden</code>, <code>click()</code></td>
+          </tr>
+          <tr>
+            <td>Clases específicas</td>
+            <td>Cada etiqueta con sus rasgos propios</td>
+            <td><code>HTMLInputElement.value</code>, <code>HTMLAnchorElement.href</code>, <code>HTMLImageElement.src</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="nota">
+        <strong>Lectura útil</strong>
+        Fíjate que <code>textContent</code> vive en <code>Node</code>, pero <code>innerHTML</code> y
+        <code>outerHTML</code> viven en <code>Element</code>. Por eso un nodo de texto tiene
+        <code>textContent</code> pero no tiene <code>innerHTML</code>: no es un elemento.
+      </div>
+    </section>
+
+    <!-- ===================== DEMO HERENCIA ===================== -->
+    <section class="tarjeta">
+      <h2>Demo: comprobar la herencia con instanceof</h2>
+      <p>
+        Con <code>instanceof</code> puedes preguntar "¿este objeto desciende de tal clase?".
+        Lo probamos sobre un <code>&lt;input&gt;</code> real:
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Elemento analizado</p>
+        <input type="text" id="input-prueba" value="texto de ejemplo" />
+
+        <div class="grupo-botones">
+          <button class="btn" onclick="analizarInput()">¿De qué clases hereda?</button>
+          <button class="btn" onclick="mostrarNodeName()">nodeName y nodeType</button>
+          <button class="btn secundario" onclick="limpiarSalidaHerencia()">↺ Limpiar</button>
+        </div>
+
+        <div class="salida" id="salida-herencia"></div>
+      </div>
+    </section>
+
+    <!-- ===================== TIPOS DE NODO ===================== -->
+    <section class="tarjeta">
+      <h2>No todo nodo es un elemento</h2>
+      <p>
+        El DOM tiene varios tipos de nodo. Los tres que más vas a encontrar:
+      </p>
+      <table>
+        <thead>
+          <tr><th><code>nodeType</code></th><th>Tipo</th><th>Ejemplo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Elemento</td><td><code>&lt;div&gt;</code>, <code>&lt;p&gt;</code></td></tr>
+          <tr><td>3</td><td>Nodo de texto</td><td>el "Hola" dentro de <code>&lt;p&gt;Hola&lt;/p&gt;</code></td></tr>
+          <tr><td>8</td><td>Comentario</td><td><code>&lt;!-- esto --&gt;</code></td></tr>
+        </tbody>
+      </table>
+      <p>
+        Esto explica una sorpresa típica: <code>childNodes</code> (de <code>Node</code>) incluye
+        espacios y saltos de línea como nodos de texto, mientras que <code>children</code>
+        (de <code>Element</code>) solo trae los elementos. Por eso casi siempre se prefiere
+        <code>children</code>.
+      </p>
+    </section>
+
+    <a class="volver" href="index.html">↩ Volver al índice</a>
+  </main>
+
+  <script src="04-propiedades-nodo.js"></script>
+</body>
+</html>

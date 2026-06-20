@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lección 1 · DOM y BOM</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <h1>1 · El DOM y el BOM</h1>
+    <p>Cómo JavaScript "ve" tu página (DOM) y cómo controla el navegador (BOM).</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="index.html">← Volver al índice</a>
+
+    <!-- ============================ DOM ============================ -->
+    <section class="tarjeta">
+      <h2>🌳 ¿Qué es el DOM?</h2>
+      <p>
+        <strong>DOM</strong> significa <em>Document Object Model</em>
+        (Modelo de Objetos del Documento). Cuando el navegador carga tu HTML,
+        lo convierte en un <strong>árbol de objetos</strong> que JavaScript puede leer y modificar.
+      </p>
+      <p>Cada etiqueta HTML se convierte en un <strong>nodo</strong> de ese árbol:</p>
+
+<pre><code>document
+ └── html
+      ├── head
+      │    └── title
+      └── body
+           ├── h1
+           └── p</code></pre>
+
+      <p>
+        El punto de entrada al árbol es el objeto global <code>document</code>.
+        Desde ahí puedes alcanzar cualquier elemento de la página.
+      </p>
+
+      <div class="nota">
+        <strong>📌 Idea clave</strong>
+        El DOM <em>no es tu archivo HTML</em>. Es la representación <strong>viva</strong>
+        que el navegador construye en memoria. Si JavaScript cambia el DOM,
+        la página cambia al instante (aunque el archivo .html no se modifique).
+      </div>
+
+      <h3>Demo: manipular el DOM</h3>
+      <div class="demo">
+        <p class="demo-titulo">Zona de pruebas</p>
+        <p id="texto-demo">Soy un párrafo controlado por el DOM. 👋</p>
+        <div class="grupo-botones">
+          <button class="btn" onclick="cambiarTexto()">Cambiar mi texto</button>
+          <button class="btn verde" onclick="cambiarColor()">Cambiar mi color</button>
+          <button class="btn naranja" onclick="agregarItem()">Agregar elemento</button>
+          <button class="btn secundario" onclick="contarElementos()">Contar elementos</button>
+        </div>
+        <ul id="lista-demo"></ul>
+        <div class="salida" id="salida-dom"></div>
+      </div>
+    </section>
+
+    <!-- ============================ BOM ============================ -->
+    <section class="tarjeta">
+      <h2>🪟 ¿Qué es el BOM?</h2>
+      <p>
+        <strong>BOM</strong> significa <em>Browser Object Model</em>
+        (Modelo de Objetos del Navegador). Mientras el DOM representa
+        <strong>la página</strong>, el BOM representa <strong>el navegador</strong>
+        que rodea a esa página: la ventana, la URL, el historial, la pantalla…
+      </p>
+      <p>El objeto principal del BOM es <code>window</code>, y dentro tiene:</p>
+      <table>
+        <thead>
+          <tr><th>Objeto</th><th>Para qué sirve</th><th>Ejemplo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>window</code></td><td>La ventana del navegador (objeto global)</td><td><code>window.innerWidth</code></td></tr>
+          <tr><td><code>navigator</code></td><td>Información del navegador y del dispositivo</td><td><code>navigator.language</code></td></tr>
+          <tr><td><code>location</code></td><td>La URL actual (y permite navegar)</td><td><code>location.href</code></td></tr>
+          <tr><td><code>history</code></td><td>El historial de páginas visitadas</td><td><code>history.back()</code></td></tr>
+          <tr><td><code>screen</code></td><td>La pantalla física del usuario</td><td><code>screen.width</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="aviso">
+        <strong>⚠️ Diferencia DOM vs BOM</strong>
+        <strong>DOM</strong> = el contenido de la página (etiquetas, texto, estilos). <br />
+        <strong>BOM</strong> = el navegador alrededor (ventana, URL, historial, pantalla). <br />
+        Curiosidad: <code>document</code> en realidad vive dentro de <code>window</code>,
+        así que el DOM es como "una parte" de lo que controla el BOM.
+      </div>
+
+      <h3>Demo: explorar el BOM</h3>
+      <div class="demo">
+        <p class="demo-titulo">Información del navegador (en vivo)</p>
+        <div class="grupo-botones">
+          <button class="btn" onclick="verNavegador()">navigator</button>
+          <button class="btn" onclick="verVentana()">Tamaño de ventana</button>
+          <button class="btn" onclick="verPantalla()">screen</button>
+          <button class="btn" onclick="verUbicacion()">location (URL)</button>
+          <button class="btn secundario" onclick="verHistorial()">history</button>
+        </div>
+        <div class="salida" id="salida-bom"></div>
+      </div>
+    </section>
+
+    <a class="volver" href="02-navegacion.html">Siguiente lección: Navegar entre elementos →</a>
+  </main>
+
+  <!-- El JavaScript va al final del body: así el HTML ya existe cuando el script corre -->
+  <script src="01-dom-bom.js"></script>
+</body>
+</html>

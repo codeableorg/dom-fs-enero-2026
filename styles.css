@@ -1,0 +1,320 @@
+/* ============================================================
+   ESTILOS COMPARTIDOS — Curso de DOM para juniors
+   Un solo archivo de estilos para todas las lecciones.
+   Usa variables CSS para que sea fácil de personalizar.
+   ============================================================ */
+
+:root {
+  --azul: #2563eb;
+  --azul-claro: #dbeafe;
+  --verde: #16a34a;
+  --verde-claro: #dcfce7;
+  --naranja: #ea580c;
+  --naranja-claro: #ffedd5;
+  --rojo: #dc2626;
+  --gris-texto: #1e293b;
+  --gris-suave: #64748b;
+  --gris-borde: #e2e8f0;
+  --fondo: #f8fafc;
+  --blanco: #ffffff;
+  --radio: 12px;
+  --sombra: 0 4px 14px rgba(15, 23, 42, 0.08);
+  --fuente: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "Consolas", "Monaco", "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--fuente);
+  color: var(--gris-texto);
+  background: var(--fondo);
+  line-height: 1.6;
+  padding: 0 0 60px;
+}
+
+/* ---------- Cabecera de página ---------- */
+.encabezado {
+  background: linear-gradient(135deg, var(--azul), #1e40af);
+  color: var(--blanco);
+  padding: 36px 24px;
+  text-align: center;
+}
+
+.encabezado h1 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.encabezado p {
+  opacity: 0.9;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ---------- Contenedor central ---------- */
+.contenedor {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ---------- Migas de navegación / volver ---------- */
+.volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--azul);
+  text-decoration: none;
+  font-weight: 600;
+  margin: 20px 0 8px;
+}
+.volver:hover { text-decoration: underline; }
+
+/* ---------- Tarjetas (cards) ---------- */
+.tarjeta {
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.tarjeta h2 {
+  color: var(--azul);
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+}
+
+.tarjeta h3 {
+  margin: 18px 0 8px;
+  font-size: 1.1rem;
+}
+
+.tarjeta p { margin-bottom: 12px; }
+
+/* ---------- Grilla de lecciones (portada) ---------- */
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.leccion-card {
+  display: block;
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 24px;
+  text-decoration: none;
+  color: var(--gris-texto);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.leccion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+}
+.leccion-card .numero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--azul-claro);
+  color: var(--azul);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+.leccion-card h3 { color: var(--azul); margin-bottom: 6px; }
+.leccion-card p { color: var(--gris-suave); font-size: 0.95rem; }
+
+/* ---------- Bloques de código ---------- */
+pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  margin: 12px 0;
+}
+code {
+  font-family: var(--mono);
+  background: var(--azul-claro);
+  color: #1e40af;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+pre code { background: none; color: inherit; padding: 0; }
+
+/* ---------- Cajas de nota / aviso ---------- */
+.nota, .aviso, .tip {
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  border-left: 4px solid;
+}
+.nota  { background: var(--azul-claro);   border-color: var(--azul); }
+.aviso { background: var(--naranja-claro); border-color: var(--naranja); }
+.tip   { background: var(--verde-claro);  border-color: var(--verde); }
+.nota strong, .aviso strong, .tip strong { display: block; margin-bottom: 4px; }
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-block;
+  background: var(--azul);
+  color: var(--blanco);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  font-family: var(--fuente);
+}
+.btn:hover { background: #1d4ed8; }
+.btn.secundario { background: var(--gris-suave); }
+.btn.secundario:hover { background: #475569; }
+.btn.verde { background: var(--verde); }
+.btn.verde:hover { background: #15803d; }
+.btn.naranja { background: var(--naranja); }
+.btn.naranja:hover { background: #c2410c; }
+
+.grupo-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+/* ---------- Zona de demo interactiva ---------- */
+.demo {
+  background: var(--fondo);
+  border: 2px dashed var(--gris-borde);
+  border-radius: var(--radio);
+  padding: 20px;
+  margin: 16px 0;
+}
+.demo-titulo {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gris-suave);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* ---------- Consola de salida ---------- */
+.salida {
+  background: #0f172a;
+  color: #4ade80;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  padding: 16px;
+  border-radius: 8px;
+  min-height: 60px;
+  margin-top: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.salida:empty::before {
+  content: "👉 El resultado aparecerá aquí…";
+  color: #64748b;
+}
+
+/* ---------- Tablas ---------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 0.92rem;
+}
+th, td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--gris-borde);
+}
+th { background: var(--azul-claro); color: #1e40af; }
+tr:hover td { background: var(--fondo); }
+
+/* ---------- Resaltado de elementos en las demos ---------- */
+.resaltado {
+  outline: 3px solid var(--rojo) !important;
+  background: #fee2e2 !important;
+  transition: all 0.2s ease;
+}
+.resaltado-azul {
+  outline: 3px solid var(--azul) !important;
+  background: var(--azul-claro) !important;
+}
+.resaltado-verde {
+  outline: 3px solid var(--verde) !important;
+  background: var(--verde-claro) !important;
+}
+
+/* ---------- Árbol de elementos (demo navegación) ---------- */
+.arbol .nodo {
+  border: 2px solid var(--gris-borde);
+  border-radius: 8px;
+  padding: 10px;
+  margin: 6px 0;
+  background: var(--blanco);
+}
+.arbol .etiqueta {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--gris-suave);
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* ---------- Inputs ---------- */
+input[type="text"], select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: var(--fuente);
+  margin: 6px 0;
+}
+input[type="text"]:focus, select:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px var(--azul-claro);
+}
+
+/* ---------- Pie ---------- */
+.pie {
+  text-align: center;
+  color: var(--gris-suave);
+  font-size: 0.85rem;
+  margin-top: 40px;
+}
+
+/* ---------- Lista de objetivos ---------- */
+.objetivos {
+  list-style: none;
+  margin: 12px 0;
+}
+.objetivos li {
+  padding: 6px 0 6px 28px;
+  position: relative;
+}
+.objetivos li::before {
+  content: "✅";
+  position: absolute;
+  left: 0;
+}

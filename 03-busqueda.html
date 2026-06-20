@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lección 3 · Buscar elementos</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Estilos propios de esta lección: la "tienda" de ejemplo */
+    #tienda {
+      background: #f1f5f9;
+      border: 2px solid #94a3b8;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .producto {
+      background: var(--blanco);
+      border: 2px solid var(--gris-borde);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .producto.destacado { border-color: var(--naranja); }
+    .producto .precio { font-weight: 700; color: var(--verde); }
+    .insignia {
+      font-size: 0.7rem;
+      background: var(--naranja);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 8px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .chip {
+      background: var(--azul-claro);
+      color: #1e40af;
+      border: 1px solid #93c5fd;
+      border-radius: 16px;
+      padding: 5px 12px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .chip:hover { background: #bfdbfe; }
+  </style>
+</head>
+<body>
+  <header class="encabezado">
+    <h1>3 · Buscar elementos</h1>
+    <p>Cómo encontrar elementos del DOM para luego leerlos o modificarlos.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="index.html">← Volver al índice</a>
+
+    <section class="tarjeta">
+      <h2>🔎 Los 6 métodos para buscar elementos</h2>
+      <p>Para cambiar algo del DOM, primero hay que <strong>encontrarlo</strong>. Estos son los métodos clásicos:</p>
+      <table>
+        <thead>
+          <tr><th>Método</th><th>Busca por…</th><th>Devuelve</th><th>¿Cuántos?</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>getElementById</code></td><td>id</td><td>1 elemento o <code>null</code></td><td>uno</td></tr>
+          <tr><td><code>getElementsByClassName</code></td><td>clase</td><td>HTMLCollection</td><td>varios</td></tr>
+          <tr><td><code>getElementsByTagName</code></td><td>etiqueta</td><td>HTMLCollection</td><td>varios</td></tr>
+          <tr><td><code>getElementsByName</code></td><td>atributo name</td><td>NodeList</td><td>varios</td></tr>
+          <tr><td><code>querySelector</code></td><td>selector CSS</td><td>1 elemento o <code>null</code></td><td>el primero</td></tr>
+          <tr><td><code>querySelectorAll</code></td><td>selector CSS</td><td>NodeList</td><td>todos</td></tr>
+        </tbody>
+      </table>
+      <div class="nota">
+        <strong>📌 El más usado hoy</strong>
+        <code>querySelector</code> y <code>querySelectorAll</code> son los favoritos porque usan
+        <strong>selectores CSS</strong> (los mismos que usas en tu hoja de estilos):
+        <code>#id</code>, <code>.clase</code>, <code>etiqueta</code>, <code>[atributo]</code>… ¡muy flexibles!
+      </div>
+    </section>
+
+    <!-- ===================== TIENDA DE EJEMPLO ===================== -->
+    <section class="tarjeta">
+      <h2>🧪 Demo: pruébalos sobre esta "tienda"</h2>
+      <p>Esta es nuestra zona de pruebas. Pulsa un botón y observa qué elementos se resaltan.</p>
+
+      <div class="demo">
+        <p class="demo-titulo">DOM de ejemplo</p>
+        <div id="tienda">
+          <h3 id="titulo-tienda">🛒 Productos de tecnología</h3>
+
+          <article class="producto destacado">
+            <span>💻 Laptop <span class="insignia">oferta</span></span>
+            <span class="precio">$1200</span>
+          </article>
+          <article class="producto">
+            <span>🖱️ Mouse</span>
+            <span class="precio">$25</span>
+          </article>
+          <article class="producto destacado">
+            <span>⌨️ Teclado <span class="insignia">oferta</span></span>
+            <span class="precio">$75</span>
+          </article>
+          <article class="producto">
+            <span>🖥️ Monitor</span>
+            <span class="precio">$300</span>
+          </article>
+
+          <form>
+            <input type="text" name="busqueda" placeholder="Buscar producto…" />
+          </form>
+        </div>
+
+        <div class="grupo-botones">
+          <button class="btn" onclick="demoGetById()">getElementById</button>
+          <button class="btn" onclick="demoGetByClass()">getElementsByClassName</button>
+          <button class="btn" onclick="demoGetByTag()">getElementsByTagName</button>
+          <button class="btn" onclick="demoGetByName()">getElementsByName</button>
+          <button class="btn verde" onclick="demoQuerySelector()">querySelector</button>
+          <button class="btn verde" onclick="demoQuerySelectorAll()">querySelectorAll</button>
+          <button class="btn secundario" onclick="limpiar()">↺ Limpiar</button>
+        </div>
+
+        <div class="salida" id="salida-busqueda"></div>
+      </div>
+    </section>
+
+    <!-- ===================== BUSCADOR LIBRE ===================== -->
+    <section class="tarjeta">
+      <h2>⌨️ Escribe tu propio selector CSS</h2>
+      <p>
+        Escribe un selector y pulsa Enter (o el botón). Usamos
+        <code>querySelectorAll</code> sobre la tienda y resaltamos lo que coincida.
+        Prueba con los ejemplos:
+      </p>
+      <div class="chips">
+        <span class="chip" onclick="usarEjemplo('.producto')">.producto</span>
+        <span class="chip" onclick="usarEjemplo('.destacado')">.destacado</span>
+        <span class="chip" onclick="usarEjemplo('article')">article</span>
+        <span class="chip" onclick="usarEjemplo('.producto.destacado')">.producto.destacado</span>
+        <span class="chip" onclick="usarEjemplo('.precio')">.precio</span>
+        <span class="chip" onclick="usarEjemplo('input[name=&quot;busqueda&quot;]')">input[name="busqueda"]</span>
+      </div>
+      <input type="text" id="selector-input" placeholder='Ej: .producto.destacado' />
+      <div class="grupo-botones">
+        <button class="btn verde" onclick="ejecutarSelector()">Buscar 🔍</button>
+      </div>
+      <div class="salida" id="salida-selector"></div>
+    </section>
+
+    <!-- ===================== VIVO vs ESTÁTICO ===================== -->
+    <section class="tarjeta">
+      <h2>⚡ HTMLCollection (vivo) vs NodeList (estático)</h2>
+      <p>
+        Una diferencia importante y poco conocida: <code>getElementsByClassName</code> devuelve una
+        colección <strong>viva</strong> (se actualiza sola si el DOM cambia), mientras que
+        <code>querySelectorAll</code> devuelve una lista <strong>estática</strong>
+        (una "foto" del momento en que la pediste).
+      </p>
+      <div class="grupo-botones">
+        <button class="btn naranja" onclick="demoVivoEstatico()">Agregar un producto y comparar</button>
+        <button class="btn secundario" onclick="quitarAgregados()">↺ Quitar los agregados</button>
+      </div>
+      <div class="salida" id="salida-vivo"></div>
+    </section>
+
+    <a class="volver" href="index.html">↩ Volver al índice</a>
+  </main>
+
+  <script src="03-busqueda.js"></script>
+</body>
+</html>

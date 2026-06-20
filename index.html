@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curso de DOM para Juniors</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <h1>🌳 Curso de DOM para Juniors</h1>
+    <p>
+      Aprende cómo JavaScript "ve" y manipula una página web. Cada lección tiene
+      teoría clara y demos interactivas con las que puedes jugar.
+    </p>
+  </header>
+
+  <main class="contenedor">
+    <section class="tarjeta">
+      <h2>¿Qué vas a aprender?</h2>
+      <ul class="objetivos">
+        <li>Qué son el <strong>DOM</strong> y el <strong>BOM</strong>, y en qué se diferencian.</li>
+        <li>Cómo <strong>moverte entre elementos</strong> (padres, hijos y hermanos).</li>
+        <li>Cómo <strong>buscar elementos</strong> con <code>getElementById</code>, <code>querySelector</code> y más.</li>
+        <li>Qué son las <strong>propiedades de un nodo</strong> y la jerarquía <code>Node → Element</code>.</li>
+        <li>La diferencia entre <strong>atributos y propiedades</strong>, y cómo usar <code>dataset</code> y <code>style</code>.</li>
+      </ul>
+      <div class="tip">
+        <strong>💡 Cómo usar este curso</strong>
+        Abre cada lección, lee la teoría y prueba los botones de las demos.
+        Después abre las <em>Herramientas de Desarrollador</em> (tecla F12) y mira
+        la consola: ahí también se imprime lo que hace cada ejemplo.
+      </div>
+    </section>
+
+    <div class="grilla">
+      <a class="leccion-card" href="01-dom-bom.html">
+        <span class="numero">1</span>
+        <h3>DOM y BOM</h3>
+        <p>Qué es el árbol del documento, qué es el navegador como objeto y cómo se relacionan.</p>
+      </a>
+
+      <a class="leccion-card" href="02-navegacion.html">
+        <span class="numero">2</span>
+        <h3>Navegar entre elementos</h3>
+        <p>Moverte por el árbol con <code>children</code>, <code>firstElementChild</code>, <code>parentElement</code>, hermanos y más.</p>
+      </a>
+
+      <a class="leccion-card" href="03-busqueda.html">
+        <span class="numero">3</span>
+        <h3>Buscar elementos</h3>
+        <p><code>getElementById</code>, <code>getElementsByClassName</code>, <code>querySelector</code>, <code>querySelectorAll</code>…</p>
+      </a>
+
+      <a class="leccion-card" href="04-propiedades-nodo.html">
+        <span class="numero">4</span>
+        <h3>Propiedades de un nodo</h3>
+        <p><code>textContent</code>, <code>innerHTML</code>, <code>outerHTML</code> y la jerarquía <code>EventTarget → Node → Element</code>.</p>
+      </a>
+
+      <a class="leccion-card" href="05-atributos.html">
+        <span class="numero">5</span>
+        <h3>Atributos y propiedades</h3>
+        <p><code>className</code>, <code>htmlFor</code>, atributos booleanos, <code>data-*</code> con <code>dataset</code> y <code>style</code>.</p>
+      </a>
+    </div>
+
+    <p class="pie">Hecho para aprender. Abre los archivos <code>.js</code> de cada lección: están comentados línea por línea.</p>
+  </main>
+</body>
+</html>
