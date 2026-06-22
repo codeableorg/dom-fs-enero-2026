@@ -318,3 +318,143 @@ input[type="text"]:focus, select:focus {
   position: absolute;
   left: 0;
 }
+
+/* ============================================================
+   LECCIONES 6 y 7 — Crear/insertar nodos · Estilos y clases
+   Estilos de apoyo para que las demos se VEAN, no solo se
+   expliquen. Pensados para reutilizarse entre ambas lecciones.
+   ============================================================ */
+
+/* Lienzo: contenedor visible donde insertamos/movemos nodos */
+.lienzo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+  min-height: 54px;
+  padding: 12px;
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  margin: 10px 0;
+}
+.lienzo.columna { flex-direction: column; }
+.lienzo:empty::before {
+  content: "(lienzo vacío)";
+  color: var(--gris-suave);
+  font-style: italic;
+}
+
+/* Item: cada nodo que creamos por JavaScript */
+.item {
+  background: var(--azul-claro);
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+}
+.item.nuevo {
+  background: var(--verde-claro);
+  color: #166534;
+  border-color: #bbf7d0;
+}
+.item.ancla {
+  background: var(--naranja-claro);
+  color: #9a3412;
+  border-color: #fed7aa;
+  font-weight: 600;
+}
+
+/* Zonas A / B para demostrar que un nodo se MUEVE (no se copia) */
+.zonas { display: flex; gap: 12px; flex-wrap: wrap; }
+.zona { flex: 1; min-width: 150px; }
+.zona h4 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gris-suave);
+  margin-bottom: 4px;
+}
+
+/* Caja de pruebas para estilos y clases (lección 7) */
+.caja-estilo {
+  padding: 16px;
+  border-radius: 8px;
+  border: 2px solid var(--gris-borde);
+  background: var(--blanco);
+  color: var(--gris-texto);
+  transition: all 0.2s ease;
+}
+.caja-estilo.destacado {
+  border-color: var(--naranja);
+  background: var(--naranja-claro);
+  box-shadow: 0 0 0 3px var(--naranja-claro);
+}
+.caja-estilo.grande { font-size: 1.5rem; font-weight: 700; }
+.caja-estilo.tema-claro { background: var(--blanco); color: var(--gris-texto); }
+.caja-estilo.tema-oscuro {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-color: #0f172a;
+}
+
+/* ============================================================
+   LECCIONES 8 y 9 — Eventos y propagación
+   Una zona sensible al ratón/teclado y cajas anidadas para VER
+   cómo un evento viaja por el árbol (captura y burbujeo).
+   ============================================================ */
+
+/* Zona sensible para demos de eventos de ratón/teclado (lección 8) */
+.zona-evento {
+  padding: 22px 16px;
+  border: 2px dashed var(--gris-borde);
+  border-radius: 10px;
+  background: var(--blanco);
+  text-align: center;
+  color: var(--gris-suave);
+  cursor: pointer;
+  user-select: none;
+}
+.zona-evento:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px var(--azul-claro);
+}
+.zona-evento .coords {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--azul);
+}
+
+/* Cajas anidadas abuelo > padre > hijo (lección 9) */
+.caja-anidada {
+  border: 2px solid;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, outline-color 0.15s ease;
+}
+.caja-anidada .caja-anidada { margin-top: 12px; }
+.caja-anidada .etiqueta-caja {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+  opacity: 0.75;
+}
+.caja-anidada.abuelo { border-color: var(--azul);    background: var(--azul-claro);    color: #1e40af; }
+.caja-anidada.padre  { border-color: var(--verde);   background: var(--verde-claro);   color: #166534; }
+.caja-anidada.hijo   { border-color: var(--naranja); background: var(--naranja-claro); color: #9a3412; }
+
+/* Destello cuando se dispara el handler de esa caja */
+.caja-anidada.activa {
+  background: #fde68a;
+  outline: 3px solid #f59e0b;
+  outline-offset: -2px;
+}

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lección 8 · Eventos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <h1>8 · Eventos</h1>
+    <p>Cómo los elementos y la ventana avisan de que «algo pasó» y cómo reaccionar con funciones (handlers).</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="index.html">Volver al índice</a>
+
+    <!-- ===================== INTRO ===================== -->
+    <section class="tarjeta">
+      <h2>¿Qué es un evento?</h2>
+      <p>
+        Un <strong>evento</strong> es un aviso de que ocurrió algo: un clic, una tecla, mover el
+        ratón, enviar un formulario, que la página terminó de cargar… Tanto los nodos del DOM como
+        <code>window</code> y <code>document</code> pueden <strong>emitir</strong> eventos, porque
+        todos heredan de <code>EventTarget</code> (lo viste en la jerarquía
+        <code>EventTarget → Node → Element</code> de la lección 4).
+      </p>
+      <p>
+        Para reaccionar, le damos al elemento una función llamada <strong>handler</strong> (o
+        <em>listener</em>): «cuando ocurra este evento, ejecuta esta función».
+      </p>
+      <div class="nota">
+        <strong>El patrón siempre es el mismo</strong>
+        Eliges <em>en qué elemento</em> escuchar, <em>qué tipo</em> de evento
+        (<code>"click"</code>, <code>"keydown"</code>…) y <em>qué función</em> ejecutar cuando pase.
+      </div>
+    </section>
+
+    <!-- ===================== TIPOS ===================== -->
+    <section class="tarjeta">
+      <h2>Tipos de eventos</h2>
+      <p>Hay muchísimos. Estos son los grupos que más usarás:</p>
+      <table>
+        <thead>
+          <tr><th>Grupo</th><th>Ejemplos</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ratón</td><td><code>click</code>, <code>dblclick</code>, <code>mousedown</code>, <code>mouseup</code>, <code>mousemove</code>, <code>mouseenter</code>, <code>mouseleave</code></td></tr>
+          <tr><td>Teclado</td><td><code>keydown</code>, <code>keyup</code></td></tr>
+          <tr><td>Formulario</td><td><code>submit</code>, <code>input</code>, <code>change</code>, <code>focus</code>, <code>blur</code></td></tr>
+          <tr><td>Ventana / documento</td><td><code>load</code>, <code>DOMContentLoaded</code>, <code>resize</code>, <code>scroll</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="demo">
+        <p class="demo-titulo">Zona sensible (pasa el ratón, haz clic, doble clic y pulsa teclas)</p>
+        <div class="zona-evento" id="zona-tipos" tabindex="0">
+          Interactúa conmigo. Haz clic para enfocarme y luego pulsa teclas.
+          <span class="coords" id="coords">x: –, y: –</span>
+        </div>
+
+        <div class="grupo-botones">
+          <button class="btn secundario" onclick="limpiarSalida('salida-tipos')">Limpiar</button>
+        </div>
+
+        <div class="salida" id="salida-tipos"></div>
+      </div>
+    </section>
+
+    <!-- ===================== TRES FORMAS ===================== -->
+    <section class="tarjeta">
+      <h2>Tres formas de registrar un handler</h2>
+      <table>
+        <thead>
+          <tr><th>Forma</th><th>Cómo</th><th>Pega</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1. En el HTML</td>
+            <td><code>&lt;button onclick="hola()"&gt;</code></td>
+            <td>Mezcla HTML y JS; solo admite un handler</td>
+          </tr>
+          <tr>
+            <td>2. Propiedad <code>.onclick</code></td>
+            <td><code>boton.onclick = hola</code></td>
+            <td>Solo UNA función: asignar otra la pisa</td>
+          </tr>
+          <tr>
+            <td>3. <code>addEventListener</code></td>
+            <td><code>boton.addEventListener("click", hola)</code></td>
+            <td>La recomendada: admite VARIOS handlers y opciones</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===================== FORMA 1 y 2 ===================== -->
+    <section class="tarjeta">
+      <h2>Formas 1 y 2: atributo HTML y propiedad onclick</h2>
+      <p>
+        La <strong>forma 1</strong> es la que han usado los botones de todo el curso:
+        <code>onclick</code> dentro de la etiqueta. La <strong>forma 2</strong> asigna una función a
+        la propiedad <code>.onclick</code> desde JS; ojo, solo guarda <strong>una</strong>: si
+        asignas otra, reemplaza a la anterior.
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Forma 1 · handler escrito en el HTML</p>
+        <button class="btn" onclick="holaDesdeHTML()">Botón con onclick="holaDesdeHTML()"</button>
+        <div class="salida" id="salida-html"></div>
+      </div>
+
+      <div class="demo">
+        <p class="demo-titulo">Forma 2 · asignar (y pisar) la propiedad onclick</p>
+        <button class="btn" id="btn-prop">Botón objetivo (su onclick se controla desde JS)</button>
+        <div class="grupo-botones">
+          <button class="btn verde" onclick="asignarSaludo()">btn.onclick = saludo</button>
+          <button class="btn naranja" onclick="asignarDespedida()">btn.onclick = despedida (pisa)</button>
+          <button class="btn secundario" onclick="quitarProp()">btn.onclick = null</button>
+        </div>
+        <div class="salida" id="salida-prop"></div>
+      </div>
+    </section>
+
+    <!-- ===================== FORMA 3 ===================== -->
+    <section class="tarjeta">
+      <h2>Forma 3: addEventListener (la recomendada)</h2>
+      <p>
+        <code>elemento.addEventListener(tipo, funcion, opciones)</code>. Su gran ventaja: puedes
+        registrar <strong>varios</strong> handlers para el mismo evento y ninguno pisa al otro.
+      </p>
+      <pre><code>boton.addEventListener("click", saludar);
+boton.addEventListener("click", registrar);  // los DOS se ejecutan</code></pre>
+
+      <div class="demo">
+        <p class="demo-titulo">Un botón con DOS listeners</p>
+        <button class="btn" id="btn-multi">Pulsa: se ejecutan los dos listeners</button>
+        <div class="grupo-botones">
+          <button class="btn secundario" onclick="limpiarSalida('salida-multi')">Limpiar</button>
+        </div>
+        <div class="salida" id="salida-multi"></div>
+      </div>
+
+      <h3>La opción once</h3>
+      <p>
+        Con <code>{ once: true }</code> el handler se ejecuta <strong>una sola vez</strong> y se
+        quita solo. (Otras opciones útiles: <code>capture</code>, que verás en la lección 9, y
+        <code>passive</code>.)
+      </p>
+      <div class="demo">
+        <p class="demo-titulo">Listener de un solo uso</p>
+        <button class="btn" id="btn-once">Botón objetivo (responde una vez)</button>
+        <div class="grupo-botones">
+          <button class="btn verde" onclick="activarOnce()">Activar listener { once: true }</button>
+        </div>
+        <div class="salida" id="salida-once"></div>
+      </div>
+    </section>
+
+    <!-- ===================== removeEventListener ===================== -->
+    <section class="tarjeta">
+      <h2>Quitar un handler: removeEventListener</h2>
+      <p>
+        Para quitar un listener necesitas pasar <strong>exactamente la misma función</strong> que
+        usaste al agregarlo. Por eso debe ser una función <strong>con nombre</strong> (guardada en
+        una variable): una función anónima no se puede quitar, porque no tienes su referencia.
+      </p>
+      <pre><code>function alPulsar() { /* ... */ }
+boton.addEventListener("click", alPulsar);
+boton.removeEventListener("click", alPulsar);  // misma referencia: se quita</code></pre>
+
+      <div class="demo">
+        <p class="demo-titulo">Activa y quita el listener del botón objetivo</p>
+        <button class="btn" id="btn-remove-target">Botón objetivo</button>
+        <div class="grupo-botones">
+          <button class="btn verde" onclick="agregarListener()">addEventListener</button>
+          <button class="btn naranja" onclick="quitarListener()">removeEventListener</button>
+        </div>
+        <div class="salida" id="salida-remove"></div>
+      </div>
+    </section>
+
+    <!-- ===================== OBJETO EVENT ===================== -->
+    <section class="tarjeta">
+      <h2>El objeto Event</h2>
+      <p>
+        Cuando ocurre un evento, el navegador llama a tu handler y le pasa un
+        <strong>objeto <code>event</code></strong> lleno de información: qué tipo fue, dónde ocurrió,
+        coordenadas del ratón, qué tecla se pulsó, etc.
+      </p>
+      <pre><code>boton.addEventListener("click", function (event) {
+  console.log(event.type);    // "click"
+  console.log(event.target);  // el elemento donde ocurrió
+});</code></pre>
+
+      <div class="demo">
+        <p class="demo-titulo">Haz clic y mira las propiedades del evento</p>
+        <div class="zona-evento" id="zona-event">
+          Haz clic en cualquier parte de esta zona (también sobre <strong>este texto en negrita</strong>).
+        </div>
+        <div class="grupo-botones">
+          <button class="btn secundario" onclick="limpiarSalida('salida-event')">Limpiar</button>
+        </div>
+        <div class="salida" id="salida-event"></div>
+      </div>
+      <div class="nota">
+        <strong>target vs currentTarget</strong>
+        Si haces clic sobre el texto en negrita, <code>event.target</code> será ese
+        <code>&lt;strong&gt;</code>, aunque el listener esté en la zona. La diferencia entre
+        <code>target</code> y <code>currentTarget</code> es el tema central de la lección 9.
+      </div>
+    </section>
+
+    <!-- ===================== preventDefault ===================== -->
+    <section class="tarjeta">
+      <h2>preventDefault(): cancelar la acción por defecto</h2>
+      <p>
+        Algunos eventos tienen una <strong>acción por defecto</strong> del navegador: un enlace
+        navega, un formulario se envía (y recarga la página). <code>event.preventDefault()</code>
+        cancela esa acción para que la controles tú con JS.
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Enlace</p>
+        <p>
+          <label><input type="checkbox" id="chk-prevent-link" checked /> Cancelar con preventDefault()</label>
+        </p>
+        <p>
+          <a href="#" id="enlace-demo" onclick="manejarEnlace(event)">Este enlace apunta a «#» (subiría al inicio)</a>
+        </p>
+        <div class="salida" id="salida-link"></div>
+      </div>
+
+      <div class="demo">
+        <p class="demo-titulo">Formulario</p>
+        <p>
+          <label><input type="checkbox" id="chk-prevent-form" checked /> Cancelar el envío con preventDefault()</label>
+        </p>
+        <form id="form-demo" onsubmit="manejarFormulario(event)">
+          <input type="text" id="campo-nombre" placeholder="Escribe algo y pulsa Enviar" />
+          <button class="btn" type="submit">Enviar</button>
+        </form>
+        <div class="salida" id="salida-form"></div>
+      </div>
+      <div class="aviso">
+        <strong>Si desmarcas la casilla, la página se recargará</strong>
+        Es justo lo que hace un formulario por defecto: enviarse y recargar. Por eso casi siempre se
+        usa <code>preventDefault()</code> para manejar el envío con JS sin perder la página.
+      </div>
+    </section>
+
+    <!-- ===================== RESUMEN ===================== -->
+    <section class="tarjeta">
+      <h2>Resumen rápido</h2>
+      <ul class="objetivos">
+        <li>Todo lo que herede de <code>EventTarget</code> (nodos, <code>window</code>, <code>document</code>) emite eventos.</li>
+        <li>Tres formas de escuchar: atributo HTML, propiedad <code>.onclick</code> y <code>addEventListener</code> (la mejor).</li>
+        <li><code>addEventListener</code> admite varios handlers y opciones como <code>{ once: true }</code>.</li>
+        <li><code>removeEventListener</code> exige la <strong>misma función con nombre</strong> que registraste.</li>
+        <li>El handler recibe un objeto <code>event</code> con <code>type</code>, <code>target</code>, coordenadas, tecla…</li>
+        <li><code>preventDefault()</code> cancela la acción por defecto (navegar, enviar un formulario…).</li>
+      </ul>
+    </section>
+
+    <a class="volver" href="index.html">Volver al índice</a>
+  </main>
+
+  <script src="08-eventos.js"></script>
+</body>
+</html>

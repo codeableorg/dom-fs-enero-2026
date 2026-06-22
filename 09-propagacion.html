@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lección 9 · Propagación de eventos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <h1>9 · Propagación de eventos</h1>
+    <p>Un evento no ocurre en un solo elemento: viaja por el árbol. Aquí ves ese viaje y cómo controlarlo.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="index.html">Volver al índice</a>
+
+    <!-- ===================== INTRO ===================== -->
+    <section class="tarjeta">
+      <h2>El evento viaja en tres fases</h2>
+      <p>
+        Cuando haces clic en un elemento que está dentro de otros, el evento recorre el árbol en
+        tres fases:
+      </p>
+      <table>
+        <thead>
+          <tr><th>Fase</th><th>Recorrido</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1. Captura (<em>capturing</em>)</td><td>Baja desde <code>window</code> hasta el elemento</td></tr>
+          <tr><td>2. Objetivo (<em>target</em>)</td><td>Llega al elemento donde ocurrió</td></tr>
+          <tr><td>3. Burbujeo (<em>bubbling</em>)</td><td>Sube desde el elemento de vuelta hacia arriba</td></tr>
+        </tbody>
+      </table>
+      <div class="nota">
+        <strong>Por defecto escuchas en el burbujeo</strong>
+        Salvo que pidas lo contrario, <code>addEventListener</code> ejecuta tu handler en la fase de
+        <strong>subida</strong> (burbujeo). La fase de bajada (captura) la verás al final.
+      </div>
+    </section>
+
+    <!-- ===================== BUBBLING + target/currentTarget ===================== -->
+    <section class="tarjeta">
+      <h2>Burbujeo + target vs currentTarget</h2>
+      <p>
+        Las tres cajas tienen un listener de <code>click</code>. Haz clic en la caja
+        <strong>hijo</strong> (la naranja) y mira el orden: el evento sube
+        <strong>hijo → padre → abuelo</strong>. En cada paso comparamos:
+      </p>
+      <ul class="objetivos">
+        <li><code>event.target</code>: dónde ocurrió DE VERDAD el clic (siempre el hijo). No cambia.</li>
+        <li><code>event.currentTarget</code>: la caja cuyo handler corre AHORA (donde está el listener). Cambia en cada paso.</li>
+      </ul>
+
+      <div class="demo">
+        <p class="demo-titulo">Haz clic en la caja naranja (hijo)</p>
+        <div class="caja-anidada abuelo" id="b-abuelo" data-nombre="abuelo">
+          <span class="etiqueta-caja">div#abuelo</span>
+          <div class="caja-anidada padre" id="b-padre" data-nombre="padre">
+            <span class="etiqueta-caja">div#padre</span>
+            <div class="caja-anidada hijo" id="b-hijo" data-nombre="hijo">
+              <span class="etiqueta-caja">div#hijo</span>
+              Hijo
+            </div>
+          </div>
+        </div>
+
+        <div class="grupo-botones">
+          <button class="btn secundario" onclick="limpiarSalida('salida-bubbling')">Limpiar</button>
+        </div>
+        <div class="salida" id="salida-bubbling"></div>
+      </div>
+    </section>
+
+    <!-- ===================== stopPropagation ===================== -->
+    <section class="tarjeta">
+      <h2>stopPropagation(): cortar el viaje</h2>
+      <p>
+        A veces no quieres que el clic en un hijo active también a sus ancestros.
+        <code>event.stopPropagation()</code> <strong>detiene la propagación</strong>: el evento deja
+        de viajar, así que los handlers de padre y abuelo ya no se enteran.
+      </p>
+      <p>Marca la casilla y haz clic en el hijo: el evento se corta y no sube.</p>
+
+      <div class="demo">
+        <p class="demo-titulo">Haz clic en la caja naranja (hijo)</p>
+        <p>
+          <label><input type="checkbox" id="chk-stop" checked /> El hijo llama a stopPropagation()</label>
+        </p>
+        <div class="caja-anidada abuelo" id="s-abuelo" data-nombre="abuelo">
+          <span class="etiqueta-caja">div#abuelo</span>
+          <div class="caja-anidada padre" id="s-padre" data-nombre="padre">
+            <span class="etiqueta-caja">div#padre</span>
+            <div class="caja-anidada hijo" id="s-hijo" data-nombre="hijo">
+              <span class="etiqueta-caja">div#hijo</span>
+              Hijo
+            </div>
+          </div>
+        </div>
+
+        <div class="grupo-botones">
+          <button class="btn secundario" onclick="limpiarSalida('salida-stop')">Limpiar</button>
+        </div>
+        <div class="salida" id="salida-stop"></div>
+      </div>
+      <div class="nota">
+        <strong>¿Y stopImmediatePropagation?</strong>
+        <code>stopPropagation()</code> impide que el evento siga hacia otros elementos.
+        <code>stopImmediatePropagation()</code> hace eso y además impide que corran los
+        <em>demás listeners del mismo elemento</em>.
+      </div>
+    </section>
+
+    <!-- ===================== CAPTURA / VIAJE COMPLETO ===================== -->
+    <section class="tarjeta">
+      <h2>La fase de captura (el viaje completo)</h2>
+      <p>
+        El tercer parámetro de <code>addEventListener</code> (o <code>{ capture: true }</code>)
+        hace que tu handler corra en la fase de <strong>bajada</strong>, antes del burbujeo:
+      </p>
+      <pre><code>abuelo.addEventListener("click", fn, true);   // fase de CAPTURA (bajada)
+abuelo.addEventListener("click", fn);          // fase de BURBUJEO (subida, por defecto)</code></pre>
+      <p>
+        Aquí cada caja tiene <strong>dos</strong> listeners: uno en captura y otro en burbujeo. Haz
+        clic en el hijo y verás el viaje entero: primero baja y luego sube.
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Haz clic en la caja naranja (hijo)</p>
+        <div class="caja-anidada abuelo" id="f-abuelo" data-nombre="abuelo">
+          <span class="etiqueta-caja">div#abuelo</span>
+          <div class="caja-anidada padre" id="f-padre" data-nombre="padre">
+            <span class="etiqueta-caja">div#padre</span>
+            <div class="caja-anidada hijo" id="f-hijo" data-nombre="hijo">
+              <span class="etiqueta-caja">div#hijo</span>
+              Hijo
+            </div>
+          </div>
+        </div>
+
+        <div class="grupo-botones">
+          <button class="btn secundario" onclick="limpiarSalida('salida-fases')">Limpiar</button>
+        </div>
+        <div class="salida" id="salida-fases"></div>
+      </div>
+    </section>
+
+    <!-- ===================== DELEGACIÓN ===================== -->
+    <section class="tarjeta">
+      <h2>Para qué sirve: delegación de eventos</h2>
+      <p>
+        Como el evento <strong>burbujea</strong>, puedes poner <strong>un solo listener</strong> en
+        el contenedor y atender los clics de todos sus hijos usando <code>event.target</code>. Esto
+        es la <strong>delegación de eventos</strong>: menos listeners y funciona incluso con
+        elementos que agregues <em>después</em>.
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Un único listener en el contenedor atiende todos los items</p>
+        <div class="lienzo" id="lista-deleg"></div>
+
+        <div class="grupo-botones">
+          <button class="btn verde" onclick="agregarItemDeleg()">Agregar un item nuevo</button>
+          <button class="btn secundario" onclick="limpiarSalida('salida-deleg')">Limpiar</button>
+        </div>
+        <div class="salida" id="salida-deleg"></div>
+      </div>
+      <div class="nota">
+        <strong>Fíjate en el detalle</strong>
+        Los items nuevos <strong>no tienen listener propio</strong> y aun así responden: el del
+        contenedor los cubre a todos gracias al burbujeo. (Une lo de la lección 6 con esta.)
+      </div>
+    </section>
+
+    <!-- ===================== RESUMEN ===================== -->
+    <section class="tarjeta">
+      <h2>Resumen rápido</h2>
+      <ul class="objetivos">
+        <li>Un evento viaja en tres fases: captura (baja), objetivo y burbujeo (sube).</li>
+        <li>Por defecto escuchas en el <strong>burbujeo</strong>: hijo → padre → abuelo.</li>
+        <li><code>target</code> = dónde ocurrió (no cambia); <code>currentTarget</code> = dónde está el listener (cambia).</li>
+        <li><code>stopPropagation()</code> corta el viaje: los ancestros ya no reciben el evento.</li>
+        <li>Con el tercer parámetro <code>true</code> (o <code>{ capture: true }</code>) escuchas en la <strong>captura</strong>.</li>
+        <li>El burbujeo permite la <strong>delegación</strong>: un listener en el padre para muchos hijos.</li>
+      </ul>
+    </section>
+
+    <a class="volver" href="index.html">Volver al índice</a>
+  </main>
+
+  <script src="09-propagacion.js"></script>
+</body>
+</html>

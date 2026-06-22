@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lección 6 · Crear e insertar nodos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <h1>6 · Crear e insertar nodos</h1>
+    <p>Fabricar elementos nuevos con JavaScript y colocarlos, moverlos o borrarlos del árbol del documento.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="index.html">Volver al índice</a>
+
+    <!-- ===================== INTRO ===================== -->
+    <section class="tarjeta">
+      <h2>Crear un nodo no es lo mismo que mostrarlo</h2>
+      <p>
+        <code>document.createElement("div")</code> fabrica un elemento, pero ese elemento nace
+        <strong>suelto</strong>: vive en memoria y todavía <strong>no está en la página</strong>.
+        Hasta que no lo <em>insertas</em> en el documento, nadie lo ve. El flujo siempre es el mismo:
+      </p>
+      <pre><code>// 1) CREAR el nodo (suelto, aún no se ve)
+const caja = document.createElement("div");
+
+// 2) CONFIGURARLO (clase y contenido)
+caja.className = "item";
+caja.innerHTML = "Hola &lt;strong&gt;mundo&lt;/strong&gt;";
+
+// 3) INSERTARLO en el documento (ahora sí se ve)
+document.body.append(caja);</code></pre>
+      <div class="nota">
+        <strong>Dos familias de inserción</strong>
+        Unos métodos meten el nodo <em>dentro</em> del elemento (como hijo) y otros lo ponen
+        <em>al lado</em> (como hermano). No los confundas:
+      </div>
+      <table>
+        <thead>
+          <tr><th>Método</th><th>Dónde coloca el nodo</th><th>Relación</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>append()</code></td><td>Dentro, como <strong>último</strong> hijo</td><td>hijo</td></tr>
+          <tr><td><code>prepend()</code></td><td>Dentro, como <strong>primer</strong> hijo</td><td>hijo</td></tr>
+          <tr><td><code>before()</code></td><td>Fuera, <strong>antes</strong> del elemento</td><td>hermano</td></tr>
+          <tr><td><code>after()</code></td><td>Fuera, <strong>después</strong> del elemento</td><td>hermano</td></tr>
+          <tr><td><code>replaceWith()</code></td><td>En el <strong>lugar exacto</strong> del elemento</td><td>lo sustituye</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===================== CREAR + CONFIGURAR ===================== -->
+    <section class="tarjeta">
+      <h2>createElement + className + innerHTML</h2>
+      <p>
+        Con <code>className</code> le damos sus clases CSS (todas de golpe, en un string) y con
+        <code>innerHTML</code> le metemos contenido que puede incluir <strong>etiquetas HTML</strong>.
+        Pulsa el botón: se crea un <code>&lt;div&gt;</code>, se configura y se inserta.
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Lienzo (aquí caen los nodos creados)</p>
+        <div class="lienzo" id="lienzo-crear"></div>
+
+        <div class="grupo-botones">
+          <button class="btn verde" onclick="crearYAgregar()">Crear y agregar un nodo</button>
+          <button class="btn secundario" onclick="reiniciarCrear()">Reiniciar</button>
+        </div>
+
+        <div class="salida" id="salida-crear"></div>
+      </div>
+
+      <div class="aviso">
+        <strong>innerHTML vs textContent</strong>
+        <code>innerHTML</code> interpreta etiquetas (<code>"&lt;b&gt;hola&lt;/b&gt;"</code> sale en
+        negrita). <code>textContent</code> las trata como texto literal. Si el contenido viene de un
+        usuario, usa <code>textContent</code>: evitar HTML ajeno te protege de inyecciones.
+      </div>
+    </section>
+
+    <!-- ===================== APPEND / PREPEND ===================== -->
+    <section class="tarjeta">
+      <h2>append() y prepend(): dentro del elemento</h2>
+      <p>
+        Ambos insertan <strong>como hijos</strong>. <code>append()</code> lo deja al final y
+        <code>prepend()</code> al principio. Observa dónde aparece cada item nuevo:
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Lista contenedora</p>
+        <div class="lienzo" id="lienzo-lista"></div>
+
+        <div class="grupo-botones">
+          <button class="btn" onclick="agregarAlInicio()">prepend() al inicio</button>
+          <button class="btn verde" onclick="agregarAlFinal()">append() al final</button>
+          <button class="btn secundario" onclick="reiniciarLista()">Reiniciar</button>
+        </div>
+
+        <div class="salida" id="salida-lista"></div>
+      </div>
+      <div class="nota">
+        <strong>Aceptan varios a la vez (y texto)</strong>
+        <code>lista.append(nodo1, "un texto", nodo2)</code> es válido: puedes pasar varios nodos y
+        hasta cadenas de texto en la misma llamada.
+      </div>
+    </section>
+
+    <!-- ===================== BEFORE / AFTER ===================== -->
+    <section class="tarjeta">
+      <h2>before() y after(): al lado del elemento</h2>
+      <p>
+        Aquí el nodo nuevo NO entra dentro del elemento, sino que se coloca como
+        <strong>hermano</strong>: <code>before()</code> justo antes y <code>after()</code> justo
+        después. El item naranja es nuestro punto de referencia (el «ancla»):
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Lienzo con un ancla</p>
+        <div class="lienzo" id="lienzo-ba"></div>
+
+        <div class="grupo-botones">
+          <button class="btn" onclick="insertarAntes()">ancla.before()</button>
+          <button class="btn verde" onclick="insertarDespues()">ancla.after()</button>
+          <button class="btn secundario" onclick="reiniciarBeforeAfter()">Reiniciar</button>
+        </div>
+
+        <div class="salida" id="salida-ba"></div>
+      </div>
+    </section>
+
+    <!-- ===================== replaceWith ===================== -->
+    <section class="tarjeta">
+      <h2>replaceWith(): cambiar un nodo por otro</h2>
+      <p>
+        <code>viejo.replaceWith(nuevo)</code> saca al elemento del árbol y pone otro
+        <strong>exactamente en su lugar</strong>. Útil para sustituir, por ejemplo, un «cargando…»
+        por el contenido real.
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Lienzo</p>
+        <div class="lienzo" id="lienzo-replace"></div>
+
+        <div class="grupo-botones">
+          <button class="btn verde" onclick="reemplazar()">replaceWith() el nodo</button>
+          <button class="btn secundario" onclick="reiniciarReemplazo()">Reiniciar</button>
+        </div>
+
+        <div class="salida" id="salida-replace"></div>
+      </div>
+    </section>
+
+    <!-- ===================== remove ===================== -->
+    <section class="tarjeta">
+      <h2>remove(): borrar un nodo</h2>
+      <p>
+        <code>elemento.remove()</code> borra el nodo del documento. Lo bonito es que
+        <strong>no necesitas al padre</strong>: el propio elemento se quita solo. Haz clic en
+        cualquier item para eliminarlo:
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Haz clic en un item para quitarlo</p>
+        <div class="lienzo" id="lienzo-remove"></div>
+
+        <div class="grupo-botones">
+          <button class="btn" onclick="poblarRemovibles()">Volver a poblar</button>
+        </div>
+
+        <div class="salida" id="salida-remove"></div>
+      </div>
+      <div class="nota">
+        <strong>Lo de antes era más largo</strong>
+        Antiguamente había que hacer <code>padre.removeChild(hijo)</code>. Hoy
+        <code>hijo.remove()</code> es directo y más legible.
+      </div>
+    </section>
+
+    <!-- ===================== MOVER ===================== -->
+    <section class="tarjeta">
+      <h2>Mover nodos: un nodo solo puede estar en un sitio</h2>
+      <p>
+        Si tomas un nodo que <strong>ya está en el documento</strong> y lo insertas en otro lugar
+        con <code>append</code>, <code>before</code>, etc., no se copia: <strong>se mueve</strong>.
+        Desaparece de su sitio anterior porque un mismo nodo no puede estar en dos lugares.
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Mueve la «caja viajera» entre las dos zonas</p>
+        <div class="zonas">
+          <div class="zona">
+            <h4>Zona A</h4>
+            <div class="lienzo columna" id="zona-a"></div>
+          </div>
+          <div class="zona">
+            <h4>Zona B</h4>
+            <div class="lienzo columna" id="zona-b"></div>
+          </div>
+        </div>
+
+        <div class="grupo-botones">
+          <button class="btn" onclick="moverAB()">Mover A → B</button>
+          <button class="btn verde" onclick="moverBA()">Mover B → A</button>
+          <button class="btn secundario" onclick="reiniciarMover()">Reiniciar</button>
+        </div>
+
+        <div class="salida" id="salida-mover"></div>
+      </div>
+    </section>
+
+    <!-- ===================== DocumentFragment ===================== -->
+    <section class="tarjeta">
+      <h2>DocumentFragment: armar muchos nodos y meterlos de una vez</h2>
+      <p>
+        Un <code>DocumentFragment</code> es un <strong>contenedor temporal en memoria</strong> que
+        no forma parte de la página. Metes ahí todos los nodos que quieras y luego lo insertas una
+        sola vez: solo entran sus <strong>hijos</strong> (el fragmento no deja ningún envoltorio).
+      </p>
+      <pre><code>const frag = document.createDocumentFragment();
+for (let i = 1; i &lt;= 5; i++) {
+  const li = document.createElement("div");
+  li.textContent = "Item " + i;
+  frag.append(li);          // se acumulan en memoria
+}
+lista.append(frag);          // UNA sola inserción en el documento real</code></pre>
+
+      <div class="demo">
+        <p class="demo-titulo">Lienzo</p>
+        <div class="lienzo" id="lienzo-frag"></div>
+
+        <div class="grupo-botones">
+          <button class="btn verde" onclick="agregarConFragment()">Agregar 5 nodos con un Fragment</button>
+          <button class="btn secundario" onclick="reiniciarFragment()">Reiniciar</button>
+        </div>
+
+        <div class="salida" id="salida-frag"></div>
+      </div>
+      <div class="nota">
+        <strong>¿Para qué sirve?</strong>
+        Si insertaras los 5 nodos uno por uno, tocas el documento 5 veces. Con el fragment lo
+        tocas <strong>una sola vez</strong>: menos trabajo para el navegador cuando son muchos nodos.
+      </div>
+    </section>
+
+    <!-- ===================== RESUMEN ===================== -->
+    <section class="tarjeta">
+      <h2>Resumen rápido</h2>
+      <ul class="objetivos">
+        <li><code>createElement</code> crea el nodo suelto; no se ve hasta que lo insertas.</li>
+        <li>Configúralo con <code>className</code> (clases) e <code>innerHTML</code> / <code>textContent</code> (contenido).</li>
+        <li>Dentro: <code>append</code> (final) y <code>prepend</code> (inicio). Al lado: <code>before</code> y <code>after</code>.</li>
+        <li><code>replaceWith</code> sustituye un nodo por otro; <code>remove</code> lo borra sin necesitar al padre.</li>
+        <li>Insertar un nodo que ya existe lo <strong>mueve</strong> (no lo copia).</li>
+        <li><code>DocumentFragment</code> junta muchos nodos y los inserta de una sola vez.</li>
+      </ul>
+    </section>
+
+    <a class="volver" href="index.html">Volver al índice</a>
+  </main>
+
+  <script src="06-crear-nodos.js"></script>
+</body>
+</html>

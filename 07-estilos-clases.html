@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lección 7 · Estilos y clases</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <h1>7 · Estilos y clases</h1>
+    <p>Dar estilo a un elemento desde JavaScript: la propiedad style, el camelCase de CSS, classList y getComputedStyle.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="index.html">Volver al índice</a>
+
+    <!-- ===================== INTRO ===================== -->
+    <section class="tarjeta">
+      <h2>Dos caminos para dar estilo</h2>
+      <p>
+        Desde JS puedes pintar un elemento de dos formas. La mayoría de las veces conviene la
+        segunda:
+      </p>
+      <table>
+        <thead>
+          <tr><th>Camino</th><th>Cómo</th><th>Cuándo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>style</code> (en línea)</td>
+            <td>Propiedad por propiedad: <code>el.style.color = "red"</code></td>
+            <td>Ajustes puntuales y dinámicos (una posición, un alto calculado…)</td>
+          </tr>
+          <tr>
+            <td><code>classList</code> (clases)</td>
+            <td>Enciendes/apagas clases definidas en el CSS</td>
+            <td>Lo habitual: el estilo vive en el CSS, JS solo cambia clases</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===================== STYLE ===================== -->
+    <section class="tarjeta">
+      <h2>La propiedad style (estilos en línea)</h2>
+      <p>
+        <code>elemento.style</code> escribe estilos <strong>en línea</strong> (los del atributo
+        <code>style="..."</code>). Dos reglas de oro: cada propiedad va en
+        <strong>camelCase</strong> y cada valor es un <strong>string con sus unidades</strong>
+        (<code>"16px"</code>, no <code>16</code>).
+      </p>
+      <pre><code>caja.style.color = "white";
+caja.style.backgroundColor = "#1e40af";  // camelCase, y el valor es texto
+caja.style.padding = "20px";             // recuerda las unidades</code></pre>
+
+      <div class="demo">
+        <p class="demo-titulo">Elemento de prueba</p>
+        <div id="caja-style" class="caja-estilo">Cámbiame los estilos en línea.</div>
+
+        <div class="grupo-botones">
+          <button class="btn verde" onclick="aplicarEstilos()">Aplicar varios estilos</button>
+          <button class="btn secundario" onclick="reiniciarStyle()">Reiniciar</button>
+        </div>
+
+        <div class="salida" id="salida-style"></div>
+      </div>
+      <div class="nota">
+        <strong>Atajos útiles</strong>
+        <code>caja.style.cssText = "color:white; background:navy"</code> aplica varias de golpe con
+        sintaxis CSS normal. Y <code>caja.style.setProperty("background-color", "navy")</code> usa
+        el nombre <em>con guion</em> (imprescindible para variables como <code>--azul</code>).
+      </div>
+    </section>
+
+    <!-- ===================== camelCase ===================== -->
+    <section class="tarjeta">
+      <h2>El camelCase de las propiedades CSS</h2>
+      <p>
+        En CSS las propiedades llevan guion (<code>background-color</code>). En JS los guiones no
+        valen como nombre de propiedad, así que se escriben en <strong>camelCase</strong>: se quita
+        el guion y la siguiente letra va en mayúscula.
+      </p>
+      <table>
+        <thead>
+          <tr><th>CSS</th><th>JS (style.)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>background-color</code></td><td><code>backgroundColor</code></td></tr>
+          <tr><td><code>font-size</code></td><td><code>fontSize</code></td></tr>
+          <tr><td><code>border-radius</code></td><td><code>borderRadius</code></td></tr>
+          <tr><td><code>margin-top</code></td><td><code>marginTop</code></td></tr>
+          <tr><td><code>z-index</code></td><td><code>zIndex</code></td></tr>
+          <tr><td><code>float</code></td><td><code>cssFloat</code> <em>(caso especial)</em></td></tr>
+        </tbody>
+      </table>
+      <p>Pulsa cada botón: aplica una propiedad y te muestra su traducción CSS → JS.</p>
+
+      <div class="demo">
+        <p class="demo-titulo">Elemento de prueba</p>
+        <div id="caja-camel" class="caja-estilo">Observa cómo cambio con cada propiedad.</div>
+
+        <div class="grupo-botones">
+          <button class="btn" onclick="aplicarFontSize()">font-size</button>
+          <button class="btn" onclick="aplicarBg()">background-color</button>
+          <button class="btn" onclick="aplicarRadio()">border-radius</button>
+          <button class="btn secundario" onclick="reiniciarCamel()">Reiniciar</button>
+        </div>
+
+        <div class="salida" id="salida-camel"></div>
+      </div>
+      <div class="nota">
+        <strong>¿No te sale el camelCase?</strong>
+        También puedes usar corchetes con el nombre exacto de CSS:
+        <code>caja.style["background-color"] = "navy"</code>. Funciona igual, pero el camelCase es
+        lo habitual.
+      </div>
+    </section>
+
+    <!-- ===================== className vs classList ===================== -->
+    <section class="tarjeta">
+      <h2>className vs classList</h2>
+      <p>
+        <code>className</code> es un <strong>string con todas las clases</strong>. Si le asignas un
+        valor, <strong>reemplazas todo</strong> lo que hubiera, y es fácil borrar sin querer una
+        clase importante. <code>classList</code> es una API para tocar <strong>una clase</strong> sin
+        pisar las demás.
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Elemento de prueba (empieza con dos clases)</p>
+        <div id="caja-cn" class="caja-estilo destacado">caja-estilo + destacado</div>
+
+        <div class="grupo-botones">
+          <button class="btn" onclick="verClassName()">Ver className</button>
+          <button class="btn naranja" onclick="pisarConClassName()">className = "caja-estilo"</button>
+          <button class="btn secundario" onclick="reiniciarClassName()">Reiniciar</button>
+        </div>
+
+        <div class="salida" id="salida-cn"></div>
+      </div>
+      <div class="aviso">
+        <strong>El peligro de className</strong>
+        Al hacer <code>caja.className = "caja-estilo"</code> se pierde <code>destacado</code> (y
+        cualquier otra clase). Para sumar o quitar una sola, usa <code>classList</code>.
+      </div>
+    </section>
+
+    <!-- ===================== classList (métodos) ===================== -->
+    <section class="tarjeta">
+      <h2>classList: add, remove, toggle, replace, contains</h2>
+      <p>Cinco métodos que cubren casi todo. Cada botón ejecuta uno y verás el efecto al instante:</p>
+      <table>
+        <thead>
+          <tr><th>Método</th><th>Qué hace</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>add("x")</code></td><td>Agrega la clase (si ya está, no pasa nada)</td></tr>
+          <tr><td><code>remove("x")</code></td><td>Quita la clase</td></tr>
+          <tr><td><code>toggle("x")</code></td><td>Si está la quita, si no está la pone. Devuelve <code>true</code>/<code>false</code></td></tr>
+          <tr><td><code>replace("a","b")</code></td><td>Cambia <code>a</code> por <code>b</code> (solo si <code>a</code> estaba)</td></tr>
+          <tr><td><code>contains("x")</code></td><td>Pregunta si la tiene: <code>true</code> o <code>false</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="demo">
+        <p class="demo-titulo">Elemento de prueba</p>
+        <div id="caja-cl" class="caja-estilo tema-claro">Juega con mis clases.</div>
+
+        <div class="grupo-botones">
+          <button class="btn verde" onclick="clAdd()">add('destacado')</button>
+          <button class="btn" onclick="clRemove()">remove('destacado')</button>
+          <button class="btn" onclick="clToggle()">toggle('grande')</button>
+          <button class="btn naranja" onclick="clReplace()">replace(tema)</button>
+          <button class="btn secundario" onclick="clContains()">contains('destacado')</button>
+          <button class="btn secundario" onclick="reiniciarClassList()">Reiniciar</button>
+        </div>
+
+        <div class="salida" id="salida-cl"></div>
+      </div>
+    </section>
+
+    <!-- ===================== getComputedStyle ===================== -->
+    <section class="tarjeta">
+      <h2>getComputedStyle: leer el estilo REAL</h2>
+      <p>
+        <code>element.style</code> solo ve lo que está <strong>en línea</strong>. Si el color viene
+        de tu archivo CSS, <code>element.style.color</code> sale vacío. Para conocer el valor
+        <strong>realmente aplicado</strong> (venga de donde venga) se usa
+        <code>getComputedStyle(elemento)</code>.
+      </p>
+      <p>
+        Esta caja toma su color naranja de una <strong>clase del CSS</strong> (no tiene
+        <code>style="..."</code>). Compáralo:
+      </p>
+
+      <div class="demo">
+        <p class="demo-titulo">Elemento con estilo desde el CSS</p>
+        <div id="caja-css" class="caja-estilo destacado">Mi color viene del archivo CSS.</div>
+
+        <div class="grupo-botones">
+          <button class="btn" onclick="leerComputado()">style vs getComputedStyle</button>
+          <button class="btn secundario" onclick="limpiarSalida('salida-computed')">Limpiar</button>
+        </div>
+
+        <div class="salida" id="salida-computed"></div>
+      </div>
+      <div class="nota">
+        <strong>Dos detalles clave</strong>
+        <code>getComputedStyle</code> es de <strong>solo lectura</strong> (sirve para consultar, no
+        para asignar) y devuelve valores ya <strong>resueltos</strong>: los colores en
+        <code>rgb(...)</code> y las medidas en <code>px</code>.
+      </div>
+    </section>
+
+    <!-- ===================== RESUMEN ===================== -->
+    <section class="tarjeta">
+      <h2>Resumen rápido</h2>
+      <ul class="objetivos">
+        <li><code>style</code> aplica estilos en línea: propiedades en camelCase y valores como string con unidades.</li>
+        <li>CSS con guion → JS en camelCase (<code>background-color</code> → <code>backgroundColor</code>).</li>
+        <li><code>className</code> reemplaza TODAS las clases; <code>classList</code> toca una sin pisar el resto.</li>
+        <li><code>classList</code>: <code>add</code>, <code>remove</code>, <code>toggle</code>, <code>replace</code> y <code>contains</code>.</li>
+        <li><code>getComputedStyle</code> lee el estilo real aplicado (solo lectura, valores resueltos).</li>
+      </ul>
+    </section>
+
+    <a class="volver" href="index.html">Volver al índice</a>
+  </main>
+
+  <script src="07-estilos-clases.js"></script>
+</body>
+</html>
