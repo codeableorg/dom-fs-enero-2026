@@ -15,7 +15,7 @@
       min-height: 60px;
     }
     #tablero:empty::before {
-      content: "(tablero vacío — agregá una tarea)";
+      content: "(tablero vacío — agregar una tarea)";
       color: var(--gris-suave);
       font-style: italic;
     }
@@ -50,21 +50,17 @@
     <section class="tarjeta">
       <h2>📋 Cómo trabajar</h2>
       <p>
-        Leé la consigna completa en <code>enunciado.md</code>. Tu trabajo está en
-        <code>ejercicio.js</code>: las funciones con <code>// TODO:</code>.
-        <strong>Hacé clic en una tarea para seleccionarla</strong> (se pinta de azul);
-        casi todos los retos actúan sobre la seleccionada.
+        La consigna completa está en <code>enunciado.md</code>. El código se completa en
+        <code>ejercicio.js</code>, en las funciones marcadas con <code>// TODO:</code>.
+        Un clic sobre una tarea la selecciona (se pinta de azul); casi todos los retos actúan
+        sobre la seleccionada.
       </p>
-      <div class="tip">
-        <strong>💡 Antes de tocar código</strong>
-        Entendé qué te pide cada reto. No copies la solución: resolvelo vos.
-      </div>
     </section>
 
     <!-- ===================== TABLERO (compartido por los 3 retos) ===================== -->
     <section class="tarjeta">
       <h2>🗂️ El tablero</h2>
-      <p>Hacé clic en una tarea para seleccionarla. Los 3 retos trabajan sobre estas tareas.</p>
+      <p>Un clic sobre una tarea la selecciona. Los 3 retos trabajan sobre estas tareas.</p>
       <div class="demo">
         <p class="demo-titulo">DOM del tablero</p>
         <div id="tablero">
@@ -85,7 +81,7 @@
     <!-- ===================== RETO 5 · Atributos ===================== -->
     <section class="tarjeta">
       <h2>5 · Atributos y propiedades</h2>
-      <p>Leé los <code>data-*</code> de la tarea seleccionada y cambiale la prioridad.</p>
+      <p>Leer los <code>data-*</code> de la tarea seleccionada y cambiar su prioridad.</p>
       <div class="demo">
         <div class="grupo-botones">
           <button class="btn" onclick="verAtributos()">Ver atributos</button>
@@ -98,7 +94,7 @@
     <!-- ===================== RETO 6 · Crear nodos ===================== -->
     <section class="tarjeta">
       <h2>6 · Crear e insertar nodos</h2>
-      <p>Creá tareas nuevas con <code>createElement</code> + <code>append</code>, y borrá la seleccionada.</p>
+      <p>Crear tareas nuevas con <code>createElement</code> + <code>append</code>, y borrar la seleccionada.</p>
       <div class="demo">
         <input type="text" id="nueva-tarea" placeholder="Nueva tarea… (ej: Pasear al perro)" />
         <div class="grupo-botones">
@@ -112,7 +108,7 @@
     <!-- ===================== RETO 7 · Estilos y clases ===================== -->
     <section class="tarjeta">
       <h2>7 · Estilos y clases</h2>
-      <p>Marcá una tarea como hecha (clase) y leé su estilo real (<code>getComputedStyle</code>).</p>
+      <p>Marcar una tarea como hecha (clase) y leer su estilo real (<code>getComputedStyle</code>).</p>
       <div class="demo">
         <div class="grupo-botones">
           <button class="btn" onclick="marcarHecha()">✔️ Marcar / desmarcar hecha</button>
