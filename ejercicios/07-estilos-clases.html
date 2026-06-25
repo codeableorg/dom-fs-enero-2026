@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Práctica · 07 · Estilos y clases</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="practica.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+  <style>
+    .caja-demo { padding: 16px; border: 2px solid var(--gris-borde); border-radius: 10px; background: #ffffff; }
+    .caja-demo.grande { font-size: 1.4rem; font-weight: 700; }
+    .caja-demo.tema-claro { background: #ffffff; color: var(--gris-texto); }
+    .caja-demo.tema-oscuro { background: #0f172a; color: #e2e8f0; border-color: #0f172a; }
+    .comprado { background: var(--verde); color: #fff; border-color: var(--verde); }
+  </style>
+</head>
+<body>
+  <header class="encabezado">
+    <h1>Práctica · 07 · Estilos y clases</h1>
+    <p>Cambiar la apariencia con style y classList, y leer el estilo real.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="../index.html">← Volver al índice</a>
+
+    <section class="tarjeta">
+      <h2>📋 Cómo funciona</h2>
+      <p>
+        En los retos de <strong>modificar</strong>, el código cambia la vista previa. En el de
+        <strong>leer</strong> se escribe una expresión que dé el valor (sin <code>return</code>).
+        Al pulsar <strong>Comprobar</strong> se valida el resultado real: ✅ o ❌ con una explicación.
+      </p>
+    </section>
+
+    <!-- ===================== RETO 1 · modificar ===================== -->
+    <section class="tarjeta reto" data-reto="est-style">
+      <p class="demo-titulo">Reto 1 · modificar</p>
+      <h2>Estilo en línea</h2>
+      <div class="preview"><div id="caja-1" class="caja-demo">Caja 1</div></div>
+      <p>Poner el color de fondo de <code>#caja-1</code> en verde (<code>green</code>) usando la propiedad <code>style</code> (camelCase).</p>
+      <textarea class="codigo">// Fondo verde a #caja-1 con style (backgroundColor)
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 07)</strong>
+          <code>elemento.style.backgroundColor = "green"</code> (camelCase). También existe
+          <code>style.setProperty("background-color", "green")</code>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 2 · modificar ===================== -->
+    <section class="tarjeta reto" data-reto="est-clase">
+      <p class="demo-titulo">Reto 2 · modificar</p>
+      <h2>Agregar una clase</h2>
+      <div class="preview"><div id="caja-2" class="caja-demo">Caja 2</div></div>
+      <p>Agregar la clase <code>grande</code> a <code>#caja-2</code> (con <code>classList</code>). El texto se agranda.</p>
+      <textarea class="codigo">// Agregar la clase "grande" a #caja-2
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 07)</strong>
+          <code>elemento.classList.add("grande")</code>. También están <code>toggle</code>,
+          <code>replace</code> y <code>contains</code>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 3 · leer ===================== -->
+    <section class="tarjeta reto" data-reto="est-computado">
+      <p class="demo-titulo">Reto 3 · leer</p>
+      <h2>Leer el estilo real</h2>
+      <div class="preview"><div id="caja-3" class="caja-demo">Caja 3</div></div>
+      <p>Obtener el color de fondo <strong>real</strong> de <code>#caja-3</code> con <code>getComputedStyle</code>.</p>
+      <textarea class="codigo">// El backgroundColor real de #caja-3 (getComputedStyle)
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 07)</strong>
+          <code>getComputedStyle(elemento).backgroundColor</code> devuelve el color real, en formato
+          <code>rgb(...)</code>. Es solo lectura.
+        </div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="est-replace">
+      <p class="demo-titulo">Reto 4 · modificar</p>
+      <h2>Reemplazar una clase</h2>
+      <div class="preview"><div id="caja-4" class="caja-demo tema-claro">Caja 4</div></div>
+      <p>Cambiar la clase <code>tema-claro</code> por <code>tema-oscuro</code> en <code>#caja-4</code> (usar <code>classList.replace</code>).</p>
+      <textarea class="codigo">// Reemplazar "tema-claro" por "tema-oscuro" en #caja-4
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 07)</strong> <code>elemento.classList.replace("tema-claro", "tema-oscuro")</code> cambia una clase por otra.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="est-fontweight">
+      <p class="demo-titulo">Reto 5 · modificar</p>
+      <h2>Otra propiedad en camelCase</h2>
+      <div class="preview"><div id="caja-5" class="caja-demo">Caja 5</div></div>
+      <p>Poner el grosor de fuente de <code>#caja-5</code> en <code>700</code> con <code>style</code> (la propiedad CSS <code>font-weight</code> en camelCase).</p>
+      <textarea class="codigo">// font-weight 700 a #caja-5 con style (fontWeight)
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 07)</strong> <code>font-weight</code> en CSS es <code>style.fontWeight</code> en JavaScript (camelCase).</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="est-boton">
+      <p class="demo-titulo">Reto 6 · combinar</p>
+      <h2>Cambiar un botón</h2>
+      <p>Cambiar el texto de <code>#boton-e</code> a <code>Comprado</code> y agregarle la clase <code>comprado</code> (se pone verde). Combina <code>textContent</code> y <code>classList</code>.</p>
+      <div class="preview"><button id="boton-e" class="btn">Comprar</button></div>
+      <textarea class="codigo">// Cambiar el texto de #boton-e a "Comprado" y agregar la clase "comprado"
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 07)</strong> <code>#boton-e.textContent = "Comprado"</code> y <code>#boton-e.classList.add("comprado")</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="est-aviso">
+      <p class="demo-titulo">Reto 7 · combinar más</p>
+      <h2>Un aviso con dos estilos</h2>
+      <p>Poner el fondo de <code>#caja-c2</code> en <code>red</code> y el texto en <code>white</code>, usando <code>style</code> (dos propiedades en camelCase).</p>
+      <div class="preview"><div id="caja-c2" class="caja-demo">Stock agotado</div></div>
+      <textarea class="codigo">// Fondo rojo y texto blanco a #caja-c2 con style
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 07)</strong> <code>style.backgroundColor = "red"</code> y <code>style.color = "white"</code>.</div>
+      </div>
+    </section>
+
+    <nav class="nav-practica">
+      <a class="volver" href="06-crear-nodos.html">← Ejercicio anterior</a>
+      <a class="volver" href="../index.html">↩ Índice</a>
+      <a class="btn verde" href="08-eventos.html">Siguiente ejercicio →</a>
+    </nav>
+  </main>
+
+  <script>
+    window.RETOS = {
+      "est-boton": {
+        preparar: function () { var b = document.getElementById("boton-e"); b.textContent = "Comprar"; b.classList.remove("comprado"); },
+        validar: function (valor, H) {
+          var b = document.getElementById("boton-e");
+          return b.textContent === "Comprado" && b.classList.contains("comprado")
+            ? H.ok('#boton-e ahora dice "Comprado" y tiene la clase "comprado".')
+            : H.fail('#boton-e debe decir "Comprado" y tener la clase "comprado". Texto: ' + JSON.stringify(b.textContent) + " · clases: [" + Array.from(b.classList).join(", ") + "]");
+        }
+      },
+      "est-aviso": {
+        preparar: function () { document.getElementById("caja-c2").style.cssText = ""; },
+        validar: function (valor, H) {
+          var s = document.getElementById("caja-c2").style;
+          var rojo = s.backgroundColor === "red" || s.backgroundColor === "rgb(255, 0, 0)";
+          var blanco = s.color === "white" || s.color === "rgb(255, 255, 255)";
+          return rojo && blanco
+            ? H.ok("#caja-c2 quedó con fondo rojo y texto blanco.")
+            : H.fail("#caja-c2 debe tener fondo rojo y texto blanco (con style). backgroundColor=" + JSON.stringify(s.backgroundColor) + ", color=" + JSON.stringify(s.color));
+        }
+      },
+      "est-replace": {
+        preparar: function () { document.getElementById("caja-4").className = "caja-demo tema-claro"; },
+        validar: function (valor, H) {
+          var cl = document.getElementById("caja-4").classList;
+          return cl.contains("tema-oscuro") && !cl.contains("tema-claro")
+            ? H.ok('#caja-4 pasó de "tema-claro" a "tema-oscuro".')
+            : H.fail('Se esperaba que #caja-4 tuviera "tema-oscuro" y no "tema-claro". classList: [' + Array.from(cl).join(", ") + "]");
+        }
+      },
+      "est-fontweight": {
+        preparar: function () { document.getElementById("caja-5").style.fontWeight = ""; },
+        validar: function (valor, H) {
+          var fw = document.getElementById("caja-5").style.fontWeight;
+          return fw === "700"
+            ? H.ok("El font-weight en línea de #caja-5 es 700.")
+            : H.fail("style.fontWeight de #caja-5 es " + JSON.stringify(fw) + ' y debe ser "700".');
+        }
+      },
+      "est-style": {
+        preparar: function () { document.getElementById("caja-1").style.backgroundColor = ""; },
+        validar: function (valor, H) {
+          var el = document.getElementById("caja-1");
+          var inline = el.style.backgroundColor;
+          var esVerde = inline === "green" || inline === "rgb(0, 128, 0)" ||
+            getComputedStyle(el).backgroundColor === "rgb(0, 128, 0)";
+          return esVerde
+            ? H.ok("El fondo de #caja-1 ahora es verde.")
+            : H.fail("El fondo de #caja-1 no es verde. style.backgroundColor = " + JSON.stringify(inline) + ".");
+        }
+      },
+      "est-clase": {
+        preparar: function () { document.getElementById("caja-2").classList.remove("grande"); },
+        validar: function (valor, H) {
+          return document.getElementById("caja-2").classList.contains("grande")
+            ? H.ok('#caja-2 ahora tiene la clase "grande".')
+            : H.fail('#caja-2 no tiene la clase "grande". classList actual: [' + Array.from(document.getElementById("caja-2").classList).join(", ") + "]");
+        }
+      },
+      "est-computado": {
+        validar: function (valor, H) {
+          var esperado = getComputedStyle(document.getElementById("caja-3")).backgroundColor;
+          return valor === esperado
+            ? H.ok("El color de fondo real es " + JSON.stringify(esperado) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="practica.js"></script>
+</body>
+</html>

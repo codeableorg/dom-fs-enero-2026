@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Práctica · 05 · Atributos y propiedades</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="practica.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+  <style>
+    .card { background: var(--blanco); border: 2px solid var(--gris-borde); border-radius: 10px; padding: 12px 16px; }
+    .card.agotado { opacity: 0.55; text-decoration: line-through; }
+  </style>
+</head>
+<body>
+  <header class="encabezado">
+    <h1>Práctica · 05 · Atributos y propiedades</h1>
+    <p>Leer y cambiar atributos: dataset, getAttribute/setAttribute, classList.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="../index.html">← Volver al índice</a>
+
+    <section class="tarjeta">
+      <h2>📋 Cómo funciona</h2>
+      <p>
+        En los retos de <strong>leer</strong> se escribe una expresión que dé el valor (no hace falta
+        <code>return</code>). En los de <strong>modificar</strong>, el código cambia la vista previa.
+        Al pulsar <strong>Comprobar</strong> se valida el resultado real: ✅ o ❌ con una explicación.
+      </p>
+    </section>
+
+    <!-- ===================== RETO 1 · leer ===================== -->
+    <section class="tarjeta reto" data-reto="atr-leer">
+      <p class="demo-titulo">Reto 1 · leer</p>
+      <h2>Leer un data-*</h2>
+      <div class="preview"><article id="prod-1" class="card" data-precio="100" data-stock="5">Camiseta</article></div>
+      <p>Obtener el valor de <code>data-precio</code> de <code>#prod-1</code> (usar <code>dataset</code>).</p>
+      <textarea class="codigo">// El data-precio de #prod-1
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 05)</strong>
+          <code>data-precio</code> se lee con <code>elemento.dataset.precio</code>.
+          <code>getAttribute("data-precio")</code> da lo mismo.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 2 · modificar ===================== -->
+    <section class="tarjeta reto" data-reto="atr-escribir">
+      <p class="demo-titulo">Reto 2 · modificar</p>
+      <h2>Cambiar un data-*</h2>
+      <div class="preview"><article id="prod-2" class="card" data-precio="100" data-stock="5">Camiseta</article></div>
+      <p>Cambiar <code>data-stock</code> de <code>#prod-2</code> a <code>"0"</code> (usar <code>dataset</code> o <code>setAttribute</code>).</p>
+      <textarea class="codigo">// Poner data-stock de #prod-2 en "0"
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 05)</strong>
+          Escribir en <code>elemento.dataset.stock = "0"</code> cambia el atributo <code>data-stock</code>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 3 · modificar ===================== -->
+    <section class="tarjeta reto" data-reto="atr-clase">
+      <p class="demo-titulo">Reto 3 · modificar</p>
+      <h2>Agregar una clase</h2>
+      <div class="preview"><article id="prod-3" class="card" data-precio="100" data-stock="0">Camiseta</article></div>
+      <p>Agregar la clase <code>agotado</code> a <code>#prod-3</code> (usar <code>classList</code>). Se verá tachado.</p>
+      <textarea class="codigo">// Agregar la clase "agotado" a #prod-3
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 05)</strong>
+          <code>elemento.classList.add("agotado")</code> agrega una clase. También están
+          <code>remove</code>, <code>toggle</code> y <code>contains</code>.
+        </div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="atr-getattr">
+      <p class="demo-titulo">Reto 4 · leer</p>
+      <h2>Leer con getAttribute</h2>
+      <div class="preview"><article id="prod-4" class="card" data-precio="80" data-stock="3">Gorra</article></div>
+      <p>Obtener el valor de <code>data-stock</code> de <code>#prod-4</code> usando <code>getAttribute</code> (no <code>dataset</code>).</p>
+      <textarea class="codigo">// El data-stock de #prod-4 con getAttribute
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 05)</strong> <code>elemento.getAttribute("data-stock")</code> lee el atributo tal cual. Es lo mismo que <code>dataset.stock</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="atr-setattr">
+      <p class="demo-titulo">Reto 5 · modificar</p>
+      <h2>Escribir con setAttribute</h2>
+      <div class="preview"><article id="prod-5" class="card">Bufanda</article></div>
+      <p>Poner el atributo <code>title</code> de <code>#prod-5</code> en <code>"Oferta"</code> (usar <code>setAttribute</code>).</p>
+      <textarea class="codigo">// Poner title="Oferta" en #prod-5 con setAttribute
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 05)</strong> <code>elemento.setAttribute("title", "Oferta")</code> crea o cambia un atributo.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="atr-combinar">
+      <p class="demo-titulo">Reto 6 · combinar</p>
+      <h2>Leer un atributo y reaccionar</h2>
+      <p>Si <code>data-stock</code> de <code>#prod-c</code> es <code>"0"</code>, agregarle la clase <code>agotado</code> (leer <code>dataset</code> + <code>classList</code>). Se verá tachado.</p>
+      <div class="preview"><article id="prod-c" class="card" data-stock="0">Remera</article></div>
+      <textarea class="codigo">// Si #prod-c tiene stock 0, marcarlo como "agotado"
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 05)</strong> <code>if (prod.dataset.stock === "0") prod.classList.add("agotado")</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="atr-precio">
+      <p class="demo-titulo">Reto 7 · combinar más</p>
+      <h2>Leer un dato y mostrarlo</h2>
+      <p>Mostrar en <code>#precio-out</code> el precio de <code>#prod-p</code> con el símbolo <code>$</code> (por ejemplo <code>$100</code>), leyendo <code>dataset</code> y escribiendo con <code>textContent</code>.</p>
+      <div class="preview"><article id="prod-p" class="card" data-precio="100">Pantalón</article><p id="precio-out">—</p></div>
+      <textarea class="codigo">// Mostrar en #precio-out el precio de #prod-p como "$100"
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 05)</strong> <code>"$" + prod.dataset.precio</code> y se escribe con <code>#precio-out.textContent = ...</code>.</div>
+      </div>
+    </section>
+
+    <nav class="nav-practica">
+      <a class="volver" href="04-propiedades-nodo.html">← Ejercicio anterior</a>
+      <a class="volver" href="../index.html">↩ Índice</a>
+      <a class="btn verde" href="06-crear-nodos.html">Siguiente ejercicio →</a>
+    </nav>
+  </main>
+
+  <script>
+    window.RETOS = {
+      "atr-combinar": {
+        preparar: function () { var p = document.getElementById("prod-c"); p.dataset.stock = "0"; p.classList.remove("agotado"); },
+        validar: function (valor, H) {
+          return document.getElementById("prod-c").classList.contains("agotado")
+            ? H.ok('#prod-c quedó marcado "agotado" (su stock es 0).')
+            : H.fail('Si data-stock es "0", #prod-c debe tener la clase "agotado". classList: [' + Array.from(document.getElementById("prod-c").classList).join(", ") + "]");
+        }
+      },
+      "atr-precio": {
+        preparar: function () { document.getElementById("precio-out").textContent = "—"; },
+        validar: function (valor, H) {
+          var precio = document.getElementById("prod-p").dataset.precio;
+          var t = document.getElementById("precio-out").textContent;
+          return t.indexOf("$") !== -1 && t.indexOf(precio) !== -1
+            ? H.ok("#precio-out muestra el precio con símbolo ($" + precio + ").")
+            : H.fail('#precio-out debe mostrar el precio con "$" (ej "$' + precio + '"). Ahora dice: ' + JSON.stringify(t));
+        }
+      },
+      "atr-getattr": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("prod-4").getAttribute("data-stock");
+          return valor === esperado
+            ? H.ok('getAttribute("data-stock") dio ' + JSON.stringify(esperado) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "atr-setattr": {
+        preparar: function () { document.getElementById("prod-5").removeAttribute("title"); },
+        validar: function (valor, H) {
+          var actual = document.getElementById("prod-5").getAttribute("title");
+          return actual === "Oferta"
+            ? H.ok('Ahora #prod-5 tiene el atributo title="Oferta".')
+            : H.fail("El atributo title de #prod-5 es " + JSON.stringify(actual) + ' y debe ser "Oferta".');
+        }
+      },
+      "atr-leer": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("prod-1").dataset.precio;
+          return valor === esperado
+            ? H.ok("El data-precio es " + JSON.stringify(esperado) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "atr-escribir": {
+        preparar: function () { document.getElementById("prod-2").dataset.stock = "5"; },
+        validar: function (valor, H) {
+          var actual = document.getElementById("prod-2").dataset.stock;
+          return actual === "0"
+            ? H.ok('Ahora data-stock de #prod-2 es "0".')
+            : H.fail("data-stock de #prod-2 es " + JSON.stringify(actual) + ' y debe ser "0".');
+        }
+      },
+      "atr-clase": {
+        preparar: function () { document.getElementById("prod-3").classList.remove("agotado"); },
+        validar: function (valor, H) {
+          return document.getElementById("prod-3").classList.contains("agotado")
+            ? H.ok('#prod-3 ahora tiene la clase "agotado".')
+            : H.fail('#prod-3 no tiene la clase "agotado". classList actual: [' + Array.from(document.getElementById("prod-3").classList).join(", ") + "]");
+        }
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="practica.js"></script>
+</body>
+</html>

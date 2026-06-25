@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Práctica · 08 · Eventos</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="practica.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <h1>Práctica · 08 · Eventos</h1>
+    <p>Reaccionar a lo que hace el usuario con addEventListener y el objeto del evento.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="../index.html">← Volver al índice</a>
+
+    <section class="tarjeta">
+      <h2>📋 Cómo funciona</h2>
+      <p>
+        En estos retos el código <strong>engancha un listener</strong> a un elemento de la vista
+        previa. Al pulsar <strong>Comprobar</strong>, la página <strong>simula el evento</strong>
+        (un clic, una escritura) y verifica el efecto: ✅ o ❌ con una explicación.
+      </p>
+    </section>
+
+    <!-- ===================== RETO 1 ===================== -->
+    <section class="tarjeta reto" data-reto="ev-click">
+      <p class="demo-titulo">Reto 1</p>
+      <h2>Reaccionar a un clic</h2>
+      <p>Agregar a <code>#boton-1</code> un listener de <code>click</code> que cambie el texto de <code>#salida-1</code> a <code>clickeado</code>.</p>
+      <div class="preview" id="pv-1"><button id="boton-1" class="btn">Haz clic</button> <p id="salida-1">sin clics</p></div>
+      <textarea class="codigo">// Al hacer clic en #boton-1, poner "clickeado" en #salida-1
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 08)</strong>
+          <code>elemento.addEventListener("click", function () { ... })</code> ejecuta esa función
+          cada vez que se hace clic.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 2 ===================== -->
+    <section class="tarjeta reto" data-reto="ev-tipo">
+      <p class="demo-titulo">Reto 2</p>
+      <h2>El objeto del evento</h2>
+      <p>Agregar a <code>#boton-2</code> un listener de <code>click</code> que, usando el objeto del evento, escriba en <code>#salida-2</code> el tipo de evento (<code>event.type</code>).</p>
+      <div class="preview" id="pv-2"><button id="boton-2" class="btn">Haz clic</button> <p id="salida-2">—</p></div>
+      <textarea class="codigo">// Escribir event.type en #salida-2 al hacer clic en #boton-2
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 08)</strong>
+          El listener recibe el evento como parámetro: <code>function (event) { ... event.type ... }</code>.
+          Para un clic, <code>event.type</code> vale <code>"click"</code>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 3 ===================== -->
+    <section class="tarjeta reto" data-reto="ev-input">
+      <p class="demo-titulo">Reto 3</p>
+      <h2>Reaccionar a lo que se escribe</h2>
+      <p>Agregar a <code>#campo-3</code> un listener de <code>input</code> que copie en <code>#eco-3</code> lo que se escribe (<code>event.target.value</code>).</p>
+      <div class="preview" id="pv-3"><input id="campo-3" type="text" placeholder="Escribe algo…" /> <p id="eco-3">—</p></div>
+      <textarea class="codigo">// Copiar en #eco-3 lo que se escribe en #campo-3
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 08)</strong>
+          El evento <code>input</code> se dispara al escribir. El valor está en
+          <code>event.target.value</code>.
+        </div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="ev-target">
+      <p class="demo-titulo">Reto 4</p>
+      <h2>Quién disparó el evento</h2>
+      <p>Agregar a <code>#boton-4</code> un listener de <code>click</code> que escriba en <code>#salida-4</code> el <code>id</code> del elemento clickeado (<code>event.target.id</code>).</p>
+      <div class="preview" id="pv-4"><button id="boton-4" class="btn">Haz clic</button> <p id="salida-4">—</p></div>
+      <textarea class="codigo">// Escribir event.target.id en #salida-4 al hacer clic en #boton-4
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 08)</strong> <code>event.target</code> es el elemento donde ocurrió el evento; su id, <code>event.target.id</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="ev-prevent">
+      <p class="demo-titulo">Reto 5</p>
+      <h2>Evitar la acción por defecto</h2>
+      <p>Agregar a <code>#enlace-5</code> un listener de <code>click</code> que evite que el enlace navegue, con <code>event.preventDefault()</code>.</p>
+      <div class="preview" id="pv-5"><a id="enlace-5" href="#destino" class="btn">Ir a destino</a> <span id="nota-5">(con preventDefault el clic no navega)</span></div>
+      <textarea class="codigo">// Evitar la navegación de #enlace-5 con event.preventDefault()
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 08)</strong> Dentro del listener, <code>event.preventDefault()</code> cancela la acción por defecto (como navegar o enviar un formulario).</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="ev-color">
+      <p class="demo-titulo">Reto 6 · combinar</p>
+      <h2>Un clic que cambia un color</h2>
+      <p>Al hacer clic en <code>#boton-c</code>, pintar el fondo de <code>#caja-ev</code> de verde (combina <code>addEventListener</code> y <code>style</code>).</p>
+      <div class="preview" id="pv-ev"><button id="boton-c" class="btn">Pintar caja</button> <div id="caja-ev" style="margin-top:8px;padding:16px;border-radius:8px;border:1px solid var(--gris-borde)">Caja</div></div>
+      <textarea class="codigo">// Al hacer clic en #boton-c, poner el fondo de #caja-ev en "green"
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 08)</strong> <code>#boton-c.addEventListener("click", function () { #caja-ev.style.backgroundColor = "green"; })</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="ev-contador">
+      <p class="demo-titulo">Reto 7 · combinar más</p>
+      <h2>Un contador de clics</h2>
+      <p>Al hacer clic en <code>#boton-n</code>, aumentar en 1 el número que se ve en <code>#cuenta</code> (combina el evento con leer y escribir <code>textContent</code>).</p>
+      <div class="preview" id="pv-cnt"><button id="boton-n" class="btn">+1</button> <p id="cuenta">0</p></div>
+      <textarea class="codigo">// Al hacer clic en #boton-n, sumar 1 al número de #cuenta
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 08)</strong> <code>#cuenta.textContent = Number(#cuenta.textContent) + 1</code> dentro del listener.</div>
+      </div>
+    </section>
+
+    <nav class="nav-practica">
+      <a class="volver" href="07-estilos-clases.html">← Ejercicio anterior</a>
+      <a class="volver" href="../index.html">↩ Índice</a>
+      <a class="btn verde" href="09-propagacion.html">Siguiente ejercicio →</a>
+    </nav>
+  </main>
+
+  <script>
+    window.RETOS = {
+      "ev-color": {
+        preparar: function () {
+          document.getElementById("pv-ev").innerHTML = '<button id="boton-c" class="btn">Pintar caja</button> <div id="caja-ev" style="margin-top:8px;padding:16px;border-radius:8px;border:1px solid var(--gris-borde)">Caja</div>';
+        },
+        validar: function (valor, H) {
+          document.getElementById("boton-c").click();
+          var bg = document.getElementById("caja-ev").style.backgroundColor;
+          return bg === "green" || bg === "rgb(0, 128, 0)"
+            ? H.ok("Al hacer clic, #caja-ev se pintó de verde.")
+            : H.fail("Tras el clic, el fondo de #caja-ev es " + JSON.stringify(bg) + ". Debe ser verde: enganchar un listener que haga style.backgroundColor = \"green\".");
+        }
+      },
+      "ev-contador": {
+        preparar: function () {
+          document.getElementById("pv-cnt").innerHTML = '<button id="boton-n" class="btn">+1</button> <p id="cuenta">0</p>';
+        },
+        validar: function (valor, H) {
+          var b = document.getElementById("boton-n");
+          b.click(); b.click(); b.click();
+          var t = document.getElementById("cuenta").textContent;
+          return t === "3"
+            ? H.ok("Tras 3 clics, #cuenta muestra 3.")
+            : H.fail("Tras 3 clics, #cuenta dice " + JSON.stringify(t) + ' y debe decir "3". El listener debe sumar 1 al número cada vez.');
+        }
+      },
+      "ev-target": {
+        preparar: function () {
+          document.getElementById("pv-4").innerHTML = '<button id="boton-4" class="btn">Haz clic</button> <p id="salida-4">—</p>';
+        },
+        validar: function (valor, H) {
+          document.getElementById("boton-4").click();
+          var txt = document.getElementById("salida-4").textContent;
+          return txt === "boton-4"
+            ? H.ok('Tras el clic, #salida-4 muestra el id del elemento clickeado: "boton-4".')
+            : H.fail("Tras el clic, #salida-4 dice " + JSON.stringify(txt) + ' y debe mostrar event.target.id ("boton-4").');
+        }
+      },
+      "ev-prevent": {
+        preparar: function () {
+          document.getElementById("pv-5").innerHTML = '<a id="enlace-5" href="#destino" class="btn">Ir a destino</a> <span id="nota-5">(con preventDefault el clic no navega)</span>';
+        },
+        validar: function (valor, H) {
+          var ev = new MouseEvent("click", { bubbles: true, cancelable: true });
+          document.getElementById("enlace-5").dispatchEvent(ev);
+          return ev.defaultPrevented === true
+            ? H.ok("El clic en #enlace-5 se canceló con preventDefault().")
+            : H.fail("El clic no se canceló. Falta event.preventDefault() en el listener de #enlace-5.");
+        }
+      },
+      "ev-click": {
+        preparar: function () {
+          document.getElementById("pv-1").innerHTML = '<button id="boton-1" class="btn">Haz clic</button> <p id="salida-1">sin clics</p>';
+        },
+        validar: function (valor, H) {
+          document.getElementById("boton-1").click(); // se simula el clic
+          var txt = document.getElementById("salida-1").textContent;
+          return txt === "clickeado"
+            ? H.ok('Tras el clic, #salida-1 dice "clickeado".')
+            : H.fail("Tras simular el clic, #salida-1 dice " + JSON.stringify(txt) + ' y debe decir "clickeado". ¿Se enganchó el listener?');
+        }
+      },
+      "ev-tipo": {
+        preparar: function () {
+          document.getElementById("pv-2").innerHTML = '<button id="boton-2" class="btn">Haz clic</button> <p id="salida-2">—</p>';
+        },
+        validar: function (valor, H) {
+          document.getElementById("boton-2").click();
+          var txt = document.getElementById("salida-2").textContent;
+          return txt === "click"
+            ? H.ok('Tras el clic, #salida-2 muestra el tipo de evento: "click".')
+            : H.fail("Tras simular el clic, #salida-2 dice " + JSON.stringify(txt) + ' y debe mostrar event.type ("click").');
+        }
+      },
+      "ev-input": {
+        preparar: function () {
+          document.getElementById("pv-3").innerHTML = '<input id="campo-3" type="text" placeholder="Escribe algo…" /> <p id="eco-3">—</p>';
+        },
+        validar: function (valor, H) {
+          var campo = document.getElementById("campo-3");
+          campo.value = "hola";
+          campo.dispatchEvent(new Event("input", { bubbles: true })); // se simula la escritura
+          var txt = document.getElementById("eco-3").textContent;
+          return txt === "hola"
+            ? H.ok('Tras escribir "hola", #eco-3 muestra "hola".')
+            : H.fail("Tras simular la escritura de \"hola\", #eco-3 dice " + JSON.stringify(txt) + ' y debe decir "hola".');
+        }
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="practica.js"></script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Práctica · 09 · Propagación</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="practica.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+  <style>
+    .cont { border: 2px solid var(--gris-borde); border-radius: 8px; padding: 10px; margin: 6px 0; cursor: pointer; }
+    ul.lista-deleg { list-style: disc inside; margin: 6px 0; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header class="encabezado">
+    <h1>Práctica · 09 · Propagación</h1>
+    <p>Cómo viaja un evento por el árbol: burbujeo, detenerlo y delegación.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="../index.html">← Volver al índice</a>
+
+    <section class="tarjeta">
+      <h2>📋 Cómo funciona</h2>
+      <p>
+        El código engancha listeners a elementos anidados. Al pulsar <strong>Comprobar</strong>, la
+        página <strong>simula un clic</strong> en un elemento concreto y verifica cómo se propagó el
+        evento: ✅ o ❌ con una explicación.
+      </p>
+    </section>
+
+    <!-- ===================== RETO 1 · burbujeo ===================== -->
+    <section class="tarjeta reto" data-reto="prop-burbujeo">
+      <p class="demo-titulo">Reto 1 · burbujeo</p>
+      <h2>El evento sube por el árbol</h2>
+      <p>Agregar a <code>#abuelo-1</code> un listener de <code>click</code> que escriba <code>abuelo</code> en <code>#orden-1</code>. Por burbujeo, un clic en <code>#hijo-1</code> también lo dispara.</p>
+      <div class="preview" id="pv-b">
+        <div id="abuelo-1" class="cont">abuelo<div id="hijo-1" class="cont">hijo</div></div>
+        <p id="orden-1">—</p>
+      </div>
+      <textarea class="codigo">// Listener de click en #abuelo-1 que escribe "abuelo" en #orden-1
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 09)</strong>
+          Por burbujeo, un clic en un hijo también ejecuta los listeners de sus ancestros. El listener
+          va en <code>#abuelo-1</code>, aunque el clic ocurra en <code>#hijo-1</code>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 2 · stopPropagation ===================== -->
+    <section class="tarjeta reto" data-reto="prop-stop">
+      <p class="demo-titulo">Reto 2 · detener</p>
+      <h2>Frenar la propagación</h2>
+      <p>El <code>#abuelo-2</code> ya reacciona al clic (escribe <code>abuelo</code>). Agregar a <code>#hijo-2</code> un listener de <code>click</code> que llame a <code>event.stopPropagation()</code> para que el clic NO llegue al abuelo.</p>
+      <div class="preview" id="pv-s">
+        <div id="abuelo-2" class="cont">abuelo<div id="hijo-2" class="cont">hijo</div></div>
+        <p id="orden-2">—</p>
+      </div>
+      <textarea class="codigo">// Listener de click en #hijo-2 que detiene la propagación
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 09)</strong>
+          Dentro del listener de <code>#hijo-2</code>, <code>event.stopPropagation()</code> impide que
+          el evento siga subiendo hasta <code>#abuelo-2</code>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 3 · delegación ===================== -->
+    <section class="tarjeta reto" data-reto="prop-delegacion">
+      <p class="demo-titulo">Reto 3 · delegación</p>
+      <h2>Un solo listener para muchos</h2>
+      <p>Agregar UN listener de <code>click</code> a <code>#lista-d</code> que, usando <code>event.target</code>, escriba en <code>#orden-3</code> el texto del <code>&lt;li&gt;</code> en el que se hizo clic.</p>
+      <div class="preview" id="pv-d">
+        <ul id="lista-d" class="lista-deleg"><li>uno</li><li>dos</li><li>tres</li></ul>
+        <p id="orden-3">—</p>
+      </div>
+      <textarea class="codigo">// Un listener en #lista-d que escribe en #orden-3 el texto del <li> clickeado
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 09)</strong>
+          Con delegación, un listener en el contenedor sirve para todos los hijos.
+          <code>event.target</code> es el elemento concreto donde ocurrió el clic.
+        </div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="prop-current">
+      <p class="demo-titulo">Reto 4 · target vs currentTarget</p>
+      <h2>El dueño del listener</h2>
+      <p>Agregar a <code>#lista-4</code> un listener de <code>click</code> que escriba en <code>#orden-4</code> el <code>id</code> de <code>event.currentTarget</code> (el elemento que tiene el listener, no donde se hizo clic).</p>
+      <div class="preview" id="pv-c">
+        <ul id="lista-4" class="lista-deleg"><li>uno</li><li>dos</li></ul>
+        <p id="orden-4">—</p>
+      </div>
+      <textarea class="codigo">// Escribir event.currentTarget.id en #orden-4
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 09)</strong> <code>event.target</code> es dónde ocurrió el clic; <code>event.currentTarget</code> es el elemento que tiene el listener.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="prop-captura">
+      <p class="demo-titulo">Reto 5 · captura</p>
+      <h2>La fase de captura</h2>
+      <p>El <code>#hijo-5</code> ya reacciona (escribe <code>hijo</code>). Agregar a <code>#abuelo-5</code> un listener de <code>click</code> en <strong>fase de captura</strong> (tercer argumento <code>true</code>) que agregue <code>abuelo</code>. En captura, el abuelo se ejecuta ANTES que el hijo.</p>
+      <div class="preview" id="pv-cap">
+        <div id="abuelo-5" class="cont">abuelo<div id="hijo-5" class="cont">hijo</div></div>
+        <p id="orden-5">—</p>
+      </div>
+      <textarea class="codigo">// Listener de click en #abuelo-5 EN CAPTURA que agrega "abuelo " a #orden-5
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 09)</strong> <code>addEventListener("click", fn, true)</code> engancha en fase de captura: los ancestros se ejecutan antes de llegar al destino.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="prop-deleg-color">
+      <p class="demo-titulo">Reto 6 · combinar</p>
+      <h2>Delegación que pinta</h2>
+      <p>Con UN solo listener en <code>#lista-dc</code> (delegación), al hacer clic en un <code>&lt;li&gt;</code> pintarlo de amarillo (combina <code>event.target</code> y <code>style</code>).</p>
+      <div class="preview" id="pv-dc"><ul id="lista-dc" class="lista-deleg"><li>uno</li><li>dos</li><li>tres</li></ul></div>
+      <textarea class="codigo">// Un listener en #lista-dc que pinta de amarillo el <li> clickeado
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 09)</strong> <code>#lista-dc.addEventListener("click", function (e) { e.target.style.backgroundColor = "yellow"; })</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="prop-deleg-contar">
+      <p class="demo-titulo">Reto 7 · combinar más</p>
+      <h2>Delegación que cuenta</h2>
+      <p>Con UN listener en <code>#lista-n</code> (delegación), cada clic en un <code>&lt;li&gt;</code> suma 1 al contador <code>#clicks</code> (combina el evento con <code>textContent</code>).</p>
+      <div class="preview" id="pv-dn"><ul id="lista-n" class="lista-deleg"><li>a</li><li>b</li></ul><p id="clicks">0</p></div>
+      <textarea class="codigo">// Un listener en #lista-n que suma 1 a #clicks por cada clic en un <li>
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 09)</strong> <code>#clicks.textContent = Number(#clicks.textContent) + 1</code> dentro del listener del contenedor.</div>
+      </div>
+    </section>
+
+    <nav class="nav-practica">
+      <a class="volver" href="08-eventos.html">← Ejercicio anterior</a>
+      <a class="volver" href="../index.html">↩ Volver al índice</a>
+      <span class="objetivo">✅ Fin de los ejercicios</span>
+    </nav>
+  </main>
+
+  <script>
+    window.RETOS = {
+      "prop-deleg-color": {
+        preparar: function () {
+          document.getElementById("pv-dc").innerHTML = '<ul id="lista-dc" class="lista-deleg"><li>uno</li><li>dos</li><li>tres</li></ul>';
+        },
+        validar: function (valor, H) {
+          var lista = document.getElementById("lista-dc");
+          lista.children[1].click();
+          var c1 = lista.children[1].style.backgroundColor;
+          var c0 = lista.children[0].style.backgroundColor;
+          var amarillo = c1 === "yellow" || c1 === "rgb(255, 255, 0)";
+          return amarillo && c0 === ""
+            ? H.ok("Al hacer clic en el 2.º <li>, solo ese se pintó de amarillo (event.target).")
+            : H.fail("Solo el <li> clickeado debe pintarse. 2.º <li>: " + JSON.stringify(c1) + " · 1.º <li>: " + JSON.stringify(c0) + ". Usar event.target.style.");
+        }
+      },
+      "prop-deleg-contar": {
+        preparar: function () {
+          document.getElementById("pv-dn").innerHTML = '<ul id="lista-n" class="lista-deleg"><li>a</li><li>b</li></ul><p id="clicks">0</p>';
+        },
+        validar: function (valor, H) {
+          var lista = document.getElementById("lista-n");
+          lista.children[0].click();
+          lista.children[1].click();
+          var t = document.getElementById("clicks").textContent;
+          return t === "2"
+            ? H.ok("Tras 2 clics en los <li>, #clicks muestra 2 (delegación + contador).")
+            : H.fail("Tras 2 clics, #clicks dice " + JSON.stringify(t) + ' y debe decir "2". Un solo listener en #lista-n con delegación.');
+        }
+      },
+      "prop-current": {
+        preparar: function () {
+          document.getElementById("pv-c").innerHTML =
+            '<ul id="lista-4" class="lista-deleg"><li>uno</li><li>dos</li></ul><p id="orden-4">—</p>';
+        },
+        validar: function (valor, H) {
+          document.getElementById("lista-4").children[0].click(); // clic en un <li>
+          var txt = document.getElementById("orden-4").textContent;
+          return txt === "lista-4"
+            ? H.ok('currentTarget es #lista-4 (el del listener), aunque el clic fue en un <li>.')
+            : H.fail("Tras el clic, #orden-4 dice " + JSON.stringify(txt) + ' y debe mostrar event.currentTarget.id ("lista-4").');
+        }
+      },
+      "prop-captura": {
+        preparar: function () {
+          document.getElementById("pv-cap").innerHTML =
+            '<div id="abuelo-5" class="cont">abuelo<div id="hijo-5" class="cont">hijo</div></div><p id="orden-5"></p>';
+          // El hijo ya reacciona (esto lo da el ejercicio): agrega "hijo".
+          document.getElementById("hijo-5").addEventListener("click", function () {
+            document.getElementById("orden-5").textContent += "hijo ";
+          });
+        },
+        validar: function (valor, H) {
+          document.getElementById("hijo-5").click();
+          var txt = document.getElementById("orden-5").textContent.trim();
+          return txt === "abuelo hijo"
+            ? H.ok("En captura, el listener de #abuelo-5 se ejecutó ANTES que el del hijo.")
+            : H.fail('Se esperaba el orden "abuelo hijo" (captura primero). Resultado: ' + JSON.stringify(txt) + ". Falta el tercer argumento true en addEventListener.");
+        }
+      },
+      "prop-burbujeo": {
+        preparar: function () {
+          document.getElementById("pv-b").innerHTML =
+            '<div id="abuelo-1" class="cont">abuelo<div id="hijo-1" class="cont">hijo</div></div><p id="orden-1">—</p>';
+        },
+        validar: function (valor, H) {
+          document.getElementById("hijo-1").click(); // clic en el hijo: debe burbujear hasta el abuelo
+          var txt = document.getElementById("orden-1").textContent;
+          return txt === "abuelo"
+            ? H.ok('Un clic en #hijo-1 burbujeó y disparó el listener de #abuelo-1 ("abuelo").')
+            : H.fail("Tras hacer clic en #hijo-1, #orden-1 dice " + JSON.stringify(txt) + ' y debe decir "abuelo". El listener va en #abuelo-1.');
+        }
+      },
+      "prop-stop": {
+        preparar: function () {
+          var pv = document.getElementById("pv-s");
+          pv.innerHTML = '<div id="abuelo-2" class="cont">abuelo<div id="hijo-2" class="cont">hijo</div></div><p id="orden-2">—</p>';
+          // El abuelo ya reacciona (esto lo da el ejercicio, no el alumno).
+          document.getElementById("abuelo-2").addEventListener("click", function () {
+            var o = document.getElementById("orden-2");
+            o.textContent = (o.textContent === "—" ? "" : o.textContent) + "abuelo ";
+          });
+        },
+        validar: function (valor, H) {
+          document.getElementById("hijo-2").click(); // si el alumno detuvo la propagación, el abuelo no reacciona
+          var txt = document.getElementById("orden-2").textContent;
+          return txt.indexOf("abuelo") === -1
+            ? H.ok("El clic en #hijo-2 no llegó al abuelo: la propagación se detuvo.")
+            : H.fail('El clic llegó al abuelo (#orden-2 dice "' + txt + '"). Falta event.stopPropagation() en el listener de #hijo-2.');
+        }
+      },
+      "prop-delegacion": {
+        preparar: function () {
+          document.getElementById("pv-d").innerHTML =
+            '<ul id="lista-d" class="lista-deleg"><li>uno</li><li>dos</li><li>tres</li></ul><p id="orden-3">—</p>';
+        },
+        validar: function (valor, H) {
+          document.getElementById("lista-d").children[1].click(); // clic en el 2.º <li> ("dos")
+          var txt = document.getElementById("orden-3").textContent;
+          return txt === "dos"
+            ? H.ok('El clic en el 2.º <li> escribió "dos" usando event.target.')
+            : H.fail("Tras hacer clic en el <li> \"dos\", #orden-3 dice " + JSON.stringify(txt) + ' y debe decir "dos". Usar event.target.textContent.');
+        }
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="practica.js"></script>
+</body>
+</html>

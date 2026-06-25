@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Práctica · 02 · Navegación</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="practica.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <h1>Práctica · 02 · Navegación</h1>
+    <p>Moverse por el árbol del DOM: padres, hijos y hermanos.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="../index.html">← Volver al índice</a>
+
+    <section class="tarjeta">
+      <h2>📋 Cómo funciona</h2>
+      <p>
+        Cada reto pide escribir una expresión que <strong>dé un valor</strong>. Al pulsar
+        <strong>Comprobar</strong>, se evalúa la última expresión y se compara con lo esperado:
+        ✅ si está bien, ❌ con una explicación si no. No hace falta <code>return</code>.
+      </p>
+    </section>
+
+    <section class="tarjeta">
+      <h2>🌳 El árbol</h2>
+      <p>Los 3 retos navegan sobre esta lista:</p>
+      <div class="demo">
+        <ul id="lista">
+          <li id="item-a">Manzana</li>
+          <li id="item-b">Banana</li>
+          <li id="item-c">Cereza</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 1 ===================== -->
+    <section class="tarjeta reto" data-reto="nav-padre">
+      <p class="demo-titulo">Reto 1</p>
+      <h2>El padre de un elemento</h2>
+      <p>Obtener el <code>id</code> del elemento padre de <code>#item-b</code>.</p>
+      <textarea class="codigo">// El id del padre de #item-b
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 02)</strong>
+          El padre de un elemento se obtiene con <code>.parentElement</code>, y su id con <code>.id</code>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 2 ===================== -->
+    <section class="tarjeta reto" data-reto="nav-hijos">
+      <p class="demo-titulo">Reto 2</p>
+      <h2>Cantidad de hijos</h2>
+      <p>Obtener cuántos hijos (elementos) tiene <code>#lista</code>.</p>
+      <textarea class="codigo">// La cantidad de hijos de #lista
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 02)</strong>
+          Los hijos elemento están en <code>.children</code>; la cantidad, en <code>.children.length</code>.
+          También existen <code>.firstElementChild</code> y <code>.lastElementChild</code>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 3 ===================== -->
+    <section class="tarjeta reto" data-reto="nav-hermano">
+      <p class="demo-titulo">Reto 3</p>
+      <h2>El hermano siguiente</h2>
+      <p>Obtener el texto del hermano siguiente de <code>#item-a</code>.</p>
+      <textarea class="codigo">// El texto del hermano siguiente de #item-a
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 02)</strong>
+          El hermano siguiente es <code>.nextElementSibling</code> (el anterior, <code>.previousElementSibling</code>);
+          su texto se lee con <code>.textContent</code>.
+        </div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="nav-primero">
+      <p class="demo-titulo">Reto 4</p>
+      <h2>El primer hijo</h2>
+      <p>Obtener el texto del primer hijo de <code>#lista</code> (<code>firstElementChild</code>).</p>
+      <textarea class="codigo">// El texto del primer hijo de #lista
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 02)</strong> El primer hijo elemento es <code>.firstElementChild</code>; el último, <code>.lastElementChild</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="nav-anterior">
+      <p class="demo-titulo">Reto 5</p>
+      <h2>El hermano anterior</h2>
+      <p>Obtener el texto del hermano anterior de <code>#item-c</code> (<code>previousElementSibling</code>).</p>
+      <textarea class="codigo">// El texto del hermano anterior de #item-c
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 02)</strong> El hermano anterior es <code>.previousElementSibling</code> (puede ser <code>null</code> si es el primero).</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="nav-marcar">
+      <p class="demo-titulo">Reto 6 · combinar</p>
+      <h2>Navegar y cambiar el texto</h2>
+      <p>Cambiar el texto del hermano siguiente de <code>#ma</code> a <code>Elegido</code> (navegar con <code>nextElementSibling</code> y escribir con <code>textContent</code>). El cambio se ve abajo.</p>
+      <div class="preview"><ul id="lista-m"><li id="ma">Manzana</li><li id="mb">Banana</li></ul></div>
+      <textarea class="codigo">// Cambiar el texto del hermano siguiente de #ma a "Elegido"
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 02)</strong> <code>document.getElementById("ma").nextElementSibling.textContent = "Elegido"</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="nav-info">
+      <p class="demo-titulo">Reto 7 · combinar más</p>
+      <h2>Navegar y mostrar un conteo</h2>
+      <p>Mostrar en <code>#info-nav</code> cuántos hijos tiene <code>#lista-i</code> (navegar con <code>children</code> y escribir con <code>textContent</code>).</p>
+      <div class="preview"><ul id="lista-i"><li>a</li><li>b</li><li>c</li></ul><p id="info-nav">—</p></div>
+      <textarea class="codigo">// Mostrar en #info-nav la cantidad de hijos de #lista-i
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 02)</strong> <code>#lista-i.children.length</code> da la cantidad; se escribe con <code>#info-nav.textContent = ...</code>.</div>
+      </div>
+    </section>
+
+    <nav class="nav-practica">
+      <a class="volver" href="01-dom-bom.html">← Ejercicio anterior</a>
+      <a class="volver" href="../index.html">↩ Índice</a>
+      <a class="btn verde" href="03-busqueda.html">Siguiente ejercicio →</a>
+    </nav>
+  </main>
+
+  <script>
+    window.RETOS = {
+      "nav-marcar": {
+        preparar: function () { document.getElementById("lista-m").innerHTML = '<li id="ma">Manzana</li><li id="mb">Banana</li>'; },
+        validar: function (valor, H) {
+          var sig = document.getElementById("ma").nextElementSibling;
+          return sig && sig.textContent === "Elegido"
+            ? H.ok('El hermano siguiente de #ma ahora dice "Elegido".')
+            : H.fail('El hermano siguiente de #ma debe decir "Elegido". Ahora dice: ' + JSON.stringify(sig ? sig.textContent : null));
+        }
+      },
+      "nav-info": {
+        preparar: function () {
+          document.getElementById("lista-i").innerHTML = "<li>a</li><li>b</li><li>c</li>";
+          document.getElementById("info-nav").textContent = "—";
+        },
+        validar: function (valor, H) {
+          var n = document.getElementById("lista-i").children.length;
+          var t = document.getElementById("info-nav").textContent;
+          return t.indexOf(String(n)) !== -1
+            ? H.ok("#info-nav muestra la cantidad de hijos (" + n + ").")
+            : H.fail("#info-nav debe mostrar cuántos hijos tiene #lista-i (" + n + "). Ahora dice: " + JSON.stringify(t));
+        }
+      },
+      "nav-primero": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("lista").firstElementChild.textContent;
+          return valor === esperado
+            ? H.ok("El primer hijo de #lista es " + JSON.stringify(esperado) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "nav-anterior": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("item-c").previousElementSibling.textContent;
+          return valor === esperado
+            ? H.ok("El hermano anterior de #item-c es " + JSON.stringify(esperado) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "nav-padre": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("item-b").parentElement.id;
+          return valor === esperado
+            ? H.ok("El padre de #item-b es #" + esperado + ".")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "nav-hijos": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("lista").children.length;
+          return valor === esperado
+            ? H.ok("#lista tiene " + esperado + " hijos.")
+            : H.fail("Se esperaba " + esperado + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "nav-hermano": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("item-a").nextElementSibling.textContent;
+          return valor === esperado
+            ? H.ok("El hermano siguiente de #item-a es " + JSON.stringify(esperado) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="practica.js"></script>
+</body>
+</html>

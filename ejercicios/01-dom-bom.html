@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Práctica · 01 · DOM y BOM</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="practica.css" />
+  <!-- Editor con resaltado (CodeMirror, vía CDN). Si no carga, queda un textarea normal. -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <h1>Práctica · 01 · DOM y BOM</h1>
+    <p>Escribir el código que cada reto pide. La página valida el resultado y muestra si está bien o mal.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="../index.html">← Volver al índice</a>
+
+    <section class="tarjeta">
+      <h2>📋 Cómo funciona</h2>
+      <p>
+        Cada reto pide escribir código en el editor. Al pulsar <strong>Comprobar</strong>, el código
+        se evalúa, se toma el valor de la <strong>última expresión</strong> y se compara con lo
+        esperado: aparece ✅ si está correcto, o ❌ con una explicación si no.
+      </p>
+      <ul class="objetivos">
+        <li>En los retos de <strong>leer</strong>, basta escribir la expresión que da el valor (por ejemplo <code>window.innerWidth</code>). No hace falta <code>return</code>.</li>
+        <li>En los retos de <strong>modificar</strong>, el código cambia la <strong>vista previa</strong> y se valida el resultado en el DOM.</li>
+        <li>El botón <strong>Pista</strong> recuerda el concepto de la lección 01.</li>
+      </ul>
+    </section>
+
+    <!-- ===================== RETO 1 · BOM (leer) ===================== -->
+    <section class="tarjeta reto" data-reto="bom-ancho">
+      <p class="demo-titulo">Reto 1 · BOM</p>
+      <h2>Ancho de la ventana</h2>
+      <p>Obtener el ancho interior de la ventana, en píxeles, con el objeto <code>window</code> del BOM.</p>
+      <textarea class="codigo">// El ancho interior de la ventana (objeto window)
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 01)</strong>
+          El BOM expone el tamaño visible de la ventana en <code>window.innerWidth</code> e <code>innerHeight</code>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 2 · DOM (leer) ===================== -->
+    <section class="tarjeta reto" data-reto="dom-leer">
+      <p class="demo-titulo">Reto 2 · DOM</p>
+      <h2>Leer el texto de un elemento</h2>
+      <p>En la página existe este elemento:</p>
+      <div class="demo"><p id="objetivo" class="objetivo">El DOM es un árbol de nodos</p></div>
+      <p>Obtener el texto del elemento <code>#objetivo</code>.</p>
+      <textarea class="codigo">// El texto de #objetivo
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 01)</strong>
+          Un elemento se busca con <code>document.getElementById("id")</code> y su texto se lee con la propiedad <code>.textContent</code>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 3 · DOM (modificar) ===================== -->
+    <section class="tarjeta reto" data-reto="dom-escribir">
+      <p class="demo-titulo">Reto 3 · DOM</p>
+      <h2>Cambiar el texto de un elemento</h2>
+      <p>Cambiar el texto de <code>#objetivo-2</code> para que sea exactamente <code>Hola DOM</code>.</p>
+      <p>Vista previa (cambia en vivo al resolver el reto):</p>
+      <div class="preview"><p id="objetivo-2" class="objetivo">Texto original</p></div>
+      <textarea class="codigo">// Cambiar el textContent de #objetivo-2 a "Hola DOM"
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 01)</strong>
+          Asignar un valor a <code>.textContent</code> modifica el DOM sin recargar la página: <code>elemento.textContent = "..."</code>.
+        </div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="bom-idioma">
+      <p class="demo-titulo">Reto 4 · BOM</p>
+      <h2>Idioma del navegador</h2>
+      <p>Obtener el idioma del navegador con el objeto <code>navigator</code>.</p>
+      <textarea class="codigo">// El idioma del navegador (objeto navigator)
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 01)</strong> El idioma del navegador está en <code>navigator.language</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="bom-ruta">
+      <p class="demo-titulo">Reto 5 · BOM</p>
+      <h2>Ruta del archivo</h2>
+      <p>Obtener la ruta del archivo actual con el objeto <code>location</code>.</p>
+      <textarea class="codigo">// La ruta del archivo actual (objeto location)
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 01)</strong> La ruta del archivo está en <code>location.pathname</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="bom-mostrar">
+      <p class="demo-titulo">Reto 6 · combinar</p>
+      <h2>Mostrar un dato del navegador</h2>
+      <p>Mostrar el ancho de la ventana dentro de <code>#salida-bom</code> usando <code>textContent</code>. Combina leer el BOM y modificar el DOM, y el resultado se ve abajo.</p>
+      <div class="preview"><p id="salida-bom">—</p></div>
+      <textarea class="codigo">// Mostrar window.innerWidth dentro de #salida-bom (textContent)
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 01)</strong> <code>document.getElementById("salida-bom").textContent = window.innerWidth</code> (o con un texto alrededor).</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="bom-ficha">
+      <p class="demo-titulo">Reto 7 · combinar más</p>
+      <h2>Una ficha del entorno</h2>
+      <p>Mostrar en <code>#ficha-bom</code> el <strong>idioma</strong> del navegador y el <strong>ancho</strong> de la ventana, juntos (por ejemplo <code>es-ES · 1280px</code>).</p>
+      <div class="preview"><p id="ficha-bom">—</p></div>
+      <textarea class="codigo">// Mostrar navigator.language y window.innerWidth en #ficha-bom
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 01)</strong> Se pueden unir valores con <code>+</code>: <code>navigator.language + " · " + window.innerWidth + "px"</code>.</div>
+      </div>
+    </section>
+
+    <nav class="nav-practica">
+      <a class="volver" href="../index.html">↩ Volver al índice</a>
+      <a class="btn verde" href="02-navegacion.html">Siguiente ejercicio →</a>
+    </nav>
+  </main>
+
+  <!-- Validadores de este tema -->
+  <script>
+    window.RETOS = {
+      "bom-mostrar": {
+        preparar: function () { document.getElementById("salida-bom").textContent = "—"; },
+        validar: function (valor, H) {
+          var t = document.getElementById("salida-bom").textContent;
+          return t.indexOf(String(window.innerWidth)) !== -1
+            ? H.ok("#salida-bom muestra el ancho de la ventana (" + window.innerWidth + ").")
+            : H.fail("#salida-bom debe mostrar el ancho de la ventana (" + window.innerWidth + "). Ahora dice: " + JSON.stringify(t));
+        }
+      },
+      "bom-ficha": {
+        preparar: function () { document.getElementById("ficha-bom").textContent = "—"; },
+        validar: function (valor, H) {
+          var t = document.getElementById("ficha-bom").textContent;
+          return t.indexOf(navigator.language) !== -1 && t.indexOf(String(window.innerWidth)) !== -1
+            ? H.ok("#ficha-bom muestra el idioma y el ancho.")
+            : H.fail("#ficha-bom debe incluir el idioma (" + navigator.language + ") y el ancho (" + window.innerWidth + "). Ahora dice: " + JSON.stringify(t));
+        }
+      },
+      "bom-idioma": {
+        validar: function (valor, H) {
+          return valor === navigator.language
+            ? H.ok("El idioma del navegador es " + JSON.stringify(valor) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(navigator.language) + " (navigator.language). El código dio: " + H.describir(valor));
+        }
+      },
+      "bom-ruta": {
+        validar: function (valor, H) {
+          return valor === location.pathname
+            ? H.ok("La ruta actual es " + JSON.stringify(valor) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(location.pathname) + " (location.pathname). El código dio: " + H.describir(valor));
+        }
+      },
+      "bom-ancho": {
+        validar: function (valor, H) {
+          return valor === window.innerWidth
+            ? H.ok("El valor es " + valor + ", el ancho real de la ventana.")
+            : H.fail("Se esperaba " + window.innerWidth + " (window.innerWidth). El código dio: " + H.describir(valor));
+        }
+      },
+      "dom-leer": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("objetivo").textContent;
+          return valor === esperado
+            ? H.ok("El valor coincide con el texto de #objetivo.")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "dom-escribir": {
+        preparar: function () { document.getElementById("objetivo-2").textContent = "Texto original"; },
+        validar: function (valor, H) {
+          var actual = document.getElementById("objetivo-2").textContent;
+          return actual === "Hola DOM"
+            ? H.ok('El texto de #objetivo-2 ahora es "Hola DOM".')
+            : H.fail("El textContent de #objetivo-2 es " + JSON.stringify(actual) + ' y debe ser "Hola DOM".');
+        }
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="practica.js"></script>
+</body>
+</html>

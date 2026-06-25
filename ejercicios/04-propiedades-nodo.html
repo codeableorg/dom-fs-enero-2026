@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Práctica · 04 · Propiedades de un nodo</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="practica.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <h1>Práctica · 04 · Propiedades de un nodo</h1>
+    <p>Leer el contenido y el tipo de un nodo: textContent, innerHTML, nodeName.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="../index.html">← Volver al índice</a>
+
+    <section class="tarjeta">
+      <h2>📋 Cómo funciona</h2>
+      <p>
+        Cada reto pide escribir una expresión que <strong>dé un valor</strong>. Al pulsar
+        <strong>Comprobar</strong>, se evalúa la última expresión y se compara con lo esperado:
+        ✅ si está bien, ❌ con una explicación si no. No hace falta <code>return</code>.
+      </p>
+    </section>
+
+    <section class="tarjeta">
+      <h2>📦 El elemento</h2>
+      <p>Los 3 retos leen propiedades de esta caja (tiene una etiqueta <code>&lt;strong&gt;</code> adentro):</p>
+      <div class="demo"><div id="caja"><strong>Hola</strong> mundo</div></div>
+    </section>
+
+    <!-- ===================== RETO 1 ===================== -->
+    <section class="tarjeta reto" data-reto="prop-text">
+      <p class="demo-titulo">Reto 1</p>
+      <h2>Solo el texto</h2>
+      <p>Obtener el <code>textContent</code> de <code>#caja</code>.</p>
+      <textarea class="codigo">// El textContent de #caja
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 04)</strong>
+          <code>.textContent</code> devuelve solo el texto, sin etiquetas.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 2 ===================== -->
+    <section class="tarjeta reto" data-reto="prop-html">
+      <p class="demo-titulo">Reto 2</p>
+      <h2>El HTML interno</h2>
+      <p>Obtener el <code>innerHTML</code> de <code>#caja</code>.</p>
+      <textarea class="codigo">// El innerHTML de #caja
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 04)</strong>
+          <code>.innerHTML</code> devuelve el contenido CON etiquetas. <code>.outerHTML</code> incluye al propio elemento.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 3 ===================== -->
+    <section class="tarjeta reto" data-reto="prop-nombre">
+      <p class="demo-titulo">Reto 3</p>
+      <h2>El tipo de etiqueta</h2>
+      <p>Obtener el <code>nodeName</code> de <code>#caja</code>.</p>
+      <textarea class="codigo">// El nodeName de #caja
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 04)</strong>
+          <code>.nodeName</code> (y <code>.tagName</code>) devuelven el nombre de la etiqueta en MAYÚSCULAS.
+          <code>.nodeType</code> vale <code>1</code> en los elementos.
+        </div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="prop-outer">
+      <p class="demo-titulo">Reto 4</p>
+      <h2>El elemento completo</h2>
+      <p>Obtener el <code>outerHTML</code> de <code>#caja</code> (el elemento entero, incluido él mismo).</p>
+      <textarea class="codigo">// El outerHTML de #caja
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 04)</strong> <code>.outerHTML</code> incluye al propio elemento; <code>.innerHTML</code>, solo su contenido.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="prop-tipo">
+      <p class="demo-titulo">Reto 5</p>
+      <h2>El tipo de nodo</h2>
+      <p>Obtener el <code>nodeType</code> de <code>#caja</code>.</p>
+      <textarea class="codigo">// El nodeType de #caja
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 04)</strong> <code>.nodeType</code> vale <code>1</code> en los elementos, <code>3</code> en los nodos de texto.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="prop-copiar">
+      <p class="demo-titulo">Reto 6 · combinar</p>
+      <h2>Copiar texto de un nodo a otro</h2>
+      <p>Copiar el <code>textContent</code> de <code>#origen-4</code> a <code>#destino-4</code>. El resultado se ve abajo.</p>
+      <div class="preview"><div id="origen-4"><strong>Hola</strong> equipo</div><p id="destino-4">—</p></div>
+      <textarea class="codigo">// Copiar el textContent de #origen-4 a #destino-4
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 04)</strong> <code>#destino-4.textContent = #origen-4.textContent</code> (solo el texto, sin etiquetas).</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="prop-set-html">
+      <p class="demo-titulo">Reto 7 · combinar más</p>
+      <h2>Escribir HTML en un nodo</h2>
+      <p>Poner dentro de <code>#caja-html</code> el contenido <code>&lt;b&gt;Oferta&lt;/b&gt;</code> usando <code>innerHTML</code> (se verá en negrita).</p>
+      <div class="preview"><div id="caja-html">—</div></div>
+      <textarea class="codigo">// Poner <b>Oferta</b> dentro de #caja-html con innerHTML
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 04)</strong> <code>#caja-html.innerHTML = "&lt;b&gt;Oferta&lt;/b&gt;"</code> interpreta las etiquetas (a diferencia de textContent).</div>
+      </div>
+    </section>
+
+    <nav class="nav-practica">
+      <a class="volver" href="03-busqueda.html">← Ejercicio anterior</a>
+      <a class="volver" href="../index.html">↩ Índice</a>
+      <a class="btn verde" href="05-atributos.html">Siguiente ejercicio →</a>
+    </nav>
+  </main>
+
+  <script>
+    window.RETOS = {
+      "prop-copiar": {
+        preparar: function () { document.getElementById("destino-4").textContent = "—"; },
+        validar: function (valor, H) {
+          var esperado = document.getElementById("origen-4").textContent;
+          var actual = document.getElementById("destino-4").textContent;
+          return actual === esperado
+            ? H.ok("#destino-4 ahora tiene el texto de #origen-4: " + JSON.stringify(esperado) + ".")
+            : H.fail("#destino-4 debe tener el textContent de #origen-4 (" + JSON.stringify(esperado) + "). Ahora dice: " + JSON.stringify(actual));
+        }
+      },
+      "prop-set-html": {
+        preparar: function () { document.getElementById("caja-html").innerHTML = "—"; },
+        validar: function (valor, H) {
+          var b = document.getElementById("caja-html").querySelector("b");
+          return b && b.textContent === "Oferta"
+            ? H.ok("#caja-html contiene <b>Oferta</b>: el HTML se interpretó.")
+            : H.fail('#caja-html debe contener <b>Oferta</b> con innerHTML. innerHTML actual: ' + JSON.stringify(document.getElementById("caja-html").innerHTML));
+        }
+      },
+      "prop-outer": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("caja").outerHTML;
+          return valor === esperado
+            ? H.ok("El outerHTML coincide (el elemento completo, incluido él mismo).")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "prop-tipo": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("caja").nodeType;
+          return valor === esperado
+            ? H.ok("El nodeType es " + esperado + " (1 = elemento).")
+            : H.fail("Se esperaba " + esperado + " (los elementos tienen nodeType 1). El código dio: " + H.describir(valor));
+        }
+      },
+      "prop-text": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("caja").textContent;
+          return valor === esperado
+            ? H.ok("El textContent es " + JSON.stringify(esperado) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "prop-html": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("caja").innerHTML;
+          return valor === esperado
+            ? H.ok("El innerHTML es " + JSON.stringify(esperado) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "prop-nombre": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("caja").nodeName;
+          return valor === esperado
+            ? H.ok("El nodeName es " + JSON.stringify(esperado) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="practica.js"></script>
+</body>
+</html>

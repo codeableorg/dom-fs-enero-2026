@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Práctica · 03 · Búsqueda</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="practica.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <h1>Práctica · 03 · Búsqueda</h1>
+    <p>Encontrar elementos del DOM con los distintos métodos de búsqueda.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="../index.html">← Volver al índice</a>
+
+    <section class="tarjeta">
+      <h2>📋 Cómo funciona</h2>
+      <p>
+        Cada reto pide escribir una expresión que <strong>dé un valor</strong>. Al pulsar
+        <strong>Comprobar</strong>, se evalúa la última expresión y se compara con lo esperado:
+        ✅ si está bien, ❌ con una explicación si no. No hace falta <code>return</code>.
+      </p>
+    </section>
+
+    <section class="tarjeta">
+      <h2>🛒 La tienda</h2>
+      <p>Los 3 retos buscan dentro de este bloque:</p>
+      <div id="tienda" class="demo">
+        <h3 id="titulo">Frutas</h3>
+        <p class="fruta destacada">Manzana</p>
+        <p class="fruta">Banana</p>
+        <p class="fruta destacada">Cereza</p>
+        <form><input type="text" name="busca" placeholder="(campo de ejemplo)" /></form>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 1 ===================== -->
+    <section class="tarjeta reto" data-reto="bus-todas">
+      <p class="demo-titulo">Reto 1</p>
+      <h2>Contar por clase</h2>
+      <p>Obtener cuántos elementos tienen la clase <code>fruta</code> (usar <code>querySelectorAll</code>).</p>
+      <textarea class="codigo">// La cantidad de elementos con clase "fruta"
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 03)</strong>
+          <code>querySelectorAll(".clase")</code> devuelve todos los que coinciden; su cantidad está en <code>.length</code>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 2 ===================== -->
+    <section class="tarjeta reto" data-reto="bus-primera">
+      <p class="demo-titulo">Reto 2</p>
+      <h2>El primero que coincide</h2>
+      <p>Obtener el texto del primer elemento con clase <code>destacada</code> (usar <code>querySelector</code>).</p>
+      <textarea class="codigo">// El texto del primer elemento con clase "destacada"
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 03)</strong>
+          <code>querySelector(selector)</code> devuelve el primer elemento que coincide; su texto, con <code>.textContent</code>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 3 ===================== -->
+    <section class="tarjeta reto" data-reto="bus-tag">
+      <p class="demo-titulo">Reto 3</p>
+      <h2>Contar por etiqueta</h2>
+      <p>Obtener cuántos elementos <code>&lt;p&gt;</code> hay dentro de <code>#tienda</code> (usar <code>getElementsByTagName</code>).</p>
+      <textarea class="codigo">// La cantidad de <p> dentro de #tienda
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 03)</strong>
+          <code>elemento.getElementsByTagName("p")</code> busca por etiqueta dentro de ese elemento.
+          También existen <code>getElementById</code>, <code>getElementsByClassName</code> y <code>getElementsByName</code>.
+        </div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="bus-id">
+      <p class="demo-titulo">Reto 4</p>
+      <h2>Buscar por id</h2>
+      <p>Obtener el texto del elemento con id <code>titulo</code> (usar <code>getElementById</code>).</p>
+      <textarea class="codigo">// El texto del elemento con id "titulo"
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 03)</strong> <code>document.getElementById("titulo")</code> devuelve ese elemento; su texto, con <code>.textContent</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="bus-clase">
+      <p class="demo-titulo">Reto 5</p>
+      <h2>Contar por clase (colección viva)</h2>
+      <p>Obtener cuántos elementos tienen la clase <code>destacada</code> (usar <code>getElementsByClassName</code>).</p>
+      <textarea class="codigo">// La cantidad de elementos con clase "destacada"
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 03)</strong> <code>document.getElementsByClassName("destacada")</code> devuelve una colección; su cantidad, con <code>.length</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="bus-marcar">
+      <p class="demo-titulo">Reto 6 · combinar</p>
+      <h2>Buscar y cambiar el texto</h2>
+      <p>Cambiar el texto del primer <code>.item-m</code> a <code>AGOTADO</code> (buscar con <code>querySelector</code> y escribir con <code>textContent</code>). Se ve abajo.</p>
+      <div class="preview"><div id="tienda-m"><p class="item-m">Pan</p><p class="item-m">Leche</p></div></div>
+      <textarea class="codigo">// Poner "AGOTADO" en el primer .item-m
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 03)</strong> <code>document.querySelector("#tienda-m .item-m").textContent = "AGOTADO"</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="bus-contar">
+      <p class="demo-titulo">Reto 7 · combinar más</p>
+      <h2>Buscar y mostrar el conteo</h2>
+      <p>Mostrar en <code>#conteo</code> cuántos <code>.item-c</code> hay (buscar con <code>querySelectorAll</code> y escribir con <code>textContent</code>).</p>
+      <div class="preview"><div id="tienda-c"><p class="item-c">a</p><p class="item-c">b</p><p class="item-c">c</p></div><p id="conteo">—</p></div>
+      <textarea class="codigo">// Mostrar en #conteo cuántos .item-c hay
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 03)</strong> <code>document.querySelectorAll("#tienda-c .item-c").length</code> da la cantidad.</div>
+      </div>
+    </section>
+
+    <nav class="nav-practica">
+      <a class="volver" href="02-navegacion.html">← Ejercicio anterior</a>
+      <a class="volver" href="../index.html">↩ Índice</a>
+      <a class="btn verde" href="04-propiedades-nodo.html">Siguiente ejercicio →</a>
+    </nav>
+  </main>
+
+  <script>
+    window.RETOS = {
+      "bus-marcar": {
+        preparar: function () { document.getElementById("tienda-m").innerHTML = '<p class="item-m">Pan</p><p class="item-m">Leche</p>'; },
+        validar: function (valor, H) {
+          var primero = document.querySelector("#tienda-m .item-m");
+          return primero && primero.textContent === "AGOTADO"
+            ? H.ok('El primer .item-m ahora dice "AGOTADO".')
+            : H.fail('El primer .item-m de #tienda-m debe decir "AGOTADO". Ahora dice: ' + JSON.stringify(primero ? primero.textContent : null));
+        }
+      },
+      "bus-contar": {
+        preparar: function () {
+          document.getElementById("tienda-c").innerHTML = '<p class="item-c">a</p><p class="item-c">b</p><p class="item-c">c</p>';
+          document.getElementById("conteo").textContent = "—";
+        },
+        validar: function (valor, H) {
+          var n = document.querySelectorAll("#tienda-c .item-c").length;
+          var t = document.getElementById("conteo").textContent;
+          return t.indexOf(String(n)) !== -1
+            ? H.ok("#conteo muestra la cantidad de items (" + n + ").")
+            : H.fail("#conteo debe mostrar cuántos .item-c hay (" + n + "). Ahora dice: " + JSON.stringify(t));
+        }
+      },
+      "bus-id": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("titulo").textContent;
+          return valor === esperado
+            ? H.ok("El texto de #titulo es " + JSON.stringify(esperado) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "bus-clase": {
+        validar: function (valor, H) {
+          var esperado = document.getElementsByClassName("destacada").length;
+          return valor === esperado
+            ? H.ok("Hay " + esperado + " elementos con clase \"destacada\".")
+            : H.fail("Se esperaba " + esperado + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "bus-todas": {
+        validar: function (valor, H) {
+          var esperado = document.querySelectorAll(".fruta").length;
+          return valor === esperado
+            ? H.ok("Hay " + esperado + " elementos con clase \"fruta\".")
+            : H.fail("Se esperaba " + esperado + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "bus-primera": {
+        validar: function (valor, H) {
+          var esperado = document.querySelector(".destacada").textContent;
+          return valor === esperado
+            ? H.ok("El primero con clase \"destacada\" es " + JSON.stringify(esperado) + ".")
+            : H.fail("Se esperaba " + JSON.stringify(esperado) + ". El código dio: " + H.describir(valor));
+        }
+      },
+      "bus-tag": {
+        validar: function (valor, H) {
+          var esperado = document.getElementById("tienda").getElementsByTagName("p").length;
+          return valor === esperado
+            ? H.ok("Hay " + esperado + " elementos <p> dentro de #tienda.")
+            : H.fail("Se esperaba " + esperado + ". El código dio: " + H.describir(valor));
+        }
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="practica.js"></script>
+</body>
+</html>

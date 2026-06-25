@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Práctica · 06 · Crear e insertar nodos</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="practica.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+  <style>
+    ul.preview { list-style: disc inside; }
+    ul.preview li { padding: 2px 0; }
+  </style>
+</head>
+<body>
+  <header class="encabezado">
+    <h1>Práctica · 06 · Crear e insertar nodos</h1>
+    <p>Fabricar elementos con JavaScript e insertarlos en la página.</p>
+  </header>
+
+  <main class="contenedor">
+    <a class="volver" href="../index.html">← Volver al índice</a>
+
+    <section class="tarjeta">
+      <h2>📋 Cómo funciona</h2>
+      <p>
+        El código de cada reto crea elementos y los inserta en la <strong>vista previa</strong>.
+        Al pulsar <strong>Comprobar</strong> se valida el resultado real en el DOM: ✅ o ❌ con una
+        explicación. El patrón es <strong>1) crear → 2) configurar → 3) insertar</strong>.
+      </p>
+    </section>
+
+    <!-- ===================== RETO 1 ===================== -->
+    <section class="tarjeta reto" data-reto="crear-append">
+      <p class="demo-titulo">Reto 1</p>
+      <h2>Crear y agregar al final</h2>
+      <p>Crear un <code>&lt;li&gt;</code> con el texto <code>Tarea 1</code> y agregarlo a <code>#lienzo-1</code> (con <code>createElement</code> y <code>append</code>).</p>
+      <ul class="preview" id="lienzo-1"></ul>
+      <textarea class="codigo">// Crear un <li> "Tarea 1" y agregarlo a #lienzo-1
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 06)</strong>
+          <code>document.createElement("li")</code> crea el nodo; <code>.textContent</code> le pone el texto;
+          <code>#lienzo-1.append(nodo)</code> lo inserta al final.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 2 ===================== -->
+    <section class="tarjeta reto" data-reto="crear-prepend">
+      <p class="demo-titulo">Reto 2</p>
+      <h2>Agregar al inicio</h2>
+      <p>En <code>#lienzo-2</code> ya hay un elemento. Agregar al <strong>inicio</strong> un <code>&lt;li&gt;</code> con el texto <code>Primero</code> (con <code>prepend</code>).</p>
+      <ul class="preview" id="lienzo-2"></ul>
+      <textarea class="codigo">// Agregar al inicio de #lienzo-2 un <li> "Primero"
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 06)</strong>
+          <code>.prepend(nodo)</code> lo inserta como primer hijo. <code>.before()</code> y <code>.after()</code>
+          lo insertan como hermano.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RETO 3 ===================== -->
+    <section class="tarjeta reto" data-reto="crear-fragment">
+      <p class="demo-titulo">Reto 3</p>
+      <h2>Agregar varios de una vez</h2>
+      <p>Crear 3 <code>&lt;li&gt;</code> con los textos <code>A</code>, <code>B</code> y <code>C</code>, y agregarlos a <code>#lienzo-3</code> de una sola vez con un <code>DocumentFragment</code>.</p>
+      <ul class="preview" id="lienzo-3"></ul>
+      <textarea class="codigo">// Crear 3 <li> (A, B, C) y agregarlos a #lienzo-3 con un fragment
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota">
+          <strong>Pista (lección 06)</strong>
+          <code>document.createDocumentFragment()</code> junta los nodos en memoria; al hacer
+          <code>#lienzo-3.append(fragment)</code> entran todos de una sola inserción.
+        </div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="crear-before">
+      <p class="demo-titulo">Reto 4</p>
+      <h2>Insertar como hermano (antes)</h2>
+      <p>En <code>#lienzo-4</code> está el elemento <code>#centro-4</code>. Insertar un <code>&lt;li&gt;</code> con el texto <code>Antes</code> justo antes de él (con <code>before</code>).</p>
+      <ul class="preview" id="lienzo-4"></ul>
+      <textarea class="codigo">// Insertar un <li> "Antes" justo antes de #centro-4
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 06)</strong> <code>referencia.before(nodo)</code> lo coloca como hermano, justo antes. <code>after()</code> lo coloca justo después.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="crear-remove">
+      <p class="demo-titulo">Reto 5</p>
+      <h2>Quitar un nodo</h2>
+      <p>En <code>#lienzo-5</code> hay dos elementos. Quitar el primero del DOM (con <code>remove</code>).</p>
+      <ul class="preview" id="lienzo-5"></ul>
+      <textarea class="codigo">// Quitar el primer <li> de #lienzo-5
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 06)</strong> <code>nodo.remove()</code> quita ese elemento del documento. El primer hijo es <code>#lienzo-5.firstElementChild</code>.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="crear-lista">
+      <p class="demo-titulo">Reto 6 · combinar</p>
+      <h2>Crear varios con un bucle</h2>
+      <p>Crear 3 <code>&lt;li&gt;</code> con los textos <code>Lunes</code>, <code>Martes</code> y <code>Miércoles</code>, y agregarlos a <code>#lienzo-l</code> (un bucle con <code>createElement</code> + <code>append</code>).</p>
+      <ul class="preview" id="lienzo-l"></ul>
+      <textarea class="codigo">// Crear 3 <li> (Lunes, Martes, Miércoles) y agregarlos a #lienzo-l
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 06)</strong> Recorrer un arreglo: <code>["Lunes","Martes","Miércoles"].forEach(function (t) { ... })</code> creando un <li> por cada uno.</div>
+      </div>
+    </section>
+
+    <section class="tarjeta reto" data-reto="crear-tarjeta">
+      <p class="demo-titulo">Reto 7 · combinar más</p>
+      <h2>Crear una estructura anidada</h2>
+      <p>Crear un <code>&lt;article&gt;</code> con clase <code>card</code> que tenga adentro un <code>&lt;h3&gt;</code> con el texto <code>Producto</code>, y agregarlo a <code>#lienzo-t</code>.</p>
+      <div class="preview" id="lienzo-t"></div>
+      <textarea class="codigo">// Crear <article class="card"><h3>Producto</h3></article> y agregarlo a #lienzo-t
+</textarea>
+      <div class="grupo-botones">
+        <button class="btn verde" data-accion="comprobar">Comprobar</button>
+        <button class="btn secundario" data-accion="reiniciar">Reiniciar</button>
+        <button class="btn secundario" data-accion="pista">💡 Pista</button>
+      </div>
+      <div class="resultado"></div>
+      <div class="pista-texto" hidden>
+        <div class="nota"><strong>Pista (lección 06)</strong> Crear el <code>article</code> y el <code>h3</code> por separado, hacer <code>article.append(h3)</code> y luego <code>#lienzo-t.append(article)</code>.</div>
+      </div>
+    </section>
+
+    <nav class="nav-practica">
+      <a class="volver" href="05-atributos.html">← Ejercicio anterior</a>
+      <a class="volver" href="../index.html">↩ Índice</a>
+      <a class="btn verde" href="07-estilos-clases.html">Siguiente ejercicio →</a>
+    </nav>
+  </main>
+
+  <script>
+    function textos(ul) {
+      return Array.from(ul.children).map(function (el) { return el.textContent; });
+    }
+    function todosLi(ul) {
+      return Array.from(ul.children).every(function (el) { return el.tagName === "LI"; });
+    }
+
+    window.RETOS = {
+      "crear-lista": {
+        preparar: function () { document.getElementById("lienzo-l").innerHTML = ""; },
+        validar: function (valor, H) {
+          var ul = document.getElementById("lienzo-l");
+          var esp = ["Lunes", "Martes", "Miércoles"];
+          if (ul.children.length === 3 && todosLi(ul) && textos(ul).join(",") === esp.join(",")) {
+            return H.ok("#lienzo-l tiene los 3 días en orden.");
+          }
+          return H.fail('Se esperaba ["Lunes", "Martes", "Miércoles"]. Contenido actual: ' + H.describir(textos(ul)));
+        }
+      },
+      "crear-tarjeta": {
+        preparar: function () { document.getElementById("lienzo-t").innerHTML = ""; },
+        validar: function (valor, H) {
+          var art = document.getElementById("lienzo-t").querySelector("article.card");
+          var h3 = art ? art.querySelector("h3") : null;
+          return h3 && h3.textContent === "Producto"
+            ? H.ok("#lienzo-t tiene un <article class=\"card\"> con un <h3>Producto</h3>.")
+            : H.fail("Se esperaba un <article class=\"card\"> con un <h3>Producto</h3> adentro. HTML actual: " + JSON.stringify(document.getElementById("lienzo-t").innerHTML));
+        }
+      },
+      "crear-before": {
+        preparar: function () { document.getElementById("lienzo-4").innerHTML = '<li id="centro-4">Centro</li>'; },
+        validar: function (valor, H) {
+          var ul = document.getElementById("lienzo-4");
+          if (ul.children.length === 2 && todosLi(ul) && ul.firstElementChild.textContent === "Antes") {
+            return H.ok('Ahora #lienzo-4 empieza con "Antes", justo antes de "Centro".');
+          }
+          return H.fail('Se esperaba ["Antes", "Centro"]. Contenido actual: ' + H.describir(textos(ul)));
+        }
+      },
+      "crear-remove": {
+        preparar: function () { document.getElementById("lienzo-5").innerHTML = "<li>A</li><li>B</li>"; },
+        validar: function (valor, H) {
+          var ul = document.getElementById("lienzo-5");
+          if (ul.children.length === 1 && ul.firstElementChild.textContent === "B") {
+            return H.ok('Se quitó el primer <li>; queda solo "B".');
+          }
+          return H.fail('Se esperaba quedar solo ["B"]. Contenido actual: ' + H.describir(textos(ul)));
+        }
+      },
+      "crear-append": {
+        preparar: function () { document.getElementById("lienzo-1").innerHTML = ""; },
+        validar: function (valor, H) {
+          var ul = document.getElementById("lienzo-1");
+          if (ul.children.length === 1 && todosLi(ul) && ul.firstElementChild.textContent === "Tarea 1") {
+            return H.ok("#lienzo-1 tiene un <li> con el texto \"Tarea 1\".");
+          }
+          return H.fail("Se esperaba un solo <li> con texto \"Tarea 1\". Contenido actual: " + H.describir(textos(ul)));
+        }
+      },
+      "crear-prepend": {
+        preparar: function () { document.getElementById("lienzo-2").innerHTML = "<li>Segundo</li>"; },
+        validar: function (valor, H) {
+          var ul = document.getElementById("lienzo-2");
+          if (ul.children.length === 2 && todosLi(ul) && ul.firstElementChild.textContent === "Primero") {
+            return H.ok('Ahora #lienzo-2 empieza con "Primero".');
+          }
+          return H.fail('Se esperaba ["Primero", "Segundo"]. Contenido actual: ' + H.describir(textos(ul)));
+        }
+      },
+      "crear-fragment": {
+        preparar: function () { document.getElementById("lienzo-3").innerHTML = ""; },
+        validar: function (valor, H) {
+          var ul = document.getElementById("lienzo-3");
+          var esperado = ["A", "B", "C"];
+          if (ul.children.length === 3 && todosLi(ul) && textos(ul).join(",") === esperado.join(",")) {
+            return H.ok("#lienzo-3 tiene 3 <li>: A, B, C.");
+          }
+          return H.fail('Se esperaba ["A", "B", "C"]. Contenido actual: ' + H.describir(textos(ul)));
+        }
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="practica.js"></script>
+</body>
+</html>

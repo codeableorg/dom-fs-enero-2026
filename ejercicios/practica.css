@@ -1,0 +1,59 @@
+/* ============================================================
+   Estilos compartidos de las prácticas interactivas del curso DOM.
+   Se usa junto con ../styles.css (variables y componentes base).
+   ============================================================ */
+
+/* Editor de código del alumno */
+.codigo {
+  width: 100%;
+  min-height: 80px;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  padding: 10px;
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  resize: vertical;
+}
+.CodeMirror {
+  height: auto;
+  min-height: 80px;
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+.CodeMirror-scroll { min-height: 80px; }
+
+/* Vista previa: zona donde el código del alumno crea/cambia cosas y se ve el
+   resultado en vivo. El validador inspecciona esta zona. */
+.preview {
+  padding: 16px;
+  border: 2px dashed #94a3b8;
+  border-radius: 8px;
+  background: #f8fafc;
+  margin: 6px 0;
+}
+
+/* Caja de resultado: ✅ correcto / ❌ incorrecto */
+.resultado {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  display: none;
+}
+.resultado.ok   { display: block; background: var(--verde-claro); color: #166534; border-left: 4px solid var(--verde); }
+.resultado.fail { display: block; background: #fee2e2;            color: #991b1b; border-left: 4px solid var(--rojo); }
+
+.objetivo { font-family: var(--mono); }
+
+/* Navegación entre prácticas (anterior / índice / siguiente) */
+.nav-practica {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}
