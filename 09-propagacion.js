@@ -115,6 +115,45 @@ fAbuelo.addEventListener("click", enBurbujeo);
 
 
 /* ============================================================
+   QUÉ HACE LA CAPTURA (el guardia en la puerta)
+   El abuelo escucha en CAPTURA (true): atrapa el evento mientras
+   BAJA, antes de que llegue al hijo. El hijo escucha normal
+   (burbujeo). Con la casilla marcada, el abuelo corta en la
+   bajada y el evento NUNCA llega al hijo.
+   ============================================================ */
+
+const cAbuelo = document.getElementById("c-abuelo");
+const cHijo   = document.getElementById("c-hijo");
+
+// ABUELO: escucha en la fase de CAPTURA (tercer parámetro true).
+// Aunque el clic ocurra en el hijo, este handler corre PRIMERO,
+// porque el evento baja pasando por el abuelo antes de tocar al hijo.
+cAbuelo.addEventListener("click", function (event) {
+  destello(cAbuelo);
+
+  if (document.getElementById("chk-captura").checked) {
+    event.stopPropagation();            // corto el viaje EN PLENA BAJADA
+    registrar("salida-captura",
+      "BAJADA: el abuelo atrapó el clic en captura y lo BLOQUEÓ.\n" +
+      "El evento nunca baja al hijo → el handler del hijo NO corre.");
+    return;
+  }
+
+  registrar("salida-captura",
+    "BAJADA: el abuelo se entera PRIMERO (lo atrapó en captura), " +
+    "aunque el clic fue en el hijo. Ahora el evento sigue bajando…");
+}, true);                                // 👈 true = CAPTURA
+
+// HIJO: escucha en burbujeo (lo normal). Solo corre si el evento
+// terminó de bajar hasta él, es decir, si el abuelo no lo bloqueó.
+cHijo.addEventListener("click", function () {
+  destello(cHijo);
+  registrar("salida-captura",
+    "DESTINO: el evento llegó al hijo y su handler corrió. ✅");
+});
+
+
+/* ============================================================
    DELEGACIÓN DE EVENTOS
    UN solo listener en el contenedor atiende a todos los items,
    incluso a los que se crean después. Usa event.target.

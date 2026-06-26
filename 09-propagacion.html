@@ -145,6 +145,53 @@ abuelo.addEventListener("click", fn);          // fase de BURBUJEO (subida, por 
       </div>
     </section>
 
+    <!-- ===================== QUÉ HACE LA CAPTURA ===================== -->
+    <section class="tarjeta">
+      <h2>¿Qué hace realmente la captura? (el guardia en la puerta)</h2>
+      <p>
+        El evento <strong>nace arriba</strong> (en <code>window</code>) y tiene que
+        <strong>bajar</strong> hasta el hijo, que es donde hiciste clic. Esa bajada es la
+        <strong>captura</strong>. Escuchar en captura = engancharte a esa bajada para reaccionar
+        (o <strong>bloquear</strong>) el evento <strong>ANTES</strong> de que llegue a su destino.
+      </p>
+      <p>
+        Aquí el <strong>abuelo</strong> escucha en captura: es un guardia en la puerta. El
+        <strong>hijo</strong> escucha normal (burbujeo). Haz clic en el hijo y compara:
+      </p>
+      <ul class="objetivos">
+        <li>Sin bloquear: el abuelo se entera <strong>antes</strong> que el hijo (lo atrapa bajando).</li>
+        <li>Bloqueando: el abuelo llama <code>stopPropagation()</code> en plena bajada y el evento
+          <strong>nunca llega al hijo</strong>.</li>
+      </ul>
+
+      <div class="demo">
+        <p class="demo-titulo">Haz clic en la caja naranja (hijo)</p>
+        <p>
+          <label><input type="checkbox" id="chk-captura" /> El abuelo BLOQUEA en la bajada (stopPropagation en captura)</label>
+        </p>
+        <div class="caja-anidada abuelo" id="c-abuelo" data-nombre="abuelo">
+          <span class="etiqueta-caja">div#abuelo (escucha en CAPTURA)</span>
+          <div class="caja-anidada padre" id="c-padre" data-nombre="padre">
+            <span class="etiqueta-caja">div#padre</span>
+            <div class="caja-anidada hijo" id="c-hijo" data-nombre="hijo">
+              <span class="etiqueta-caja">div#hijo (escucha en BURBUJEO)</span>
+              Hijo
+            </div>
+          </div>
+        </div>
+
+        <div class="grupo-botones">
+          <button class="btn secundario" onclick="limpiarSalida('salida-captura')">Limpiar</button>
+        </div>
+        <div class="salida" id="salida-captura"></div>
+      </div>
+      <div class="nota">
+        <strong>La idea clave</strong>
+        El abuelo no tiene el clic encima, pero como el evento BAJA atravesándolo, lo atrapa primero.
+        Por eso la captura sirve para vigilar o vetar eventos antes de que lleguen al elemento real.
+      </div>
+    </section>
+
     <!-- ===================== DELEGACIÓN ===================== -->
     <section class="tarjeta">
       <h2>Para qué sirve: delegación de eventos</h2>

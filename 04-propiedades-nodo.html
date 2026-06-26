@@ -201,6 +201,61 @@
       </p>
     </section>
 
+    <!-- ===================== nodeName / nodeType / tagName ===================== -->
+    <section class="tarjeta">
+      <h2>nodeName, nodeType y tagName: cómo distinguirlos</h2>
+      <p>
+        Las tres responden "¿qué es este nodo?", pero a distinto nivel y desde distinta capa
+        de la jerarquía. La diferencia se nota cuando el nodo <strong>no</strong> es un elemento.
+      </p>
+
+      <table>
+        <thead>
+          <tr><th>Propiedad</th><th>Valor que da</th><th>Capa</th><th>¿En todos los nodos?</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>nodeType</code></td>
+            <td><strong>Número</strong>: la categoría del nodo (1 elemento, 3 texto, 8 comentario…)</td>
+            <td><code>Node</code></td>
+            <td>Sí</td>
+          </tr>
+          <tr>
+            <td><code>nodeName</code></td>
+            <td><strong>String</strong>: el nombre del nodo (etiqueta en MAYÚSCULAS, o <code>#text</code>, <code>#comment</code>…)</td>
+            <td><code>Node</code></td>
+            <td>Sí</td>
+          </tr>
+          <tr>
+            <td><code>tagName</code></td>
+            <td><strong>String</strong>: el nombre de la etiqueta (igual que <code>nodeName</code>, en MAYÚSCULAS)</td>
+            <td><code>Element</code></td>
+            <td>No, solo elementos</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Sobre <code>&lt;p id="saludo"&gt;Hola &lt;strong&gt;mundo&lt;/strong&gt;&lt;/p&gt;</code>:</p>
+      <table>
+        <thead>
+          <tr><th>Nodo</th><th><code>nodeType</code></th><th><code>nodeName</code></th><th><code>tagName</code></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>El elemento <code>&lt;p&gt;</code></td><td>1</td><td><code>"P"</code></td><td><code>"P"</code></td></tr>
+          <tr><td>El texto <code>"Hola "</code></td><td>3</td><td><code>"#text"</code></td><td><code>undefined</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="nota">
+        <strong>La distinción clave</strong>
+        En un elemento, <code>nodeName</code> y <code>tagName</code> devuelven lo mismo. La diferencia es que
+        <code>nodeName</code> existe en <em>cualquier</em> nodo (vive en <code>Node</code>), mientras que
+        <code>tagName</code> solo existe en elementos (vive en <code>Element</code>): en un nodo de texto o
+        comentario vale <code>undefined</code>. Por eso, para quedarte solo con elementos al recorrer
+        <code>childNodes</code> se filtra con <code>nodo.nodeType === Node.ELEMENT_NODE</code> (es decir, <code>=== 1</code>).
+      </div>
+    </section>
+
     <a class="volver" href="index.html">↩ Volver al índice</a>
   </main>
 

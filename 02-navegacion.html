@@ -1,158 +1,243 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lección 2 · Navegar entre elementos</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Estilos propios de esta lección: dibujar el árbol de elementos */
-    .arbol .nodo {
-      position: relative;
-      cursor: pointer;
-      user-select: none;
-    }
-    .arbol .nodo::before {
-      content: attr(data-nombre);   /* mostramos el nombre SIN crear un elemento hijo */
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-    #raiz {
-      background: #f1f5f9;
-      border: 2px solid #94a3b8;
-      border-radius: 10px;
-      padding: 14px;
-    }
-    .grupo {
-      background: var(--blanco);
-      border: 2px solid var(--azul);
-      border-radius: 10px;
-      padding: 12px;
-      margin: 10px 0;
-    }
-    .grupo::before { color: var(--azul); }
-    .hoja {
-      display: inline-block;
-      background: var(--naranja-claro);
-      border: 2px solid var(--naranja);
-      border-radius: 20px;
-      padding: 6px 14px;
-      margin: 8px 6px 0 0;
-    }
-    .hoja::before { color: var(--naranja); }
-  </style>
-</head>
-<body>
-  <header class="encabezado">
-    <h1>2 · Navegar entre elementos</h1>
-    <p>Moverte por el árbol del DOM: padres, hijos y hermanos.</p>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lección 2 · Navegar entre elementos</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Estilos propios de esta lección: dibujar el árbol de elementos */
+      .arbol .nodo {
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+      }
+      .arbol .nodo::before {
+        content: attr(
+          data-nombre
+        ); /* mostramos el nombre SIN crear un elemento hijo */
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+      #raiz {
+        background: #f1f5f9;
+        border: 2px solid #94a3b8;
+        border-radius: 10px;
+        padding: 14px;
+      }
+      .grupo {
+        background: var(--blanco);
+        border: 2px solid var(--azul);
+        border-radius: 10px;
+        padding: 12px;
+        margin: 10px 0;
+      }
+      .grupo::before {
+        color: var(--azul);
+      }
+      .hoja {
+        display: inline-block;
+        background: var(--naranja-claro);
+        border: 2px solid var(--naranja);
+        border-radius: 20px;
+        padding: 6px 14px;
+        margin: 8px 6px 0 0;
+      }
+      .hoja::before {
+        color: var(--naranja);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="encabezado">
+      <h1>2 · Navegar entre elementos</h1>
+      <p>Moverte por el árbol del DOM: padres, hijos y hermanos.</p>
+    </header>
 
-  <main class="contenedor">
-    <a class="volver" href="index.html">← Volver al índice</a>
+    <main class="contenedor">
+      <a class="volver" href="index.html">← Volver al índice</a>
 
-    <section class="tarjeta">
-      <h2>🧭 El DOM es un árbol: puedes "caminar" por él</h2>
-      <p>
-        Cada elemento conoce a sus <strong>familiares</strong>: su padre, sus hijos y sus hermanos.
-        Desde un elemento puedes saltar a otro usando estas propiedades:
-      </p>
-      <table>
-        <thead><tr><th>Propiedad</th><th>Te lleva a…</th></tr></thead>
-        <tbody>
-          <tr><td><code>parentElement</code></td><td>El elemento que lo contiene (su padre)</td></tr>
-          <tr><td><code>children</code></td><td>La lista de TODOS sus hijos (solo elementos)</td></tr>
-          <tr><td><code>firstElementChild</code></td><td>Su primer hijo</td></tr>
-          <tr><td><code>lastElementChild</code></td><td>Su último hijo</td></tr>
-          <tr><td><code>nextElementSibling</code></td><td>El siguiente hermano (mismo padre)</td></tr>
-          <tr><td><code>previousElementSibling</code></td><td>El hermano anterior</td></tr>
-        </tbody>
-      </table>
+      <section class="tarjeta">
+        <h2>🧭 El DOM es un árbol: puedes "caminar" por él</h2>
+        <p>
+          Cada elemento conoce a sus <strong>familiares</strong>: su padre, sus
+          hijos y sus hermanos. Desde un elemento puedes saltar a otro usando
+          estas propiedades:
+        </p>
+        <table id="test">
+          <thead>
+            <tr>
+              <th>Propiedad</th>
+              <th>Te lleva a…</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>parentElement</code></td>
+              <td>El elemento que lo contiene (su padre)</td>
+            </tr>
+            <tr>
+              <td><code>children</code></td>
+              <td>La lista de TODOS sus hijos (solo elementos)</td>
+            </tr>
+            <tr>
+              <td><code>firstElementChild</code></td>
+              <td>Su primer hijo</td>
+            </tr>
+            <tr>
+              <td><code>lastElementChild</code></td>
+              <td>Su último hijo</td>
+            </tr>
+            <tr>
+              <td><code>nextElementSibling</code></td>
+              <td>El siguiente hermano (mismo padre)</td>
+            </tr>
+            <tr>
+              <td><code>previousElementSibling</code></td>
+              <td>El hermano anterior</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <div class="nota">
-        <strong>📌 ¿Por qué casi siempre usamos las versiones con "Element"?</strong>
-        Porque saltan los <em>nodos de texto</em> (los espacios y saltos de línea entre etiquetas)
-        y te devuelven solo etiquetas reales. Más abajo lo vemos en vivo.
-      </div>
-    </section>
-
-    <!-- ===================== DEMO INTERACTIVA ===================== -->
-    <section class="tarjeta">
-      <h2>🕹️ Demo: camina por el árbol</h2>
-      <p>
-        1) Haz clic en cualquier caja para <strong>seleccionarla</strong> (se pinta de azul).
-        2) Luego pulsa un botón para saltar a un familiar (se pinta de verde y pasa a ser el nuevo seleccionado).
-      </p>
-
-      <div class="demo">
-        <p class="demo-titulo">Árbol de elementos (haz clic para seleccionar)</p>
-
-        <div class="arbol">
-          <section id="raiz" class="nodo" data-nombre="🧺 Canasta (contenedor)">
-            <div class="nodo grupo" data-nombre="Grupo: Cítricos">
-              <article class="nodo hoja" data-nombre="🍊 Naranja"></article>
-              <article class="nodo hoja" data-nombre="🍋 Limón"></article>
-              <article class="nodo hoja" data-nombre="🍈 Mandarina"></article>
-            </div>
-            <div class="nodo grupo" data-nombre="Grupo: Frutas rojas">
-              <article class="nodo hoja" data-nombre="🍓 Fresa"></article>
-              <article class="nodo hoja" data-nombre="🍒 Cereza"></article>
-              <article class="nodo hoja" data-nombre="🍇 Uva"></article>
-            </div>
-          </section>
+        <div class="nota">
+          <strong
+            >📌 ¿Por qué casi siempre usamos las versiones con
+            "Element"?</strong
+          >
+          Porque saltan los <em>nodos de texto</em> (los espacios y saltos de
+          línea entre etiquetas) y te devuelven solo etiquetas reales. Más abajo
+          lo vemos en vivo.
         </div>
+      </section>
 
-        <p style="margin-top:14px;">
-          <strong>Elemento seleccionado:</strong>
-          <span id="actual" style="color:var(--azul); font-weight:700;">(ninguno: haz clic en una caja)</span>
+      <!-- ===================== DEMO INTERACTIVA ===================== -->
+      <section class="tarjeta">
+        <h2>🕹️ Demo: camina por el árbol</h2>
+        <p>
+          1) Haz clic en cualquier caja para <strong>seleccionarla</strong> (se
+          pinta de azul). 2) Luego pulsa un botón para saltar a un familiar (se
+          pinta de verde y pasa a ser el nuevo seleccionado).
         </p>
 
-        <div class="grupo-botones">
-          <button class="btn" onclick="irA('parentElement')">.parentElement (padre)</button>
-          <button class="btn" onclick="irA('firstElementChild')">.firstElementChild</button>
-          <button class="btn" onclick="irA('lastElementChild')">.lastElementChild</button>
-          <button class="btn" onclick="irA('previousElementSibling')">.previousElementSibling</button>
-          <button class="btn" onclick="irA('nextElementSibling')">.nextElementSibling</button>
-          <button class="btn verde" onclick="listarHijos()">.children (listar hijos)</button>
-          <button class="btn secundario" onclick="reiniciar()">↺ Reiniciar</button>
+        <div class="demo">
+          <p class="demo-titulo">
+            Árbol de elementos (haz clic para seleccionar)
+          </p>
+
+          <div class="arbol">
+            <section
+              id="raiz"
+              class="nodo"
+              data-nombre="🧺 Canasta (contenedor)"
+            >
+              <div class="nodo grupo" data-nombre="Grupo: Cítricos">
+                <article class="nodo hoja" data-nombre="🍊 Naranja"></article>
+                <article class="nodo hoja" data-nombre="🍋 Limón"></article>
+                <article class="nodo hoja" data-nombre="🍈 Mandarina"></article>
+              </div>
+              <div class="nodo grupo" data-nombre="Grupo: Frutas rojas">
+                <article class="nodo hoja" data-nombre="🍓 Fresa"></article>
+                <article class="nodo hoja" data-nombre="🍒 Cereza"></article>
+                <article class="nodo hoja" data-nombre="🍇 Uva"></article>
+              </div>
+            </section>
+          </div>
+
+          <p style="margin-top: 14px">
+            <strong>Elemento seleccionado:</strong>
+            <span id="actual" style="color: var(--azul); font-weight: 700"
+              >(ninguno: haz clic en una caja)</span
+            >
+          </p>
+
+          <div class="grupo-botones">
+            <button class="btn" onclick="irA('parentElement')">
+              .parentElement (padre)
+            </button>
+            <button class="btn" onclick="irA('firstElementChild')">
+              .firstElementChild
+            </button>
+            <button class="btn" onclick="irA('lastElementChild')">
+              .lastElementChild
+            </button>
+            <button class="btn" onclick="irA('previousElementSibling')">
+              .previousElementSibling
+            </button>
+            <button class="btn" onclick="irA('nextElementSibling')">
+              .nextElementSibling
+            </button>
+            <button class="btn verde" onclick="listarHijos()">
+              .children (listar hijos)
+            </button>
+            <button class="btn secundario" onclick="reiniciar()">
+              ↺ Reiniciar
+            </button>
+          </div>
+
+          <div class="salida" id="salida-nav"></div>
         </div>
 
-        <div class="salida" id="salida-nav"></div>
-      </div>
+        <div class="aviso">
+          <strong>💡 Pruébalo</strong>
+          Selecciona <strong>Limón</strong> y pulsa
+          <code>.nextElementSibling</code> → llegas a
+          <strong>Mandarina</strong>. Selecciona <strong>Limón</strong> y pulsa
+          <code>.firstElementChild</code> → da <strong>null</strong>, porque una
+          fruta no tiene hijos. ¡Ese <code>null</code> es normal y hay que saber
+          manejarlo!
+        </div>
+      </section>
 
-      <div class="aviso">
-        <strong>💡 Pruébalo</strong>
-        Selecciona <strong>Limón</strong> y pulsa <code>.nextElementSibling</code> → llegas a <strong>Mandarina</strong>.
-        Selecciona <strong>Limón</strong> y pulsa <code>.firstElementChild</code> → da <strong>null</strong>,
-        porque una fruta no tiene hijos. ¡Ese <code>null</code> es normal y hay que saber manejarlo!
-      </div>
-    </section>
+      <!-- ===================== children vs childNodes ===================== -->
+      <section class="tarjeta">
+        <h2>
+          🔬 <code>children</code> vs <code>childNodes</code> (nodos de texto)
+        </h2>
+        <p>
+          En el HTML, los espacios y saltos de línea entre etiquetas también
+          cuentan como
+          <strong>nodos de texto</strong>. Por eso existen dos familias de
+          propiedades:
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Solo elementos (recomendado)</th>
+              <th>Todos los nodos (incluye texto)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>children</code></td>
+              <td><code>childNodes</code></td>
+            </tr>
+            <tr>
+              <td><code>firstElementChild</code></td>
+              <td><code>firstChild</code></td>
+            </tr>
+            <tr>
+              <td><code>lastElementChild</code></td>
+              <td><code>lastChild</code></td>
+            </tr>
+            <tr>
+              <td><code>nextElementSibling</code></td>
+              <td><code>nextSibling</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="grupo-botones">
+          <button class="btn naranja" onclick="compararNodos()">
+            Comparar en el grupo "Cítricos"
+          </button>
+        </div>
+        <div class="salida" id="salida-comparar"></div>
+      </section>
 
-    <!-- ===================== children vs childNodes ===================== -->
-    <section class="tarjeta">
-      <h2>🔬 <code>children</code> vs <code>childNodes</code> (nodos de texto)</h2>
-      <p>
-        En el HTML, los espacios y saltos de línea entre etiquetas también cuentan como
-        <strong>nodos de texto</strong>. Por eso existen dos familias de propiedades:
-      </p>
-      <table>
-        <thead><tr><th>Solo elementos (recomendado)</th><th>Todos los nodos (incluye texto)</th></tr></thead>
-        <tbody>
-          <tr><td><code>children</code></td><td><code>childNodes</code></td></tr>
-          <tr><td><code>firstElementChild</code></td><td><code>firstChild</code></td></tr>
-          <tr><td><code>lastElementChild</code></td><td><code>lastChild</code></td></tr>
-          <tr><td><code>nextElementSibling</code></td><td><code>nextSibling</code></td></tr>
-        </tbody>
-      </table>
-      <div class="grupo-botones">
-        <button class="btn naranja" onclick="compararNodos()">Comparar en el grupo "Cítricos"</button>
-      </div>
-      <div class="salida" id="salida-comparar"></div>
-    </section>
+      <a class="volver" href="03-busqueda.html"
+        >Siguiente lección: Buscar elementos →</a
+      >
+    </main>
 
-    <a class="volver" href="03-busqueda.html">Siguiente lección: Buscar elementos →</a>
-  </main>
-
-  <script src="02-navegacion.js"></script>
-</body>
+    <script src="02-navegacion.js"></script>
+  </body>
 </html>

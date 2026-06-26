@@ -1,261 +1,349 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lección 5 · Atributos y propiedades</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header class="encabezado">
-    <h1>5 · Atributos y propiedades</h1>
-    <p>Cómo el HTML que escribes (atributos) se ve desde JavaScript (propiedades).</p>
-  </header>
-
-  <main class="contenedor">
-    <a class="volver" href="index.html">← Volver al índice</a>
-
-    <!-- ===================== ATRIBUTO vs PROPIEDAD ===================== -->
-    <section class="tarjeta">
-      <h2>Atributo no es lo mismo que propiedad</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lección 5 · Atributos y propiedades</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="encabezado">
+      <h1>5 · Atributos y propiedades</h1>
       <p>
-        Cuando escribes <code>&lt;input id="correo" value="hola"&gt;</code>, eso son
-        <strong>atributos</strong> en el HTML. Al cargar la página, el navegador crea un objeto
-        y le pone <strong>propiedades</strong> equivalentes. Casi siempre coinciden, pero no son
-        lo mismo.
+        Cómo el HTML que escribes (atributos) se ve desde JavaScript
+        (propiedades).
       </p>
-      <table>
-        <thead>
-          <tr><th></th><th>Atributo (HTML)</th><th>Propiedad (JS)</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Dónde vive</td>
-            <td>En el texto del HTML</td>
-            <td>En el objeto del DOM</td>
-          </tr>
-          <tr>
-            <td>Cómo se accede</td>
-            <td><code>getAttribute()</code> / <code>setAttribute()</code></td>
-            <td><code>elemento.propiedad</code></td>
-          </tr>
-          <tr>
-            <td>Valor</td>
-            <td>Siempre texto (string)</td>
-            <td>Puede ser texto, número o booleano</td>
-          </tr>
-          <tr>
-            <td>Al escribir el usuario</td>
-            <td>No cambia (queda el valor inicial)</td>
-            <td>Sí cambia (refleja lo actual)</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="nota">
-        <strong>Regla práctica</strong>
-        Para leer el estado <em>actual</em> de un campo, usa la propiedad
-        (<code>input.value</code>). El atributo (<code>getAttribute("value")</code>) suele
-        quedarse con el valor <em>inicial</em> que venía escrito en el HTML.
-      </div>
-    </section>
+    </header>
 
-    <!-- ===================== DEMO ATRIBUTO vs PROPIEDAD ===================== -->
-    <section class="tarjeta">
-      <h2>Demo: escribe en el campo y compara</h2>
-      <p>Escribe algo distinto dentro del input y luego pulsa el botón:</p>
+    <main class="contenedor">
+      <a class="volver" href="index.html">← Volver al índice</a>
 
-      <div class="demo">
-        <p class="demo-titulo">Campo de prueba</p>
-        <input type="text" id="campo-correo" value="valor-inicial" />
+      <!-- ===================== ATRIBUTO vs PROPIEDAD ===================== -->
+      <section class="tarjeta">
+        <h2>Atributo no es lo mismo que propiedad</h2>
+        <p>
+          Cuando escribes <code>&lt;input id="correo" value="hola"&gt;</code>,
+          eso son <strong>atributos</strong> en el HTML. Al cargar la página, el
+          navegador crea un objeto y le pone
+          <strong>propiedades</strong> equivalentes. Casi siempre coinciden,
+          pero no son lo mismo.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Atributo (HTML)</th>
+              <th>Propiedad (JS)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dónde vive</td>
+              <td>En el texto del HTML</td>
+              <td>En el objeto del DOM</td>
+            </tr>
+            <tr>
+              <td>Cómo se accede</td>
+              <td><code>getAttribute()</code> / <code>setAttribute()</code></td>
+              <td><code>elemento.propiedad</code></td>
+            </tr>
+            <tr>
+              <td>Valor</td>
+              <td>Siempre texto (string)</td>
+              <td>Puede ser texto, número o booleano</td>
+            </tr>
+            <tr>
+              <td>Al escribir el usuario</td>
+              <td>No cambia (queda el valor inicial)</td>
+              <td>Sí cambia (refleja lo actual)</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="nota">
+          <strong>Regla práctica</strong>
+          Para leer el estado <em>actual</em> de un campo, usa la propiedad
+          (<code>input.value</code>). El atributo
+          (<code>getAttribute("value")</code>) suele quedarse con el valor
+          <em>inicial</em> que venía escrito en el HTML.
+        </div>
+      </section>
 
-        <div class="grupo-botones">
-          <button class="btn" onclick="compararValor()">Comparar atributo vs propiedad</button>
-          <button class="btn secundario" onclick="limpiarSalida('salida-attr')">↺ Limpiar</button>
+      <!-- ===================== DEMO ATRIBUTO vs PROPIEDAD ===================== -->
+      <section class="tarjeta">
+        <h2>Demo: escribe en el campo y compara</h2>
+        <p>Escribe algo distinto dentro del input y luego pulsa el botón:</p>
+
+        <div class="demo">
+          <p class="demo-titulo">Campo de prueba</p>
+          <input type="text" id="campo-correo" value="valor-inicial" />
+
+          <div class="grupo-botones">
+            <button class="btn" onclick="compararValor()">
+              Comparar atributo vs propiedad
+            </button>
+            <button
+              class="btn secundario"
+              onclick="limpiarSalida('salida-attr')"
+            >
+              ↺ Limpiar
+            </button>
+          </div>
+
+          <div class="salida" id="salida-attr"></div>
+        </div>
+      </section>
+
+      <!-- ===================== NOMBRES QUE CAMBIAN ===================== -->
+      <section class="tarjeta">
+        <h2>Nombres que cambian: className y htmlFor</h2>
+        <p>
+          Algunas palabras ya están reservadas en JavaScript
+          (<code>class</code>, <code>for</code>), así que la propiedad
+          equivalente lleva otro nombre. Estas dos son las que más confunden:
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Atributo HTML</th>
+              <th>Propiedad en JS</th>
+              <th>Por qué</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>class</code></td>
+              <td><code>className</code></td>
+              <td><code>class</code> es palabra reservada de JS</td>
+            </tr>
+            <tr>
+              <td><code>for</code> (en <code>&lt;label&gt;</code>)</td>
+              <td><code>htmlFor</code></td>
+              <td><code>for</code> es palabra reservada (los bucles)</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          En general, los atributos con guion pasan a <code>camelCase</code> en
+          JS. Por ejemplo <code>maxlength</code> se vuelve
+          <code>maxLength</code>, y <code>tabindex</code> se vuelve
+          <code>tabIndex</code>.
+        </p>
+        <div class="nota">
+          <strong>className vs classList</strong>
+          <code>className</code> es la cadena completa de clases (la reemplazas
+          entera). Para agregar o quitar una sola clase es más cómodo
+          <code>classList.add()</code>, <code>classList.remove()</code> y
+          <code>classList.toggle()</code>.
         </div>
 
-        <div class="salida" id="salida-attr"></div>
-      </div>
-    </section>
+        <div class="demo">
+          <p class="demo-titulo">Elemento de prueba</p>
+          <div id="caja-clases" class="producto">
+            Soy un div con la clase «producto».
+          </div>
 
-    <!-- ===================== NOMBRES QUE CAMBIAN ===================== -->
-    <section class="tarjeta">
-      <h2>Nombres que cambian: className y htmlFor</h2>
-      <p>
-        Algunas palabras ya están reservadas en JavaScript (<code>class</code>, <code>for</code>),
-        así que la propiedad equivalente lleva otro nombre. Estas dos son las que más confunden:
-      </p>
-      <table>
-        <thead>
-          <tr><th>Atributo HTML</th><th>Propiedad en JS</th><th>Por qué</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>class</code></td>
-            <td><code>className</code></td>
-            <td><code>class</code> es palabra reservada de JS</td>
-          </tr>
-          <tr>
-            <td><code>for</code> (en <code>&lt;label&gt;</code>)</td>
-            <td><code>htmlFor</code></td>
-            <td><code>for</code> es palabra reservada (los bucles)</td>
-          </tr>
-        </tbody>
-      </table>
-      <p>
-        En general, los atributos con guion pasan a <code>camelCase</code> en JS. Por ejemplo
-        <code>maxlength</code> se vuelve <code>maxLength</code>, y <code>tabindex</code> se
-        vuelve <code>tabIndex</code>.
-      </p>
-      <div class="nota">
-        <strong>className vs classList</strong>
-        <code>className</code> es la cadena completa de clases (la reemplazas entera).
-        Para agregar o quitar una sola clase es más cómodo <code>classList.add()</code>,
-        <code>classList.remove()</code> y <code>classList.toggle()</code>.
-      </div>
+          <div class="grupo-botones">
+            <button class="btn" onclick="verClassName()">Ver className</button>
+            <button class="btn verde" onclick="alternarClase()">
+              classList.toggle('destacado')
+            </button>
+            <button
+              class="btn secundario"
+              onclick="limpiarSalida('salida-clases')"
+            >
+              ↺ Limpiar
+            </button>
+          </div>
 
-      <div class="demo">
-        <p class="demo-titulo">Elemento de prueba</p>
-        <div id="caja-clases" class="producto">Soy un div con la clase «producto».</div>
-
-        <div class="grupo-botones">
-          <button class="btn" onclick="verClassName()">Ver className</button>
-          <button class="btn verde" onclick="alternarClase()">classList.toggle('destacado')</button>
-          <button class="btn secundario" onclick="limpiarSalida('salida-clases')">↺ Limpiar</button>
+          <div class="salida" id="salida-clases"></div>
         </div>
+      </section>
 
-        <div class="salida" id="salida-clases"></div>
-      </div>
-    </section>
-
-    <!-- ===================== ATRIBUTOS BOOLEANOS ===================== -->
-    <section class="tarjeta">
-      <h2>Atributos booleanos</h2>
-      <p>
-        Atributos como <code>disabled</code>, <code>checked</code>, <code>readonly</code> o
-        <code>required</code> son <strong>booleanos</strong>: lo que importa es si
-        <em>están o no están</em>, no su valor. En HTML basta con escribir el nombre:
-      </p>
-      <pre><code>&lt;button disabled&gt;No puedes pulsarme&lt;/button&gt;
+      <!-- ===================== ATRIBUTOS BOOLEANOS ===================== -->
+      <section class="tarjeta">
+        <h2>Atributos booleanos</h2>
+        <p>
+          Atributos como <code>disabled</code>, <code>checked</code>,
+          <code>readonly</code> o <code>required</code> son
+          <strong>booleanos</strong>: lo que importa es si
+          <em>están o no están</em>, no su valor. En HTML basta con escribir el
+          nombre:
+        </p>
+        <pre><code>&lt;button disabled&gt;No puedes pulsarme&lt;/button&gt;
 &lt;input type="checkbox" checked&gt;</code></pre>
-      <p>
-        Escribir <code>disabled="false"</code> <strong>no</strong> lo activa: con que el atributo
-        aparezca, ya cuenta como verdadero. Desde JS, en cambio, la propiedad es un booleano real:
-      </p>
-      <pre><code>boton.disabled = true;   // lo desactiva
+        <p>
+          Escribir <code>disabled="false"</code> <strong>no</strong> lo activa:
+          con que el atributo aparezca, ya cuenta como verdadero. Desde JS, en
+          cambio, la propiedad es un booleano real:
+        </p>
+        <pre><code>boton.disabled = true;   // lo desactiva
 boton.disabled = false;  // lo activa
 caja.checked;            // true o false según esté marcada</code></pre>
 
-      <div class="demo">
-        <p class="demo-titulo">Elementos de prueba</p>
-        <button class="btn" id="boton-objetivo">Botón objetivo</button>
-        <p style="margin-top:10px;">
-          <input type="checkbox" id="check-prueba" /> Acepto los términos
-        </p>
+        <div class="demo">
+          <p class="demo-titulo">Elementos de prueba</p>
+          <button class="btn" id="boton-objetivo">Botón objetivo</button>
+          <p style="margin-top: 10px">
+            <input type="checkbox" id="check-prueba" checked /> Acepto los
+            términos
+          </p>
 
-        <div class="grupo-botones">
-          <button class="btn" onclick="alternarDisabled()">Activar / desactivar botón</button>
-          <button class="btn verde" onclick="leerChecked()">Leer .checked</button>
-          <button class="btn secundario" onclick="limpiarSalida('salida-bool')">↺ Limpiar</button>
+          <div class="grupo-botones">
+            <button class="btn" onclick="alternarDisabled()">
+              Activar / desactivar botón
+            </button>
+            <button class="btn verde" onclick="leerChecked()">
+              Leer .checked
+            </button>
+            <button
+              class="btn secundario"
+              onclick="limpiarSalida('salida-bool')"
+            >
+              ↺ Limpiar
+            </button>
+          </div>
+
+          <div class="salida" id="salida-bool"></div>
         </div>
+      </section>
 
-        <div class="salida" id="salida-bool"></div>
-      </div>
-    </section>
-
-    <!-- ===================== ATRIBUTOS NO ESTÁNDAR ===================== -->
-    <section class="tarjeta">
-      <h2>Atributos no estándar y data-*</h2>
-      <p>
-        Si inventas un atributo que no existe en HTML (por ejemplo <code>color-favorito</code>),
-        el navegador <strong>no</strong> crea una propiedad para él. Tendrás que leerlo con
-        <code>getAttribute()</code>:
-      </p>
-      <pre><code>// &lt;div id="x" color-favorito="azul"&gt;
+      <!-- ===================== ATRIBUTOS NO ESTÁNDAR ===================== -->
+      <section class="tarjeta">
+        <h2>Atributos no estándar y data-*</h2>
+        <p>
+          Si inventas un atributo que no existe en HTML (por ejemplo
+          <code>color-favorito</code>), el navegador <strong>no</strong> crea
+          una propiedad para él. Tendrás que leerlo con
+          <code>getAttribute()</code>:
+        </p>
+        <pre><code>// &lt;div id="x" color-favorito="azul"&gt;
 x.colorFavorito         // undefined (no hay propiedad)
 x.getAttribute("color-favorito")   // "azul"</code></pre>
 
-      <p>
-        La forma <strong>correcta</strong> de guardar tus propios datos en el HTML es con
-        atributos <code>data-*</code>. Esos sí tienen un acceso cómodo desde JS a través de
-        <code>dataset</code>:
-      </p>
-      <pre><code>&lt;article data-id="42" data-precio-final="1200"&gt;
+        <p>
+          La forma <strong>correcta</strong> de guardar tus propios datos en el
+          HTML es con atributos <code>data-*</code>. Esos sí tienen un acceso
+          cómodo desde JS a través de <code>dataset</code>:
+        </p>
+        <pre><code>&lt;article data-id="42" data-precio-final="1200"&gt;
 
 articulo.dataset.id            // "42"
 articulo.dataset.precioFinal   // "1200"  (data-precio-final → precioFinal)</code></pre>
-      <div class="nota">
-        <strong>De guion a camelCase</strong>
-        <code>data-precio-final</code> se lee como <code>dataset.precioFinal</code>.
-        Todo lo que sale de <code>dataset</code> es texto; si necesitas un número,
-        conviértelo con <code>Number(...)</code>.
-      </div>
-
-      <div class="demo">
-        <p class="demo-titulo">Elemento con data-*</p>
-        <article id="producto-data" class="producto" data-id="42" data-precio-final="1200">
-          Producto de ejemplo (mira sus atributos data-* en el HTML).
-        </article>
-
-        <div class="grupo-botones">
-          <button class="btn" onclick="leerDataset()">Leer dataset</button>
-          <button class="btn verde" onclick="escribirDataset()">Cambiar data-precio-final</button>
-          <button class="btn secundario" onclick="limpiarSalida('salida-data')">↺ Limpiar</button>
+        <div class="nota">
+          <strong>De guion a camelCase</strong>
+          <code>data-precio-final</code> se lee como
+          <code>dataset.precioFinal</code>. Todo lo que sale de
+          <code>dataset</code> es texto; si necesitas un número, conviértelo con
+          <code>Number(...)</code>.
         </div>
 
-        <div class="salida" id="salida-data"></div>
-      </div>
-    </section>
+        <div class="demo">
+          <p class="demo-titulo">Elemento con data-*</p>
+          <article
+            id="producto-data"
+            class="producto"
+            data-id="42"
+            data-precio-final="1200"
+          >
+            Producto de ejemplo (mira sus atributos data-* en el HTML).
+          </article>
 
-    <!-- ===================== STYLE ===================== -->
-    <section class="tarjeta">
-      <h2>La propiedad style</h2>
-      <p>
-        <code>element.style</code> da acceso a los estilos <strong>en línea</strong> del elemento
-        (los del atributo <code>style="..."</code>). Cada propiedad CSS se escribe en
-        <code>camelCase</code>: <code>background-color</code> se vuelve
-        <code>style.backgroundColor</code>.
-      </p>
-      <pre><code>caja.style.color = "white";
+          <div class="grupo-botones">
+            <button class="btn" onclick="leerDataset()">Leer dataset</button>
+            <button class="btn verde" onclick="escribirDataset()">
+              Cambiar data-precio-final
+            </button>
+            <button
+              class="btn secundario"
+              onclick="limpiarSalida('salida-data')"
+            >
+              ↺ Limpiar
+            </button>
+          </div>
+
+          <div class="salida" id="salida-data"></div>
+        </div>
+      </section>
+
+      <!-- ===================== STYLE ===================== -->
+      <section class="tarjeta">
+        <h2>La propiedad style</h2>
+        <p>
+          <code>element.style</code> da acceso a los estilos
+          <strong>en línea</strong> del elemento (los del atributo
+          <code>style="..."</code>). Cada propiedad CSS se escribe en
+          <code>camelCase</code>: <code>background-color</code> se vuelve
+          <code>style.backgroundColor</code>.
+        </p>
+        <pre><code>caja.style.color = "white";
 caja.style.backgroundColor = "navy";  // ojo: camelCase
 caja.style.padding = "12px";</code></pre>
-      <div class="aviso">
-        <strong>style solo ve lo «en línea»</strong>
-        <code>element.style.color</code> devuelve vacío si el color viene de tu archivo CSS y no
-        de un <code>style="..."</code>. Para saber el color realmente aplicado se usa
-        <code>getComputedStyle(elemento)</code>. Además, para muchos casos es más limpio cambiar
-        de clase con <code>classList</code> que tocar <code>style</code> propiedad por propiedad.
-      </div>
-
-      <div class="demo">
-        <p class="demo-titulo">Elemento de prueba</p>
-        <div id="caja-style" class="producto">Cámbiame el estilo en línea.</div>
-
-        <div class="grupo-botones">
-          <button class="btn verde" onclick="aplicarEstilo()">Aplicar estilos en línea</button>
-          <button class="btn" onclick="leerEstilo()">Leer style vs getComputedStyle</button>
-          <button class="btn secundario" onclick="reiniciarStyle()">↺ Reiniciar</button>
+        <div class="aviso">
+          <strong>style solo ve lo «en línea»</strong>
+          <code>element.style.color</code> devuelve vacío si el color viene de
+          tu archivo CSS y no de un <code>style="..."</code>. Para saber el
+          color realmente aplicado se usa
+          <code>getComputedStyle(elemento)</code>. Además, para muchos casos es
+          más limpio cambiar de clase con <code>classList</code> que tocar
+          <code>style</code> propiedad por propiedad.
         </div>
 
-        <div class="salida" id="salida-style"></div>
-      </div>
-    </section>
+        <div class="demo">
+          <p class="demo-titulo">Elemento de prueba</p>
+          <div id="caja-style" class="producto">
+            Cámbiame el estilo en línea.
+          </div>
 
-    <!-- ===================== RESUMEN ===================== -->
-    <section class="tarjeta">
-      <h2>Resumen rápido</h2>
-      <ul class="objetivos">
-        <li>Atributo (HTML, texto) y propiedad (JS, valor real) suelen coincidir, pero no son lo mismo.</li>
-        <li><code>getAttribute</code>/<code>setAttribute</code> para atributos; punto (<code>el.prop</code>) para propiedades.</li>
-        <li><code>class</code> → <code>className</code>, <code>for</code> → <code>htmlFor</code>, guiones → camelCase.</li>
-        <li>Booleanos: en HTML basta que aparezcan; en JS son <code>true</code>/<code>false</code>.</li>
-        <li>Datos propios: usa <code>data-*</code> y léelos con <code>dataset</code>.</li>
-        <li><code>style</code> solo ve lo en línea; lo aplicado real se ve con <code>getComputedStyle</code>.</li>
-      </ul>
-    </section>
+          <div class="grupo-botones">
+            <button class="btn verde" onclick="aplicarEstilo()">
+              Aplicar estilos en línea
+            </button>
+            <button class="btn" onclick="leerEstilo()">
+              Leer style vs getComputedStyle
+            </button>
+            <button class="btn secundario" onclick="reiniciarStyle()">
+              ↺ Reiniciar
+            </button>
+          </div>
 
-    <a class="volver" href="index.html">↩ Volver al índice</a>
-  </main>
+          <div class="salida" id="salida-style"></div>
+        </div>
+      </section>
 
-  <script src="05-atributos.js"></script>
-</body>
+      <!-- ===================== RESUMEN ===================== -->
+      <section class="tarjeta">
+        <h2>Resumen rápido</h2>
+        <ul class="objetivos">
+          <li>
+            Atributo (HTML, texto) y propiedad (JS, valor real) suelen
+            coincidir, pero no son lo mismo.
+          </li>
+          <li>
+            <code>getAttribute</code>/<code>setAttribute</code> para atributos;
+            punto (<code>el.prop</code>) para propiedades.
+          </li>
+          <li>
+            <code>class</code> → <code>className</code>, <code>for</code> →
+            <code>htmlFor</code>, guiones → camelCase.
+          </li>
+          <li>
+            Booleanos: en HTML basta que aparezcan; en JS son
+            <code>true</code>/<code>false</code>.
+          </li>
+          <li>
+            Datos propios: usa <code>data-*</code> y léelos con
+            <code>dataset</code>.
+          </li>
+          <li>
+            <code>style</code> solo ve lo en línea; lo aplicado real se ve con
+            <code>getComputedStyle</code>.
+          </li>
+        </ul>
+      </section>
+
+      <a class="volver" href="index.html">↩ Volver al índice</a>
+    </main>
+
+    <script src="05-atributos.js"></script>
+  </body>
 </html>
